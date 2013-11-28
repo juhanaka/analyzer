@@ -36,6 +36,7 @@ TEMPLATE_***REMOVED***
 ***REMOVED***
 ***REMOVED***
 ***REMOVED***
+***REMOVED***
     'mainapp',
 ***REMOVED***
 
@@ -84,4 +85,17 @@ WSGI_APPLICATION = 'analyzer.wsgi.application'
 # Static files (CSS, JavaScript, Images***REMOVED***
 ***REMOVED***
 
+***REMOVED***
+
+***REMOVED***
+***REMOVED***
+***REMOVED***
+***REMOVED***
+***REMOVED***
+
+***REMOVED***
+***REMOVED***
+***REMOVED***
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
 ***REMOVED***
