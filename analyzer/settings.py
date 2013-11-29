@@ -96,6 +96,7 @@ WSGI_APPLICATION = 'analyzer.wsgi.application'
 ***REMOVED***
 ***REMOVED***
 ***REMOVED***
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+***REMOVED***
+***REMOVED***
     ]
 ***REMOVED***
