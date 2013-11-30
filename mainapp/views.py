@@ -3,18 +3,19 @@ from mainapp.serializers import DatasetSerializer, VariableSerializer, UserSeria
 from rest_framework import generics
 from django.contrib.auth.models import User
 from rest_framework import permissions
+from mainapp.permissions import IsOwnerOrDeny
 
 class DatasetList(generics.ListCreateAPIView***REMOVED***:
   queryset = Dataset.objects.all(***REMOVED***
   serializer_class = DatasetSerializer
-  permission_classes = (permissions.IsAuthenticatedOrReadOnly,***REMOVED***
+  permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrDeny,***REMOVED***
   def pre_save(self, obj***REMOVED***:
     obj.owner = self.request.user
 
 class DatasetDetail(generics.RetrieveUpdateDestroyAPIView***REMOVED***:
   queryset = Dataset.objects.all(***REMOVED***
   serializer_class = DatasetSerializer
-  permission_classes = (permissions.IsAuthenticatedOrReadOnly,***REMOVED***
+  permission_classes = (permissions.IsAuthenticatedOrReadOnly,IsOwnerOrDeny,***REMOVED***
   def pre_save(self, obj***REMOVED***:
     obj.owner = self.request.user
 

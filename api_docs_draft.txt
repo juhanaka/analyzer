@@ -61,7 +61,7 @@ dataset: required
 datatype: required
 data: required
 
-iii***REMOVED*** List all datasets
+iii***REMOVED*** List all variables within a dataset
 GET /api/v0/datasets/{dataset_id***REMOVED***/variables/
 
 dataset: required
@@ -70,13 +70,13 @@ name: optional
 datatype: optional
 
 
-iv***REMOVED*** Retrieve an existing dataset
+iv***REMOVED*** Retrieve an existing variable
 GET /api/v0/datasets/{dataset_id***REMOVED***/variables/{variable_id***REMOVED***/
 
 dataset id: required
 variable id: required
 
-v***REMOVED*** Update a dataset
+v***REMOVED*** Update a variable
 PUT /api/v0/datasets/{dataset_id***REMOVED***/variables/{variable_id***REMOVED***/
 
 dataset id: required
@@ -86,10 +86,11 @@ dataset: optional
 datatype: optional
 data: optional
 
-vi***REMOVED*** Delete dataset
+vi***REMOVED*** Delete variable
 DELETE /api/v0/datasets/{dataset_id***REMOVED***/variables/{variable_id***REMOVED***/
 
-id: required
+dataset id: required
+variable id: required
 
 
 

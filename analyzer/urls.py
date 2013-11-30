@@ -12,7 +12,7 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls***REMOVED******REMOVED***,
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'***REMOVED******REMOVED***,
-    url(r'^mainapp/', include('mainapp.urls'***REMOVED******REMOVED***,
+    url(r'^api/v0/', include('mainapp.urls'***REMOVED******REMOVED***,
 ***REMOVED***
 
 class UserViewSet(viewsets.ModelViewSet***REMOVED***:

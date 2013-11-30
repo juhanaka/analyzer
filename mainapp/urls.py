@@ -10,8 +10,6 @@ urlpatterns = patterns('mainapp.views',
     url(r'^datasets/(?P<dataset_pk>[0-9]+***REMOVED***/variables/(?P<pk>[0-9]+***REMOVED***/$', views.VariableByDatasetDetail.as_view(***REMOVED******REMOVED***,
     url(r'^users/$', views.UserList.as_view(***REMOVED******REMOVED***,
     url(r'^users/(?P<pk>[0-9]+***REMOVED***/$', views.UserDetail.as_view(***REMOVED******REMOVED***,
-
-
 ***REMOVED***
 
 urlpatterns = format_suffix_patterns(urlpatterns***REMOVED***
