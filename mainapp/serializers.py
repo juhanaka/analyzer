@@ -11,12 +11,18 @@ class ArrayField(serializers.WritableField***REMOVED***:
   def from_native(self, value***REMOVED***:
     return ast.literal_eval(value***REMOVED***
 
-class DatasetSerializer(serializers.ModelSerializer***REMOVED***:
-  variables = serializers.PrimaryKeyRelatedField(many=True***REMOVED***
+class DatasetSerializer(serializers.Serializer***REMOVED***:
+  pk = serializers.Field(***REMOVED***
+  name = serializers.CharField(required=True, max_length=200***REMOVED***
   owner = serializers.Field(source='owner.username'***REMOVED***
-  class Meta:
-    model = Dataset
-    fields = ('id', 'name', 'owner'***REMOVED***
+  variables = serializers.PrimaryKeyRelatedField(many=True, read_only=True***REMOVED***
+  def restore_object(self, attrs, instance=None***REMOVED***:
+    if instance:
+      # Update existing instance
+      instance.name = attrs.get('name', instance.name***REMOVED***
+      return instance
+    # Create new instance
+    return Dataset(**attrs***REMOVED***
 
 class VariableSerializer(serializers.ModelSerializer***REMOVED***:
   data = ArrayField(***REMOVED***
