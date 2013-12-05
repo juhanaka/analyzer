@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 from picklefield.fields import PickledObjectField
+from django.dispatch import receiver
+from rest_framework.authtoken.models import Token
+from django.db.models.signals import post_save
 
 variable_datatype_choices = [
 ('string', 'string'***REMOVED***,
@@ -28,4 +31,8 @@ class Variable(models.Model***REMOVED***:
   def __unicode__(self***REMOVED***:
     return self.dataset.name + ":" + self.name
 
-
+#automatically create api token for user
+@receiver(post_save, sender=User***REMOVED***
+def create_auth_token(sender, instance=None, created=False, **kwargs***REMOVED***:
+  if created:
+    Token.objects.create(user=instance***REMOVED***

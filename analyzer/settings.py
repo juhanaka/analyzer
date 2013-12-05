@@ -37,6 +37,7 @@ TEMPLATE_***REMOVED***
 ***REMOVED***
 ***REMOVED***
 ***REMOVED***
+***REMOVED***
     'mainapp',
 ***REMOVED***
 
@@ -98,5 +99,9 @@ WSGI_APPLICATION = 'analyzer.wsgi.application'
 ***REMOVED***
 ***REMOVED***
 ***REMOVED***
-    ]
+***REMOVED***
+
+***REMOVED***
+***REMOVED***
+    ***REMOVED***
 ***REMOVED***

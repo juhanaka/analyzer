@@ -9,42 +9,39 @@ from rest_framework.response import Response
 from rest_framework.parsers import FileUploadParser
 
 from rest_framework.views import APIView
+from rest_framework import status
+from rest_framework.authentication import TokenAuthentication
+
+
 
 class DatasetList(APIView***REMOVED***:
+  authentication_classes = [TokenAuthentication]
+  permission_classes = (permissions.IsAuthenticated, IsOwnerOrDeny,***REMOVED***
   def get(self, request, format=None***REMOVED***:
-    datasets = Dataset.objects.all(***REMOVED***
+    datasets = Dataset.objects.filter(owner=request.user***REMOVED***
     serializer = DatasetSerializer(datasets, many=True***REMOVED***
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrDeny,***REMOVED***
     return Response(serializer.data***REMOVED***
   def post(self, request, format=None***REMOVED***:
     serializer = DatasetSerializer(data=request.DATA***REMOVED***
 
     if serializer.is_valid(***REMOVED***:
       serializer.object.owner = User.objects.get(username=request.user.username***REMOVED***
-      if request.FILES['file']:
+      if request.FILES:
         file_obj = request.FILES['file']
         file_obj = read_csv(file_obj, sep=';', header=0***REMOVED***
         serializer.save(***REMOVED***
         for column in file_obj:
+          #todo: make this detect the datatype instead of saving everything as string.
           v = Variable(name=column, dataset=serializer.object, datatype='string', data=file_obj[column]***REMOVED***
           v.save(***REMOVED***
       else:
         serializer.save(***REMOVED***
 
 
-    return Response(request.DATA***REMOVED***
+      return Response(serializer.data, status=status.HTTP_201_CREATED***REMOVED***
 
-# class DatasetList(generics.ListCreateAPIView***REMOVED***:
-#   queryset = Dataset.objects.all(***REMOVED***
-#   serializer_class = DatasetSerializer
-#   permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrDeny,***REMOVED***
-#   def post(self, request***REMOVED***:
-#     if request.FILES:
-#       file_obj = request.FILES['file']
-#       print dir(file_obj***REMOVED***
-#     return Response(self.request.data***REMOVED***
-#   def pre_save(self, obj***REMOVED***:
-#     obj.owner = self.request.user
+    else:
+      return Response(status=status.HTTP_400_BAD_REQUEST***REMOVED***
 
 class DatasetDetail(generics.RetrieveUpdateDestroyAPIView***REMOVED***:
   queryset = Dataset.objects.all(***REMOVED***
