@@ -19,5 +19,5 @@ urlpatterns += patterns('',
 ***REMOVED***
 
 urlpatterns += patterns('',
-    url(r'^api-token-auth/', 'rest_framework.authtoken.views.obtain_auth_token'***REMOVED***
+    url(r'^api-token-auth/', views.GetAPIToken.as_view(***REMOVED***, name='get_api_token'***REMOVED***
 ***REMOVED***

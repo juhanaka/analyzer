@@ -11,6 +11,36 @@ from django.test import TestCase
 ***REMOVED***
 
 #Test creation of datasets.
+class GetAPITokenTest(TestCase***REMOVED***:
+
+  def setUp(self***REMOVED***:
+    self.client = APIClient(***REMOVED***
+    self.user = User.objects.create_user(username='api_test_user', email='test@test.com', password='testtest'***REMOVED***
+    self.url = reverse('mainapp:get_api_token'***REMOVED***
+
+  def test_get_api_token(self***REMOVED***:
+    self.client.login(username='api_test_user', password='testtest'***REMOVED***
+    response = self.client.get(self.url***REMOVED***
+    token = Token.objects.get(user=self.user.id***REMOVED***
+    self.assertEqual(response.status_code, status.HTTP_200_OK***REMOVED***
+    self.assertEqual(response.data['token'], token.key***REMOVED***
+    self.client.logout(***REMOVED***
+
+  def test_post_api_token(self***REMOVED***:
+    self.client.login(username='api_test_user', password='testtest'***REMOVED***
+    response = self.client.post(self.url***REMOVED***
+    self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED***REMOVED***
+
+  def test_put_api_token(self***REMOVED***:
+    self.client.login(username='api_test_user', password='testtest'***REMOVED***
+    response = self.client.put(self.url***REMOVED***
+    self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED***REMOVED***
+
+  def test_delete_api_token(self***REMOVED***:
+    self.client.login(username='api_test_user', password='testtest'***REMOVED***
+    response = self.client.delete(self.url***REMOVED***
+    self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED***REMOVED***
+
 class DatasetCreateTest(TestCase***REMOVED***:
 
   def setUp(self***REMOVED***:
@@ -32,13 +62,6 @@ class DatasetCreateTest(TestCase***REMOVED***:
     self.assertEqual(response.data['name'], u'test_set'***REMOVED***
     self.assertEqual(response.data['owner'], u'api_test_user'***REMOVED***
     self.assertEqual(response.data['variables'].__len__(***REMOVED***, correct_variable_names.__len__(***REMOVED******REMOVED***
-    #check to see that all variables, that were column headers in csv file, have been created
-    #and are assigned to correct dataset and have the correct amount of data
-    for name in correct_variable_names:
-      variable = Variable.objects.get(name=name***REMOVED***
-      self.assertEqual(variable.dataset.name, 'test_set'***REMOVED***
-      self.assertEqual(variable.values.__len__(***REMOVED***, 20***REMOVED***
-      self.assertEqual(variable.datatype, name***REMOVED***
 
   #create a dataset with just name and no file. The dataset should be created.
   def test_create_dataset_nofile(self***REMOVED***:
@@ -132,7 +155,43 @@ class GetOrModifyOrDeleteDatasetTest(TestCase***REMOVED***:
     response = self.client.delete(self.url***REMOVED***
     self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT***REMOVED***
 
+class GetVariableList(TestCase***REMOVED***:
 
+  def setUp(self***REMOVED***:
+    self.user = User.objects.create_user(username='api_test_user', email='test@test.com', password='testtest'***REMOVED***
+    self.token = Token.objects.get(user=self.user.id***REMOVED***
+    self.client = APIClient(***REMOVED***
+    self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key***REMOVED***
+    self.dataset = Dataset(name='test_set', owner=self.user***REMOVED***
+    self.dataset.save(***REMOVED***
+    self.url = reverse('mainapp:variable_by_dataset_list', kwargs={'dataset_pk': self.dataset.id***REMOVED******REMOVED***
+    self.variable1 = Variable(name='variable1', dataset=self.dataset, datatype='string', values=['one', 'two', 'three']***REMOVED***
+    self.variable1.save(***REMOVED***
+    self.variable2 = Variable(name='variable2', dataset=self.dataset, datatype='integer', values=[1, 2, 3]***REMOVED***
+    self.variable2.save(***REMOVED***
 
+  def test_get_variable_list(self***REMOVED***:
+    response = self.client.get(self.url***REMOVED***
+    self.assertEqual(response.status_code, status.HTTP_200_OK***REMOVED***
+    self.assertEqual(response.data.__len__(***REMOVED***, 2***REMOVED***
 
+class GetVariableDetail(TestCase***REMOVED***:
 
+  def setUp(self***REMOVED***:
+    self.user = User.objects.create_user(username='api_test_user', email='test@test.com', password='testtest'***REMOVED***
+    self.token = Token.objects.get(user=self.user.id***REMOVED***
+    self.client = APIClient(***REMOVED***
+    self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key***REMOVED***
+    self.dataset = Dataset(name='test_set', owner=self.user***REMOVED***
+    self.dataset.save(***REMOVED***
+    self.variable = Variable(name='variable', dataset=self.dataset, datatype='string', values=['one', 'two', 'three']***REMOVED***
+    self.variable.save(***REMOVED***
+    self.url = reverse('mainapp:variable_by_dataset_detail', kwargs={'dataset_pk': self.dataset.id, 'pk':self.variable.id***REMOVED******REMOVED***
+    
+  def test_get_variable_detail(self***REMOVED***:
+    response = self.client.get(self.url***REMOVED***
+    self.assertEqual(response.status_code, status.HTTP_200_OK***REMOVED***
+    self.assertEqual(response.data['name'], self.variable.name***REMOVED***
+    self.assertEqual(response.data['dataset'], self.variable.dataset.id***REMOVED***
+    self.assertEqual(response.data['datatype'], self.variable.datatype***REMOVED***
+    self.assertEqual(response.data['values'], self.variable.values***REMOVED***
