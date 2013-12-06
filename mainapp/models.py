@@ -11,6 +11,7 @@ variable_datatype_choices = [
 ('integer', 'integer'***REMOVED***,
 ('float', 'float'***REMOVED***,
 ('date', 'date'***REMOVED***,
+('undefined', 'undefined'***REMOVED***
 ]
 
 #this is a model that holds the variables
@@ -21,13 +22,12 @@ class Dataset(models.Model***REMOVED***:
   def __unicode__(self***REMOVED***:
     return self.name
 
-
 class Variable(models.Model***REMOVED***:
   #metadata
   name = models.CharField(max_length=200***REMOVED***
   dataset = models.ForeignKey(Dataset, related_name='variables'***REMOVED***
   datatype = models.CharField(choices=variable_datatype_choices, max_length=200***REMOVED***
-  data = PickledObjectField(***REMOVED***
+  values = PickledObjectField(***REMOVED***
   def __unicode__(self***REMOVED***:
     return self.dataset.name + ":" + self.name
 

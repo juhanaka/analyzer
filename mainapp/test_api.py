@@ -21,26 +21,23 @@ class DatasetListPost(TestCase***REMOVED***:
     self.url = reverse('mainapp:dataset_list'***REMOVED***
 
   def test_create_dataset(self***REMOVED***:
+    correct_variable_names = ('string', 'integer', 'float', 'boolean', 'date'***REMOVED***
     #send a post request with test csv file
-    with open(os.path.expanduser('~/own_code/data_analysis_tool/analyzer/mainapp/test_files/analyzer_test_2.csv'***REMOVED******REMOVED*** as test_file:
+    with open(os.path.expanduser('~/own_code/data_analysis_tool/analyzer/mainapp/test_files/analyzer_test.csv'***REMOVED******REMOVED*** as test_file:
       data = {'name': 'test_set', 'file': test_file***REMOVED***
       response = self.client.post(self.url, data***REMOVED***
-    
     #check to see that all fields of the created dataset are correct
     self.assertEqual(response.status_code, status.HTTP_201_CREATED***REMOVED***
     self.assertEqual(response.data['name'], u'test_set'***REMOVED***
     self.assertEqual(response.data['owner'], u'api_test_user'***REMOVED***
-    self.assertEqual(response.data['variables'], [9, 8, 7, 6, 5, 4, 3, 2, 1]***REMOVED***
-
+    self.assertEqual(response.data['variables'].__len__(***REMOVED***, correct_variable_names.__len__(***REMOVED******REMOVED***
     #check to see that all variables, that were column headers in csv file, have been created
     #and are assigned to correct dataset and have the correct amount of data
-    correct_variable_names = ('P', 'D', 'E', 'CPI', 'Fraction', 'Rate GS10', 'Price', 'Dividend', 'Earnings'***REMOVED***
     for name in correct_variable_names:
       variable = Variable.objects.get(name=name***REMOVED***
       self.assertEqual(variable.dataset.name, 'test_set'***REMOVED***
-      self.assertEqual(variable.data.__len__(***REMOVED***, 1000***REMOVED***
-      self.assertEqual(variable.datatype, 'string'***REMOVED***
-
+      self.assertEqual(variable.values.__len__(***REMOVED***, 20***REMOVED***
+      self.assertEqual(variable.datatype, name***REMOVED***
 
   #create a dataset with just name and no file. The dataset should be created.
   def test_create_dataset_nofile(self***REMOVED***:
@@ -52,7 +49,7 @@ class DatasetListPost(TestCase***REMOVED***:
 
   #create a dataset without a name. this should fail.
   def test_create_dataset_noname(self***REMOVED***:
-    with open(os.path.expanduser('~/own_code/data_analysis_tool/analyzer/mainapp/test_files/analyzer_test_2.csv'***REMOVED******REMOVED*** as test_file:
+    with open(os.path.expanduser('~/own_code/data_analysis_tool/analyzer/mainapp/test_files/analyzer_test.csv'***REMOVED******REMOVED*** as test_file:
       data = {'file': test_file***REMOVED***
       response = self.client.post(self.url, data***REMOVED***
     self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST***REMOVED***
@@ -80,15 +77,13 @@ class DatasetListGet(TestCase***REMOVED***:
     self.dataset2.save(***REMOVED***
 
   #Test that each user is shown only the dataset that he owns.
-  def test_show_databases_by_owner(self***REMOVED***:
+  def test_show_datasets_by_owner(self***REMOVED***:
     self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token1.key***REMOVED***
     response = self.client.get(self.url***REMOVED***
     self.assertEqual(response.data.__len__(***REMOVED***, 1***REMOVED***
     self.assertEqual(response.data[0]['name'], u'dataset1'***REMOVED***
     self.assertEqual(response.data[0]['owner'], u'api_test_user_1'***REMOVED***
     self.assertEqual(response.status_code, status.HTTP_200_OK***REMOVED***
-
-
     self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token2.key***REMOVED***
     response = self.client.get(self.url***REMOVED***
     self.assertEqual(response.data.__len__(***REMOVED***, 1***REMOVED***
@@ -101,6 +96,14 @@ class DatasetListGet(TestCase***REMOVED***:
     self.client.credentials(***REMOVED***
     response = self.client.get(self.url***REMOVED***
     self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED***REMOVED***
+
+class DatasetDetail(TestCase***REMOVED***:
+  def setUp(self***REMOVED***:
+    self.user = User.objects.create_user(username='api_test_user', email='test@test.com', password='testtest'***REMOVED***
+    self.token = Token.objects.get(user=self.user.id***REMOVED***
+    self.client = APIClient(***REMOVED***
+    self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key***REMOVED***
+    self.url = reverse('mainapp:dataset_list'***REMOVED***
 
 
 

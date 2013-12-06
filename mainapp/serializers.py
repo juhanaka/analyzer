@@ -6,8 +6,10 @@ import ast
 
 #define a custom field class for data serialization
 class ArrayField(serializers.WritableField***REMOVED***:
+
   def to_native(self, obj***REMOVED***:
     return obj
+
   def from_native(self, value***REMOVED***:
     return ast.literal_eval(value***REMOVED***
 
@@ -16,6 +18,7 @@ class DatasetSerializer(serializers.Serializer***REMOVED***:
   name = serializers.CharField(required=True, max_length=200***REMOVED***
   owner = serializers.Field(source='owner.username'***REMOVED***
   variables = serializers.PrimaryKeyRelatedField(many=True, read_only=True***REMOVED***
+  
   def restore_object(self, attrs, instance=None***REMOVED***:
     if instance:
       # Update existing instance
@@ -25,10 +28,10 @@ class DatasetSerializer(serializers.Serializer***REMOVED***:
     return Dataset(**attrs***REMOVED***
 
 class VariableSerializer(serializers.ModelSerializer***REMOVED***:
-  data = ArrayField(***REMOVED***
+  values = ArrayField(***REMOVED***
   class Meta:
     model = Variable
-    fields = ('id', 'name', 'dataset', 'datatype', 'data'***REMOVED***
+    fields = ('id', 'name', 'dataset', 'datatype', 'values'***REMOVED***
 
 class UserSerializer(serializers.ModelSerializer***REMOVED***:
   datasets = serializers.PrimaryKeyRelatedField(many=True***REMOVED***
