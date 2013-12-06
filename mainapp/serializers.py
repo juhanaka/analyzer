@@ -38,4 +38,3 @@ class UserSerializer(serializers.ModelSerializer***REMOVED***:
   class Meta:
     model = User
     fields = ('id', 'username', 'datasets'***REMOVED***
-
