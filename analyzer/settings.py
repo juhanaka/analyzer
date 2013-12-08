@@ -38,7 +38,8 @@ TEMPLATE_***REMOVED***
 ***REMOVED***
 ***REMOVED***
 ***REMOVED***
-    'mainapp',
+***REMOVED***
+***REMOVED***
 ***REMOVED***
 
 ***REMOVED***

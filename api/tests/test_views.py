@@ -2,10 +2,10 @@ from rest_framework.test import APIRequestFactory
 from rest_framework.test import APITestCase
 from rest_framework.test import APIClient
 from rest_framework import status
-from mainapp.models import Dataset, Variable
+from api.models import Dataset, Variable
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from mainapp.views import DatasetList
+from api.views import DatasetList
 from rest_framework.authtoken.models import Token
 from django.test import TestCase
 ***REMOVED***
@@ -16,7 +16,7 @@ class GetAPITokenTest(TestCase***REMOVED***:
   def setUp(self***REMOVED***:
     self.client = APIClient(***REMOVED***
     self.user = User.objects.create_user(username='api_test_user', email='test@test.com', password='testtest'***REMOVED***
-    self.url = reverse('mainapp:get_api_token'***REMOVED***
+    self.url = reverse('api:get_api_token'***REMOVED***
 
   def test_get_api_token(self***REMOVED***:
     self.client.login(username='api_test_user', password='testtest'***REMOVED***
@@ -48,13 +48,13 @@ class DatasetCreateTest(TestCase***REMOVED***:
     self.token = Token.objects.get(user=self.user.id***REMOVED***
     self.client = APIClient(***REMOVED***
     self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key***REMOVED***
-    self.url = reverse('mainapp:dataset_list'***REMOVED***
+    self.url = reverse('api:dataset_list'***REMOVED***
 
   def test_create_dataset(self***REMOVED***:
     correct_variable_names = ('string', 'integer', 'float', 'boolean', 'date'***REMOVED***
     #send a post request with test csv file
     this_dir = os.getcwd(***REMOVED***
-    with open(this_dir + '/mainapp/tests/test_files/analyzer_test.csv'***REMOVED*** as test_file:
+    with open(this_dir + '/api/tests/test_files/analyzer_test.csv'***REMOVED*** as test_file:
       data = {'name': 'test_set', 'file': test_file***REMOVED***
       response = self.client.post(self.url, data***REMOVED***
     #check to see that all fields of the created dataset are correct
@@ -74,7 +74,7 @@ class DatasetCreateTest(TestCase***REMOVED***:
   #create a dataset without a name. this should fail.
   def test_create_dataset_noname(self***REMOVED***:
     this_dir = os.getcwd(***REMOVED***
-    with open(this_dir + '/mainapp/tests/test_files/analyzer_test.csv'***REMOVED*** as test_file:
+    with open(this_dir + '/api/tests/test_files/analyzer_test.csv'***REMOVED*** as test_file:
       data = {'file': test_file***REMOVED***
       response = self.client.post(self.url, data***REMOVED***
     self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST***REMOVED***
@@ -95,7 +95,7 @@ class DatasetListTest(TestCase***REMOVED***:
     self.token1 = Token.objects.get(user=self.user1.id***REMOVED***
     self.token2 = Token.objects.get(user=self.user2.id***REMOVED***
     self.client = APIClient(***REMOVED***
-    self.url = reverse('mainapp:dataset_list'***REMOVED***
+    self.url = reverse('api:dataset_list'***REMOVED***
     self.dataset1 = Dataset(name='dataset1', owner=self.user1***REMOVED***
     self.dataset1.save(***REMOVED***
     self.dataset2 = Dataset(name='dataset2', owner=self.user2***REMOVED***
@@ -128,13 +128,13 @@ class GetOrModifyOrDeleteDatasetTest(TestCase***REMOVED***:
     self.dataset.save(***REMOVED***
     self.dataset2 = Dataset(name='test_set_2', owner=self.user2***REMOVED***
     self.dataset2.save(***REMOVED***
-    self.url = reverse('mainapp:dataset_detail', kwargs={'pk': self.dataset.id***REMOVED******REMOVED***
-    self.url2 = reverse('mainapp:dataset_detail', kwargs={'pk': self.dataset2.id***REMOVED******REMOVED***
+    self.url = reverse('api:dataset_detail', kwargs={'pk': self.dataset.id***REMOVED******REMOVED***
+    self.url2 = reverse('api:dataset_detail', kwargs={'pk': self.dataset2.id***REMOVED******REMOVED***
 
   def test_modify_dataset(self***REMOVED***:
     correct_variable_names = ('string', 'integer', 'float', 'boolean', 'date'***REMOVED***
     this_dir = os.getcwd(***REMOVED***
-    with open(this_dir + '/mainapp/tests/test_files/analyzer_test.csv'***REMOVED*** as test_file:
+    with open(this_dir + '/api/tests/test_files/analyzer_test.csv'***REMOVED*** as test_file:
       data = {'name': 'changed_name', 'file': test_file***REMOVED***
       response = self.client.put(self.url, data***REMOVED***
     #check to see that all fields of the created dataset are correct
@@ -164,7 +164,7 @@ class GetVariableList(TestCase***REMOVED***:
     self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key***REMOVED***
     self.dataset = Dataset(name='test_set', owner=self.user***REMOVED***
     self.dataset.save(***REMOVED***
-    self.url = reverse('mainapp:variable_by_dataset_list', kwargs={'dataset_pk': self.dataset.id***REMOVED******REMOVED***
+    self.url = reverse('api:variable_by_dataset_list', kwargs={'dataset_pk': self.dataset.id***REMOVED******REMOVED***
     self.variable1 = Variable(name='variable1', dataset=self.dataset, datatype='string', values=['one', 'two', 'three']***REMOVED***
     self.variable1.save(***REMOVED***
     self.variable2 = Variable(name='variable2', dataset=self.dataset, datatype='integer', values=[1, 2, 3]***REMOVED***
@@ -186,7 +186,7 @@ class GetVariableDetail(TestCase***REMOVED***:
     self.dataset.save(***REMOVED***
     self.variable = Variable(name='variable', dataset=self.dataset, datatype='string', values=['one', 'two', 'three']***REMOVED***
     self.variable.save(***REMOVED***
-    self.url = reverse('mainapp:variable_by_dataset_detail', kwargs={'dataset_pk': self.dataset.id, 'pk':self.variable.id***REMOVED******REMOVED***
+    self.url = reverse('api:variable_by_dataset_detail', kwargs={'dataset_pk': self.dataset.id, 'pk':self.variable.id***REMOVED******REMOVED***
     
   def test_get_variable_detail(self***REMOVED***:
     response = self.client.get(self.url***REMOVED***
@@ -195,3 +195,17 @@ class GetVariableDetail(TestCase***REMOVED***:
     self.assertEqual(response.data['dataset'], self.variable.dataset.id***REMOVED***
     self.assertEqual(response.data['datatype'], self.variable.datatype***REMOVED***
     self.assertEqual(response.data['values'], self.variable.values***REMOVED***
+
+  def test_modify_variable(self***REMOVED***:
+    data = {'name': 'changed_name', 'dataset':'changed_dataset', 'datatype':'float', 'subtype': 'continuous', 'values':[1, 2 , 3]***REMOVED***
+    response = self.client.put(self.url, data***REMOVED***
+    self.assertEqual(response.status_code, status.HTTP_200_OK***REMOVED***
+    self.assertEqual(response.data['name'], data['name']***REMOVED***
+    self.assertEqual(response.data['dataset'], self.variable.dataset.id***REMOVED***
+    self.assertEqual(response.data['datatype'], self.variable.datatype***REMOVED***
+    self.assertEqual(response.data['values'], self.variable.values***REMOVED***
+    self.assertEqual(response.data['subtype'], data['subtype']***REMOVED***
+
+  def test_delete_variable(self***REMOVED***:
+    response = self.client.delete(self.url***REMOVED***
+    self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST***REMOVED***

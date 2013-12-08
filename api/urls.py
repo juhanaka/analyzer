@@ -1,9 +1,9 @@
 from django.conf.urls import patterns, url
 from rest_framework.urlpatterns import format_suffix_patterns
-from mainapp import views
+from api import views
 from django.conf.urls import include
 
-urlpatterns = patterns('mainapp.views',
+urlpatterns = patterns('api.views',
     url(r'^datasets/$', views.DatasetList.as_view(***REMOVED***, name='dataset_list'***REMOVED***,
     url(r'^datasets/(?P<pk>[0-9]+***REMOVED***/$', views.DatasetDetail.as_view(***REMOVED***, name='dataset_detail'***REMOVED***,
     url(r'^datasets/(?P<dataset_pk>[0-9]+***REMOVED***/variables/$', views.VariableByDatasetList.as_view(***REMOVED***, name='variable_by_dataset_list'***REMOVED***,

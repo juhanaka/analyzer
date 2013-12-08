@@ -1,11 +1,11 @@
 from django.forms import widgets
 from rest_framework import serializers
-from mainapp.models import Dataset, Variable
+from api.models import Dataset, Variable
 from django.contrib.auth.models import User
 import ast
 
 #define a custom field class for data serialization
-class ArrayField(serializers.WritableField***REMOVED***:
+class ArrayField(serializers.Field***REMOVED***:
 
   def to_native(self, obj***REMOVED***:
     return obj
@@ -29,9 +29,11 @@ class DatasetSerializer(serializers.Serializer***REMOVED***:
 
 class VariableSerializer(serializers.ModelSerializer***REMOVED***:
   values = ArrayField(***REMOVED***
+  
   class Meta:
     model = Variable
-    fields = ('id', 'name', 'dataset', 'datatype', 'values'***REMOVED***
+    fields = ('id', 'name', 'dataset', 'datatype', 'subtype', 'values'***REMOVED***
+    read_only_fields = ('id', 'dataset', 'datatype'***REMOVED***
 
 class UserSerializer(serializers.ModelSerializer***REMOVED***:
   datasets = serializers.PrimaryKeyRelatedField(many=True***REMOVED***

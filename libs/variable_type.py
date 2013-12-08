@@ -1,4 +1,3 @@
-from mainapp.models import variable_datatype_choices
 import pandas
 
 def return_type_and_format_values(values***REMOVED***:
@@ -19,4 +18,21 @@ def return_type_and_format_values(values***REMOVED***:
     elif datetime.dtype == 'object':
       datatype = 'string' if all(type(value***REMOVED*** == str for value in values***REMOVED*** else None
   return (datatype, formatted***REMOVED***
+
+def return_default_subtype(datatype***REMOVED***:
+  if datatype == 'integer':
+    return 'discrete'
+  elif datatype == 'float':
+    return 'continuous'
+  elif datatype == 'boolean':
+    return 'discrete'
+  elif datatype == 'string':
+    return 'discrete'
+  elif datatype == 'date':
+    return 'undefined'
+  elif datatype == 'undefined':
+    return 'undefined'
+  else:
+    return 'undefined'
+  
 
