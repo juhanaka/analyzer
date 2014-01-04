@@ -74,3 +74,33 @@ class OneSampleTTestSerializer(***REMOVED***:
     if not self.mean:
       return False
     return True
+
+class TwoSampleTTestSerializer(***REMOVED***:
+  def __init__(self, data***REMOVED***:
+    dataset = data.get('dataset', None***REMOVED***
+    variable_1 = data.get('variable_1',None***REMOVED***
+    variable_2 = data.get('variable_2',None***REMOVED***
+    dataset = dataset.encode('utf-8'***REMOVED*** if dataset else None
+    variable_1 = variable_1.encode('utf-8'***REMOVED*** if variable_1 else None
+    variable_2 = variable_2.encode('utf-8'***REMOVED*** if variable_2 else None
+
+    try:
+      self.dataset = Dataset.objects.get(id=dataset***REMOVED***
+    except Dataset.DoesNotExist:
+      self.dataset = None
+    try:
+      self.variable_1 = Variable.objects.get(dataset__pk=dataset, pk=variable_1***REMOVED***
+    except Variable.DoesNotExist:
+      self.variable_1 = None
+    try:
+      self.variable_2 = Variable.objects.get(dataset__pk=dataset, pk=variable_2***REMOVED***
+    except Variable.DoesNotExist:
+      self.variable_2 = None
+    self.data = {'dataset': self.dataset, 'variable_1': self.variable_1, 'variable_2': self.variable_2***REMOVED***
+
+  def is_valid(self***REMOVED***:
+    if not isinstance(self.dataset, Dataset***REMOVED***:
+      return False
+    if not isinstance(self.variable_1, Variable***REMOVED*** and isinstance(self.variable_2, Variable***REMOVED***:
+      return False
+    return True

@@ -18,13 +18,37 @@ def one_sample_t_test(**kwargs***REMOVED***:
       'accept_null': False, 'shapiro_result': shapiro_result***REMOVED***
   if sample_size > 15:
     if p_value <= 0.05:
-      interpretation = 'The mean of the sample is statistically significantly different from ' + str(mean***REMOVED*** + ' (confidence interval 95%***REMOVED***.'
+      interpretation = 'The mean of the variable is statistically significantly different from ' + str(mean***REMOVED*** + ' (confidence interval 95%***REMOVED***.'
       accept_null = False
     else:
-      interpretation = 'The mean of the sample is not significantly different from ' + str(mean***REMOVED*** + ' (confidence interval 95%***REMOVED***.'
+      interpretation = 'The mean of the variable is not significantly different from ' + str(mean***REMOVED*** + ' (confidence interval 95%***REMOVED***.'
       accept_null = True
   else:
     interpretation = 'The sample size is too small to conduct the test with statistical significance.'
     accept_null = False
   return {'t_value': t_value, 'p_value': p_value, 'sample_size': sample_size, 'accept_null': accept_null, 'interpretation': interpretation,
     'shapiro_result': shapiro_result***REMOVED***
+
+def two_sample_t_test(**kwargs***REMOVED***:
+  variable_1 = kwargs['variable_1'].values
+  variable_2 = kwargs['variable_2'].values
+  sample_size_1 = variable_1.__len__(***REMOVED***
+  sample_size_2 = variable_2.__len__(***REMOVED***
+  shapiro_result_1 = shapiro.shapiro_wilk_test(variable_1***REMOVED***
+  shapiro_result_2 = shapiro.shapiro_wilk_test(variable_2***REMOVED***
+  t_value, p_value = stats.ttest_ind(variable_1, variable_2***REMOVED***
+  if not shapiro_result_1['accept_null'] and shapiro_result_2['accept_null']:
+    return {'t_value': None, 'p_value': None, 'sample_size_1': sample_size_1, 'sample_size_2': sample_size_2, 'interpretation': None,
+      'accept_null': False, 'shapiro_result_1':shapiro_result_1, 'shapiro_result_2': shapiro_result_2***REMOVED***
+  if sample_size_1 > 15 and sample_size_2 > 15:
+    if p_value <= 0.05:
+      interpretation = 'The means of the two variables are significantly different from each other (confidence interval 95%***REMOVED***.'
+      accept_null = False
+    else: 
+      interpretation = 'The means of the two variables are not significantly different from each other (confidence interval 95%***REMOVED***.'
+      accept_null = True
+  else:
+    interpretation = 'The sample sizes are too small to conduct the test with statistical significance.'
+    accept_null = False
+  return {'t_value': t_value, 'p_value': p_value, 'sample_size_1': sample_size_1, 'sample_size_2': sample_size_2, 'accept_null': accept_null,
+    'interpretation': interpretation, 'shapiro_result_1': shapiro_result_1, 'shapiro_result_2': shapiro_result_2***REMOVED***
