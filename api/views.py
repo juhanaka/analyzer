@@ -14,9 +14,8 @@ from rest_framework.authentication import TokenAuthentication, SessionAuthentica
 from django.http import Http404
 from rest_framework.authtoken.models import Token
 
-
 class DatasetList(APIView***REMOVED***:
-  authentication_classes = [TokenAuthentication, SessionAuthentication]
+  authentication_classes = [TokenAuthentication, SessionAuthentication,]
   permission_classes = (permissions.IsAuthenticated, IsOwnerOrDeny,***REMOVED***
 
   def get(self, request, format=None***REMOVED***:
@@ -26,12 +25,14 @@ class DatasetList(APIView***REMOVED***:
 
   def post(self, request, format=None***REMOVED***:
     serializer = DatasetSerializer(data=request.DATA***REMOVED***
+
     if serializer.is_valid(***REMOVED***:
       serializer.object.owner = User.objects.get(username=request.user.username***REMOVED***
       if request.FILES:
         file_obj = request.FILES['file']
         file_obj = read_csv(file_obj, sep=',', header=0***REMOVED***
         serializer.save(***REMOVED***
+
         for column in file_obj:
           (datatype, values***REMOVED*** = return_type_and_format_values(file_obj[column]***REMOVED***
           values = values if values is not None else file_obj[column]
@@ -39,6 +40,7 @@ class DatasetList(APIView***REMOVED***:
           subtype = return_default_subtype(datatype***REMOVED***
           v = Variable(name=column, dataset=serializer.object, datatype=datatype, subtype=subtype, values=values***REMOVED***
           v.save(***REMOVED***
+
       else:
         serializer.save(***REMOVED***
       return Response(serializer.data, status=status.HTTP_201_CREATED***REMOVED***
@@ -46,7 +48,7 @@ class DatasetList(APIView***REMOVED***:
       return Response(status=status.HTTP_400_BAD_REQUEST***REMOVED***
 
 class DatasetDetail(APIView***REMOVED***:
-  authentication_classes = [TokenAuthentication, SessionAuthentication]
+  authentication_classes = [TokenAuthentication, SessionAuthentication,]
   permission_classes = (permissions.IsAuthenticated, IsOwnerOrDeny,***REMOVED***
 
   def get_object(self, pk***REMOVED***:

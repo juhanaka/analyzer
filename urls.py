@@ -13,7 +13,8 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls***REMOVED******REMOVED***,
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'***REMOVED******REMOVED***,
     url(r'^api/v0/', include('api.urls', namespace='api'***REMOVED******REMOVED***,
-    url(r'^analysis/', include('analysis.urls', namespace='analysis'***REMOVED******REMOVED***
+    url(r'^analysis/', include('analysis.urls', namespace='analysis'***REMOVED******REMOVED***,
+    url(r'^web/', include('web.urls', namespace='web'***REMOVED******REMOVED***,
 ***REMOVED***
 
 class UserViewSet(viewsets.ModelViewSet***REMOVED***:
@@ -25,4 +26,5 @@ class GroupViewSet(viewsets.ModelViewSet***REMOVED***:
 router = routers.DefaultRouter(***REMOVED***
 router.register(r'users', UserViewSet***REMOVED***
 router.register(r'groups', GroupViewSet***REMOVED***
+
 

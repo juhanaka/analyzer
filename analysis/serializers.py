@@ -4,6 +4,7 @@ from api.models import Variable, Dataset
 from django.http import Http404
 import json
 import ast
+import numpy as np
 
 class VariableField(serializers.Field***REMOVED***:
 
@@ -42,5 +43,34 @@ class LinearRegressionSerializer(***REMOVED***:
     if not isinstance(self.dataset, Dataset***REMOVED***:
       return False
     elif not (isinstance(self.x, Variable***REMOVED*** and isinstance(self.y, Variable***REMOVED******REMOVED***:
+      return False
+    return True
+
+class OneSampleTTestSerializer(***REMOVED***:
+  def __init__(self, data***REMOVED***:
+    dataset = data.get('dataset', None***REMOVED***
+    variable = data.get('variable',None***REMOVED***
+    mean = data.get('mean', None***REMOVED***
+    dataset = dataset.encode('utf-8'***REMOVED*** if dataset else None
+    variable = variable.encode('utf-8'***REMOVED*** if variable else None
+    self.mean = np.float64(mean.encode('utf-8'***REMOVED******REMOVED*** if mean else None
+
+    try:
+      self.dataset = Dataset.objects.get(id=dataset***REMOVED***
+    except Dataset.DoesNotExist:
+      self.dataset = None
+    try:
+      self.variable = Variable.objects.get(dataset__pk=dataset, pk=variable***REMOVED***
+    except Variable.DoesNotExist:
+      self.variable = None
+
+    self.data = {'dataset': self.dataset, 'variable': self.variable, 'mean': self.mean***REMOVED***
+
+  def is_valid(self***REMOVED***:
+    if not isinstance(self.dataset, Dataset***REMOVED***:
+      return False
+    if not isinstance(self.variable, Variable***REMOVED***:
+      return False
+    if not self.mean:
       return False
     return True

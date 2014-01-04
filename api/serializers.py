@@ -6,7 +6,6 @@ import ast
 
 #define a custom field class for data serialization
 class ArrayField(serializers.Field***REMOVED***:
-
   def to_native(self, obj***REMOVED***:
     return obj
 
@@ -37,6 +36,7 @@ class VariableSerializer(serializers.ModelSerializer***REMOVED***:
 
 class UserSerializer(serializers.ModelSerializer***REMOVED***:
   datasets = serializers.PrimaryKeyRelatedField(many=True***REMOVED***
+
   class Meta:
     model = User
     fields = ('id', 'username', 'datasets'***REMOVED***

@@ -63,3 +63,56 @@ class RegressionTest(TestCase***REMOVED***:
     self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST***REMOVED***
     self.assertEqual(response.data['detail'], 'Wrong type variables for regression'***REMOVED***
     self.assertEqual(response.data.__len__(***REMOVED***, 1***REMOVED***
+
+class OneSampleTTestTest(TestCase***REMOVED***:
+
+    def setUp(self***REMOVED***:
+        self.client = APIClient(***REMOVED***
+        self.user = User.objects.create_user(username='api_test_user', email='test@test.com', password='testtest'***REMOVED***
+        self.url = reverse('analysis:one_sample_ttest'***REMOVED***
+        self.token = Token.objects.get(user=self.user.id***REMOVED***
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key***REMOVED***
+        #create dataset and variables from test file
+        this_dir = os.getcwd(***REMOVED***
+        self.dataset = Dataset(name='test_set', owner=self.user***REMOVED***
+        self.dataset.save(***REMOVED***
+        with open(this_dir + '/analysis/tests/test_files/ttest_test_data.csv'***REMOVED*** as file_obj:
+          file_obj = read_csv(file_obj, sep=',', header=0***REMOVED***
+          for column in file_obj:
+            (datatype, values***REMOVED*** = return_type_and_format_values(file_obj[column]***REMOVED***
+            values = values if values is not None else file_obj[column]
+            datatype = datatype if datatype else 'undefined'
+            subtype = return_default_subtype(datatype***REMOVED***
+            v = Variable(name=column, dataset=self.dataset, datatype=datatype, subtype=subtype, values=values***REMOVED***
+            v.save(***REMOVED***
+            self.variable_id = v.id
+        self.mean = 46
+
+    def test_ttest_wrong_user(self***REMOVED***:
+        data = {'dataset': self.dataset.id, 'variable': self.variable_id, 'mean': self.mean***REMOVED***
+        self.wrong_client = APIClient(***REMOVED***
+        self.wrong_user = User.objects.create_user(username='wrong_user', email='test@test.com', password='testtest'***REMOVED***
+        self.wrong_token = Token.objects.get(user=self.wrong_user.id***REMOVED***
+        self.wrong_client.credentials(HTTP_AUTHORIZATION='Token ' + self.wrong_token.key***REMOVED***
+        response = self.wrong_client.get(self.url, data***REMOVED***
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN***REMOVED***
+
+    def test_ttest_basecase(self***REMOVED***:
+        data = {'dataset': self.dataset.id, 'variable': self.variable_id, 'mean': self.mean***REMOVED***
+        response = self.client.get(self.url, data***REMOVED***
+        self.assertEqual(response.status_code, status.HTTP_200_OK***REMOVED***
+        self.assertTrue(response.data['t_value']***REMOVED***
+        self.assertTrue(response.data['p_value']***REMOVED***
+        self.assertTrue(response.data['interpretation']***REMOVED***
+        self.assertTrue(response.data['accept_null']***REMOVED***
+        self.assertTrue(response.data['shapiro_result']***REMOVED***
+
+    def test_ttest_wrong_datatype(self***REMOVED***:
+        v = Variable.objects.get(id=self.variable_id***REMOVED***
+        v.datatype = 'boolean'
+        v.save(***REMOVED***
+        data = {'dataset': self.dataset.id, 'variable': self.variable_id, 'mean': self.mean***REMOVED***
+        response = self.client.get(self.url, data***REMOVED***
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST***REMOVED***
+        self.assertEqual(response.data['detail'], 'Wrong type variables for t-test'***REMOVED***
+        self.assertEqual(response.data.__len__(***REMOVED***, 1***REMOVED***

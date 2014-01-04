@@ -1,0 +1,79 @@
+<!doctype html>
+
+
+{% load staticfiles %***REMOVED***
+
+<html ng-app="analyzerApp">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analyzer</title>
+    <link rel="stylesheet" href="static/web/css/stylesheet.css" />
+    <link rel="stylesheet" href="static/web/vendor/foundation/css/foundation.css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.2/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.2/angular-resource.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.2/angular-route.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.2/angular-cookies.js"></script>
+    <script src="static/web/vendor/foundation/js/modernizr.js"></script>
+    <script type="text/javascript" src="static/web/vendor/underscore/underscore.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="static/web/vendor/foundation/js/jquery.js"></script>
+    <script type="text/javascript" src="static/web/js/lvl-uuid.js"></script>
+    <script type="text/javascript" src="static/web/js/lvl-drag-drop.js"></script>
+    <script type="text/javascript" src="static/web/js/app.js"></script>
+    <script type="text/javascript" src="static/web/js/ng-googlechart.js"></script>
+    <script type="text/javascript" src="static/web/js/controllers.js"></script>
+
+  </head>
+  <body ng-controller="DatasetCtrl">
+    {% csrf_token %***REMOVED***
+    {% verbatim %***REMOVED***
+    <div class="row top-nav">
+      <nav class="top-bar" data-topbar>
+        <ul class="title-area">
+          <li class="name">
+            <h1><a class="top-bar-li" href="#">Analyzer</a></h1>
+          </li>
+        </ul>
+
+        <section class="top-bar-section">
+          <ul class="right">
+            <li><a href="#">API Docs</a></li>
+            <li class="has-dropdown">
+              <a href="#">Datasets</a>
+              <ul class="dropdown" id="customDropdown">
+                <li ng-repeat="dataset in datasets">
+                  <a href="#" ng-click="selectDataset(dataset***REMOVED***">{{dataset.name***REMOVED******REMOVED***</a>
+                </li>
+                <li class="divider"></li>
+                <li><a href="#/upload">Add New</a></li>
+              </ul>
+            </li>
+            <li class="has-dropdown">
+              <a href="#">User</a>
+              <ul class="dropdown">
+                <li><a href="#">Info</a></li>
+                <li><a href="#">Get API key</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Log in</a></li>
+              </ul>
+            </li>
+            <li><a href="#/upload" class="button">Add New Dataset</a></li>
+            <li><a href="#"></a></li>
+          </ul>
+            
+        </section>
+
+
+      </nav>
+    </div>
+    <div ng-view></div>
+    <script src="static/web/vendor/foundation/js/foundation.min.js"></script>
+    <script src="static/web/vendor/foundation/js/foundation/foundation.topbar.js"></script>
+    <script>
+      $(document***REMOVED***.foundation(***REMOVED***;
+    </script>
+  </body>
+</html>
+{% endverbatim %***REMOVED***

@@ -1,0 +1,26 @@
+
+
+{% block content %***REMOVED***
+
+{% if form.errors %***REMOVED***
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %***REMOVED***
+
+<form method="post" action="{% url 'django.contrib.auth.views.login' %***REMOVED***">
+{% csrf_token %***REMOVED***
+<table>
+<tr>
+    <td>{{ form.username.label_tag ***REMOVED******REMOVED***</td>
+    <td>{{ form.username ***REMOVED******REMOVED***</td>
+</tr>
+<tr>
+    <td>{{ form.password.label_tag ***REMOVED******REMOVED***</td>
+    <td>{{ form.password ***REMOVED******REMOVED***</td>
+</tr>
+</table>
+
+<input type="submit" value="login" />
+<input type="hidden" name="next" value="{{ next ***REMOVED******REMOVED***" />
+</form>
+
+{% endblock %***REMOVED***
