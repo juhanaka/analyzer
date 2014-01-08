@@ -14,144 +14,144 @@ from rest_framework.authentication import TokenAuthentication, SessionAuthentica
 from django.http import Http404
 from rest_framework.authtoken.models import Token
 
-class DatasetList(APIView):
+class DatasetList(APIView***REMOVED***:
   authentication_classes = [TokenAuthentication, SessionAuthentication,]
-  permission_classes = (permissions.IsAuthenticated, IsOwnerOrDeny,)
+  permission_classes = (permissions.IsAuthenticated, IsOwnerOrDeny,***REMOVED***
 
-  def get(self, request, format=None):
-    datasets = Dataset.objects.filter(owner=request.user)
-    serializer = DatasetSerializer(datasets, many=True)
-    return Response(serializer.data)
+  def get(self, request, format=None***REMOVED***:
+    datasets = Dataset.objects.filter(owner=request.user***REMOVED***
+    serializer = DatasetSerializer(datasets, many=True***REMOVED***
+    return Response(serializer.data***REMOVED***
 
-  def post(self, request, format=None):
-    serializer = DatasetSerializer(data=request.DATA)
+  def post(self, request, format=None***REMOVED***:
+    serializer = DatasetSerializer(data=request.DATA***REMOVED***
 
-    if serializer.is_valid():
-      serializer.object.owner = User.objects.get(username=request.user.username)
+    if serializer.is_valid(***REMOVED***:
+      serializer.object.owner = User.objects.get(username=request.user.username***REMOVED***
       if request.FILES:
         file_obj = request.FILES['file']
-        file_obj = read_csv(file_obj, sep=',', header=0)
-        serializer.save()
+        file_obj = read_csv(file_obj, sep=',', header=0***REMOVED***
+        serializer.save(***REMOVED***
 
         for column in file_obj:
-          (datatype, values) = return_type_and_format_values(file_obj[column])
+          (datatype, values***REMOVED*** = return_type_and_format_values(file_obj[column]***REMOVED***
           values = values if values is not None else file_obj[column]
           datatype = datatype if datatype else 'undefined'
-          subtype = return_default_subtype(datatype)
-          v = Variable(name=column, dataset=serializer.object, datatype=datatype, subtype=subtype, values=values)
-          v.save()
+          subtype = return_default_subtype(datatype***REMOVED***
+          v = Variable(name=column, dataset=serializer.object, datatype=datatype, subtype=subtype, values=values***REMOVED***
+          v.save(***REMOVED***
 
       else:
-        serializer.save()
-      return Response(serializer.data, status=status.HTTP_201_CREATED)
+        serializer.save(***REMOVED***
+      return Response(serializer.data, status=status.HTTP_201_CREATED***REMOVED***
     else:
-      return Response(status=status.HTTP_400_BAD_REQUEST)
+      return Response(status=status.HTTP_400_BAD_REQUEST***REMOVED***
 
-class DatasetDetail(APIView):
+class DatasetDetail(APIView***REMOVED***:
   authentication_classes = [TokenAuthentication, SessionAuthentication,]
-  permission_classes = (permissions.IsAuthenticated, IsOwnerOrDeny,)
+  permission_classes = (permissions.IsAuthenticated, IsOwnerOrDeny,***REMOVED***
 
-  def get_object(self, pk):
+  def get_object(self, pk***REMOVED***:
     try:
-      obj = Dataset.objects.get(pk=pk)
+      obj = Dataset.objects.get(pk=pk***REMOVED***
     except Dataset.DoesNotExist:
       raise Http404
-    self.check_object_permissions(self.request, obj)
+    self.check_object_permissions(self.request, obj***REMOVED***
     return obj
 
-  def get(self, request, pk, format=None):
-    dataset = self.get_object(pk)
-    serializer = DatasetSerializer(dataset)
-    return Response(serializer.data)
+  def get(self, request, pk, format=None***REMOVED***:
+    dataset = self.get_object(pk***REMOVED***
+    serializer = DatasetSerializer(dataset***REMOVED***
+    return Response(serializer.data***REMOVED***
 
-  def put(self, request, pk, format=None):
-    dataset = self.get_object(pk)
-    serializer = DatasetSerializer(dataset, data=request.DATA)
-    if serializer.is_valid():
-      serializer.object.owner = User.objects.get(username=request.user.username)
+  def put(self, request, pk, format=None***REMOVED***:
+    dataset = self.get_object(pk***REMOVED***
+    serializer = DatasetSerializer(dataset, data=request.DATA***REMOVED***
+    if serializer.is_valid(***REMOVED***:
+      serializer.object.owner = User.objects.get(username=request.user.username***REMOVED***
       if request.FILES:
         file_obj = request.FILES['file']
-        file_obj = read_csv(file_obj, sep=',', header=0)
-        serializer.save()
-        Variable.objects.filter(dataset=dataset).delete()
+        file_obj = read_csv(file_obj, sep=',', header=0***REMOVED***
+        serializer.save(***REMOVED***
+        Variable.objects.filter(dataset=dataset***REMOVED***.delete(***REMOVED***
         for column in file_obj:
           #todo: make this detect the datatype instead of saving everything as string.
-          (datatype, values) = return_type_and_format_values(file_obj[column])
+          (datatype, values***REMOVED*** = return_type_and_format_values(file_obj[column]***REMOVED***
           values = values if values is not None else file_obj[column]
           datatype = datatype if datatype else 'undefined'
-          subtype = return_default_subtype(datatype)
-          v = Variable(name=column, dataset=serializer.object, datatype=datatype, values=values)
-          v.save()
+          subtype = return_default_subtype(datatype***REMOVED***
+          v = Variable(name=column, dataset=serializer.object, datatype=datatype, values=values***REMOVED***
+          v.save(***REMOVED***
       else:
-        serializer.save()
-      return Response(serializer.data, status=status.HTTP_200_OK)
+        serializer.save(***REMOVED***
+      return Response(serializer.data, status=status.HTTP_200_OK***REMOVED***
     else:
-      return Response(status=status.HTTP_400_BAD_REQUEST)
+      return Response(status=status.HTTP_400_BAD_REQUEST***REMOVED***
 
-  def delete(self, request, pk, format=None):
-    dataset = self.get_object(pk)
-    dataset.delete()
-    return Response(status=status.HTTP_204_NO_CONTENT)
+  def delete(self, request, pk, format=None***REMOVED***:
+    dataset = self.get_object(pk***REMOVED***
+    dataset.delete(***REMOVED***
+    return Response(status=status.HTTP_204_NO_CONTENT***REMOVED***
 
-class UserList(generics.ListAPIView):
-  queryset = User.objects.all()
+class UserList(generics.ListAPIView***REMOVED***:
+  queryset = User.objects.all(***REMOVED***
   serializer_class = UserSerializer
 
-class UserDetail(generics.RetrieveAPIView):
-  queryset = User.objects.all()
+class UserDetail(generics.RetrieveAPIView***REMOVED***:
+  queryset = User.objects.all(***REMOVED***
   serializer_class = UserSerializer
 
-class VariableByDatasetList(generics.ListAPIView):
+class VariableByDatasetList(generics.ListAPIView***REMOVED***:
   model = Variable
   serializer_class = VariableSerializer
-  permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+  permission_classes = (permissions.IsAuthenticatedOrReadOnly,***REMOVED***
 
-  def get_queryset(self):
-    dataset_pk = self.kwargs.get('dataset_pk', None)
+  def get_queryset(self***REMOVED***:
+    dataset_pk = self.kwargs.get('dataset_pk', None***REMOVED***
     if dataset_pk is not None:
-      return Variable.objects.filter(dataset__pk=dataset_pk)
+      return Variable.objects.filter(dataset__pk=dataset_pk***REMOVED***
     return []
 
-class VariableByDatasetDetail(APIView):
-  permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrDeny)
+class VariableByDatasetDetail(APIView***REMOVED***:
+  permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrDeny***REMOVED***
   authentication_classes = [TokenAuthentication, SessionAuthentication]
 
-  def get_object(self, dataset_pk, pk):
+  def get_object(self, dataset_pk, pk***REMOVED***:
     try:
-      queryset = Variable.objects.filter(dataset__pk=dataset_pk)
-      obj = queryset.get(pk=pk)
+      queryset = Variable.objects.filter(dataset__pk=dataset_pk***REMOVED***
+      obj = queryset.get(pk=pk***REMOVED***
     except Variable.DoesNotExist:
       raise Http404
-    self.check_object_permissions(self.request, obj)
+    self.check_object_permissions(self.request, obj***REMOVED***
     return obj
 
-  def get(self, request, dataset_pk, pk, format=None):
-    variable = self.get_object(dataset_pk, pk)
-    serializer = VariableSerializer(variable)
-    return Response(serializer.data)
+  def get(self, request, dataset_pk, pk, format=None***REMOVED***:
+    variable = self.get_object(dataset_pk, pk***REMOVED***
+    serializer = VariableSerializer(variable***REMOVED***
+    return Response(serializer.data***REMOVED***
 
-  def put(self, request, dataset_pk, pk, format=None):
-    variable = self.get_object(dataset_pk, pk)
-    serializer = VariableSerializer(variable, data=request.DATA)
-    if serializer.is_valid():
-      serializer.save()
-      return Response(serializer.data, status=status.HTTP_200_OK)
+  def put(self, request, dataset_pk, pk, format=None***REMOVED***:
+    variable = self.get_object(dataset_pk, pk***REMOVED***
+    serializer = VariableSerializer(variable, data=request.DATA***REMOVED***
+    if serializer.is_valid(***REMOVED***:
+      serializer.save(***REMOVED***
+      return Response(serializer.data, status=status.HTTP_200_OK***REMOVED***
     else:
-      return Response(status=status.HTTP_400_BAD_REQUEST)
+      return Response(status=status.HTTP_400_BAD_REQUEST***REMOVED***
 
-  def delete(self, request, dataset_pk, pk, format=None):
-    return Response(status=status.HTTP_400_BAD_REQUEST)
+  def delete(self, request, dataset_pk, pk, format=None***REMOVED***:
+    return Response(status=status.HTTP_400_BAD_REQUEST***REMOVED***
 
-class GetAPIToken(APIView):
+class GetAPIToken(APIView***REMOVED***:
   authentication_classes = [TokenAuthentication, SessionAuthentication]
-  permission_classes = (permissions.IsAuthenticated, IsOwnerOrDeny,)
-  def get(self, request, format=None):
-    user = User.objects.get(username=request.user.username)
-    token = Token.objects.get(user=user.id)
-    return Response({'token':token.key})
-  def post(self, request, format=None):
-    return Response(status=status.HTTP_401_UNAUTHORIZED)
-  def put(self, request, format=None):
-    return Response(status=status.HTTP_401_UNAUTHORIZED)
-  def delete(self, request, format=None):
-    return Response(status=status.HTTP_401_UNAUTHORIZED)
+  permission_classes = (permissions.IsAuthenticated, IsOwnerOrDeny,***REMOVED***
+  def get(self, request, format=None***REMOVED***:
+    user = User.objects.get(username=request.user.username***REMOVED***
+    token = Token.objects.get(user=user.id***REMOVED***
+    return Response({'token':token.key***REMOVED******REMOVED***
+  def post(self, request, format=None***REMOVED***:
+    return Response(status=status.HTTP_401_UNAUTHORIZED***REMOVED***
+  def put(self, request, format=None***REMOVED***:
+    return Response(status=status.HTTP_401_UNAUTHORIZED***REMOVED***
+  def delete(self, request, format=None***REMOVED***:
+    return Response(status=status.HTTP_401_UNAUTHORIZED***REMOVED***

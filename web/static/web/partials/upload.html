@@ -3,7 +3,7 @@
     <h3>Upload CSV File</h3>
     <hr>
     <label for="fileToUpload">Select a File to Upload</label>
-    <input type="file" ng-model-instant id="fileToUpload" onchange="angular.element(this).scope().setFiles(this)" />
+    <input type="file" ng-model-instant id="fileToUpload" onchange="angular.element(this***REMOVED***.scope(***REMOVED***.setFiles(this***REMOVED***" />
     <br />
     <label style="margin-top: 15px;">Dataset Name</label>
     <input type="text" ng-model="name" />
@@ -12,11 +12,11 @@
 
 <div ng-show="files" class="row">
   <div class="large-4 large-offset-4 column">
-    <input ng-hide="upload_done" class="button" type="button" ng-click="uploadFile()" value="Upload" />
+    <input ng-hide="upload_done" class="button" type="button" ng-click="uploadFile(***REMOVED***" value="Upload" />
     <div ng-show="progressVisible">
-        <div class="percent">{{progress}}%</div>
+        <div class="percent">{{progress***REMOVED******REMOVED***%</div>
         <div class="progress-bar">
-            <div class="uploaded" ng-style="{'width': progress+'%'}"></div>
+            <div class="uploaded" ng-style="{'width': progress+'%'***REMOVED***"></div>
         </div>
     </div>
     <div ng-show="upload_done">

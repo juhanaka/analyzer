@@ -12,27 +12,27 @@ from rest_framework.authtoken.models import Token
 from rest_framework import permissions
 from django.http import HttpResponse
 
-class Index(TemplateView):
-  authentication_classes = (SessionAuthentication,)
+class Index(TemplateView***REMOVED***:
+  authentication_classes = (SessionAuthentication,***REMOVED***
   template_name = 'web/base.html'
 
 
-class Login(View):
+class Login(View***REMOVED***:
 
-  def get(self, request):
-    return render_to_response('web/login.html', context_instance=RequestContext(request))
+  def get(self, request***REMOVED***:
+    return render_to_response('web/login.html', context_instance=RequestContext(request***REMOVED******REMOVED***
 
-  def post(self, request):
+  def post(self, request***REMOVED***:
     username = request.POST['username']
     password = request.POST['password']
-    user = authenticate(username=username, password=password)
+    user = authenticate(username=username, password=password***REMOVED***
     if user is not None:
       if user.is_active:
-        login(request, user)
-        return redirect(reverse('web:index'))
+        login(request, user***REMOVED***
+        return redirect(reverse('web:index'***REMOVED******REMOVED***
 
-class Logout(View):
+class Logout(View***REMOVED***:
 
-  def get(self, request):
-    logout(request)
-    return redirect(reverse('web:login'))
+  def get(self, request***REMOVED***:
+    logout(request***REMOVED***
+    return redirect(reverse('web:login'***REMOVED******REMOVED***
