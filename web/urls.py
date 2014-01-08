@@ -7,9 +7,9 @@ from django.contrib.auth.decorators import login_required
 
 
 urlpatterns = patterns('web.views',
-    url(r'^$', login_required(views.Index.as_view()), name='index'),
-    url(r'^login', views.Login.as_view(), name='login'),
-    url(r'^logout', views.Logout.as_view(), name='logout'),
-)
-urlpatterns += staticfiles_urlpatterns()
+    url(r'^$', login_required(views.Index.as_view(***REMOVED******REMOVED***, name='index'***REMOVED***,
+    url(r'^login', views.Login.as_view(***REMOVED***, name='login'***REMOVED***,
+    url(r'^logout', views.Logout.as_view(***REMOVED***, name='logout'***REMOVED***,
+***REMOVED***
+urlpatterns += staticfiles_urlpatterns(***REMOVED***
 

@@ -1,4 +1,4 @@
-;(function ($, window, document, undefined) {
+;(function ($, window, document, undefined***REMOVED*** {
   'use strict';
 
   Foundation.libs.alert = {
@@ -9,26 +9,26 @@
     settings : {
       animation: 'fadeOut',
       speed: 300, // fade out speed
-      callback: function (){}
-    },
+      callback: function (***REMOVED***{***REMOVED***
+***REMOVED***,
 
-    init : function (scope, method, options) {
-      this.bindings(method, options);
-    },
+    init : function (scope, method, options***REMOVED*** {
+      this.bindings(method, options***REMOVED***;
+***REMOVED***,
 
-    events : function () {
-      $(this.scope).off('.alert').on('click.fndtn.alert', '[data-alert] a.close', function (e) {
-          var alertBox = $(this).closest("[data-alert]"),
-              settings = alertBox.data('alert-init');
+    events : function (***REMOVED*** {
+      $(this.scope***REMOVED***.off('.alert'***REMOVED***.on('click.fndtn.alert', '[data-alert] a.close', function (e***REMOVED*** {
+          var alertBox = $(this***REMOVED***.closest("[data-alert]"***REMOVED***,
+              settings = alertBox.data('alert-init'***REMOVED***;
 
-        e.preventDefault();
-        alertBox[settings.animation](settings.speed, function () {
-          $(this).trigger('closed').remove();
-          settings.callback();
-        });
-      });
-    },
+        e.preventDefault(***REMOVED***;
+        alertBox[settings.animation](settings.speed, function (***REMOVED*** {
+          $(this***REMOVED***.trigger('closed'***REMOVED***.remove(***REMOVED***;
+          settings.callback(***REMOVED***;
+    ***REMOVED******REMOVED***;
+  ***REMOVED******REMOVED***;
+***REMOVED***,
 
-    reflow : function () {}
-  };
-}(jQuery, this, this.document));
+    reflow : function (***REMOVED*** {***REMOVED***
+  ***REMOVED***;
+***REMOVED***(jQuery, this, this.document***REMOVED******REMOVED***;
