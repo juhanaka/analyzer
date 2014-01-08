@@ -1,130 +1,130 @@
 
-google.load("visualization", "1", {packages:["corechart"]});
+google.load("visualization", "1", {packages:["corechart"]***REMOVED******REMOVED***;
 
-analyzerApp.controller('DatasetCtrl', function($scope, $resource, $http) {
-  var Dataset = $resource('http://localhost:8000/api/v0/datasets/:dataset_id', {dataset_id:'@dataset_id'})
+analyzerApp.controller('DatasetCtrl', function($scope, $resource, $http***REMOVED*** {
+  var Dataset = $resource('http://localhost:8000/api/v0/datasets/:dataset_id', {dataset_id:'@dataset_id'***REMOVED******REMOVED***
   var Variable = $resource('http://localhost:8000/api/v0/datasets/:dataset_id/variables/:variable_id',
-    {dataset_id: '@dataset_id', variable_id:'@variable_id'})
+    {dataset_id: '@dataset_id', variable_id:'@variable_id'***REMOVED******REMOVED***
   $scope.view = 'plot';
-  $scope.datasets = Dataset.query();
+  $scope.datasets = Dataset.query(***REMOVED***;
   $scope.xVariables = [];
   $scope.yVariables = [];
   $scope.chartType = 'LineChart';
   $scope.ttest = null;
 
-  $scope.calculateRegression = function() {
+  $scope.calculateRegression = function(***REMOVED*** {
 
     $scope.regression = null;
-    if ($scope.xVariables.length > 1 || $scope.yVariables.length > 1) {
-      alert('No support for multivariate regression. Please select one explanatory variable and one response variable.')
+    if ($scope.xVariables.length > 1 || $scope.yVariables.length > 1***REMOVED*** {
+      alert('No support for multivariate regression. Please select one explanatory variable and one response variable.'***REMOVED***
       return null
-    }
+***REMOVED***
     var url = 'http://localhost:8000/analysis/linear-regression/';
-    var params = {'dataset': $scope.selected_dataset.pk, 'x': $scope.xVariables[0].id, 'y':$scope.yVariables[0].id};
+    var params = {'dataset': $scope.selected_dataset.pk, 'x': $scope.xVariables[0].id, 'y':$scope.yVariables[0].id***REMOVED***;
 
-    $http({method: 'GET', url: url, params: params}).
-      success(function(data, status, headers, config) {
+    $http({method: 'GET', url: url, params: params***REMOVED******REMOVED***.
+      success(function(data, status, headers, config***REMOVED*** {
         $scope.regression = data;
-        $scope.chartData(true)
-      })
-  }
+        $scope.chartData(true***REMOVED***
+  ***REMOVED******REMOVED***
+  ***REMOVED***
 
-  $scope.calculateTTest = function() {
+  $scope.calculateTTest = function(***REMOVED*** {
     $scope.ttest = null;
-    if (!$scope.yVariables.length == 1) {
-      alert('Please insert only one variable.')
+    if (!$scope.yVariables.length == 1***REMOVED*** {
+      alert('Please insert only one variable.'***REMOVED***
       return null
-    }
+***REMOVED***
     var url = 'http://localhost:8000/analysis/one-sample-ttest/';
-    var params = {'dataset': $scope.selected_dataset.pk, 'variable': $scope.yVariables[0].id, 'mean': $scope.ttest_mean}
-    $http({method: 'GET', url: url, params: params}).
-      success(function(data, status, headers, config) {
+    var params = {'dataset': $scope.selected_dataset.pk, 'variable': $scope.yVariables[0].id, 'mean': $scope.ttest_mean***REMOVED***
+    $http({method: 'GET', url: url, params: params***REMOVED******REMOVED***.
+      success(function(data, status, headers, config***REMOVED*** {
         $scope.ttest = data;
-      })
-  }
+  ***REMOVED******REMOVED***
+  ***REMOVED***
 
-  $scope.chartShowable = function() {
-    if (!($scope.xVariables.length || $scope.yVariables.length))
+  $scope.chartShowable = function(***REMOVED*** {
+    if (!($scope.xVariables.length || $scope.yVariables.length***REMOVED******REMOVED***
       return false
     else {
-      if ($scope.chartType == 'Histogram' && $scope.yVariables.length) {
+      if ($scope.chartType == 'Histogram' && $scope.yVariables.length***REMOVED*** {
         return true
-      } else if ($scope.yVariables.length && $scope.xVariables.length) {
+  ***REMOVED*** else if ($scope.yVariables.length && $scope.xVariables.length***REMOVED*** {
         return true
-      } else {
+  ***REMOVED*** else {
         return false
-      }
-    }
-  }
+  ***REMOVED***
+***REMOVED***
+  ***REMOVED***
 
-  $scope.selectDataset = function(dataset) {
+  $scope.selectDataset = function(dataset***REMOVED*** {
     $scope.dataset_id = dataset.pk;
-    $scope.selected_dataset = Dataset.get({dataset_id: $scope.dataset_id});
+    $scope.selected_dataset = Dataset.get({dataset_id: $scope.dataset_id***REMOVED******REMOVED***;
 
-    $scope.selected_dataset.$promise.then(function(result) {
-      $scope.variables = Variable.query({dataset_id: result.pk})
-    })
-  }
+    $scope.selected_dataset.$promise.then(function(result***REMOVED*** {
+      $scope.variables = Variable.query({dataset_id: result.pk***REMOVED******REMOVED***
+***REMOVED******REMOVED***
+  ***REMOVED***
 
-  $scope.dropped = function(dragEl, dropEl) {
-    var drop = angular.element(dropEl);
-    var drag = angular.element(dragEl);
+  $scope.dropped = function(dragEl, dropEl***REMOVED*** {
+    var drop = angular.element(dropEl***REMOVED***;
+    var drag = angular.element(dragEl***REMOVED***;
 
-    if (drop[0].attributes[0].value == 'y-variables') {
-      $scope.$apply(function($scope) {
-        $scope.yVariables.push(drag.scope().variable)
-      })
-    } else if (drop[0].attributes[0].value == 'x-variables') {
-      $scope.$apply(function($scope) {
-        $scope.xVariables.push(drag.scope().variable)
-      })
-    }
+    if (drop[0].attributes[0].value == 'y-variables'***REMOVED*** {
+      $scope.$apply(function($scope***REMOVED*** {
+        $scope.yVariables.push(drag.scope(***REMOVED***.variable***REMOVED***
+  ***REMOVED******REMOVED***
+***REMOVED*** else if (drop[0].attributes[0].value == 'x-variables'***REMOVED*** {
+      $scope.$apply(function($scope***REMOVED*** {
+        $scope.xVariables.push(drag.scope(***REMOVED***.variable***REMOVED***
+  ***REMOVED******REMOVED***
+***REMOVED***
 
-    $scope.chartData()
-  }
+    $scope.chartData(***REMOVED***
+  ***REMOVED***
 
-  $scope.removePlotVariableY = function(variable) {
-    $scope.yVariables.splice($scope.yVariables.indexOf(variable), 1);
-    $scope.chartData(true);
-  }
+  $scope.removePlotVariableY = function(variable***REMOVED*** {
+    $scope.yVariables.splice($scope.yVariables.indexOf(variable***REMOVED***, 1***REMOVED***;
+    $scope.chartData(true***REMOVED***;
+  ***REMOVED***
 
-  $scope.removePlotVariableX = function(variable) {
-    $scope.xVariables.splice($scope.xVariables.indexOf(variable), 1);
-    $scope.chartData(true)
-  }
+  $scope.removePlotVariableX = function(variable***REMOVED*** {
+    $scope.xVariables.splice($scope.xVariables.indexOf(variable***REMOVED***, 1***REMOVED***;
+    $scope.chartData(true***REMOVED***
+  ***REMOVED***
 
-  $scope.changeChartType = function(value) {
+  $scope.changeChartType = function(value***REMOVED*** {
     $scope.chartType = value;
-  }
+  ***REMOVED***
 
-  $scope.chartData = function(applyOrNot) {
-    var data = new google.visualization.DataTable()
+  $scope.chartData = function(applyOrNot***REMOVED*** {
+    var data = new google.visualization.DataTable(***REMOVED***
 
-    _.map(_.union($scope.xVariables, $scope.yVariables), function(variable) {
-      if (variable.datatype == 'float' || variable.datatype == 'integer') {
+    _.map(_.union($scope.xVariables, $scope.yVariables***REMOVED***, function(variable***REMOVED*** {
+      if (variable.datatype == 'float' || variable.datatype == 'integer'***REMOVED*** {
         var columnType = 'number'
-      } else if (variable.datatype == 'date') {
+  ***REMOVED*** else if (variable.datatype == 'date'***REMOVED*** {
         var columnType = 'date'
-      } else {
+  ***REMOVED*** else {
         columnType = variable.datatype;
-      }
+  ***REMOVED***
       
-      data.addColumn(columnType, variable.name)
-    })
+      data.addColumn(columnType, variable.name***REMOVED***
+***REMOVED******REMOVED***
 
-    for (i=0; i < $scope.yVariables[0]['values'].length; i++) {
+    for (i=0; i < $scope.yVariables[0]['values'].length; i++***REMOVED*** {
       var row = []
 
-      _.map(_.union($scope.xVariables, $scope.yVariables), function(variable) {
-        if (variable.datatype == 'date') {
-          value = new Date(variable.values[i])
-        } else {
+      _.map(_.union($scope.xVariables, $scope.yVariables***REMOVED***, function(variable***REMOVED*** {
+        if (variable.datatype == 'date'***REMOVED*** {
+          value = new Date(variable.values[i]***REMOVED***
+    ***REMOVED*** else {
           var value = variable.values[i]
-        }
-        row.push(value)
-      })
-      data.addRow(row)
-    }
+    ***REMOVED***
+        row.push(value***REMOVED***
+  ***REMOVED******REMOVED***
+      data.addRow(row***REMOVED***
+***REMOVED***
 
     var chart = {
       "type" : $scope.chartType,
@@ -132,89 +132,89 @@ analyzerApp.controller('DatasetCtrl', function($scope, $resource, $http) {
       "cssStyle": "height:300px; width:1100px",
       "data" : data,
       "options" : {
-        "chartArea": {left:'7%', top:'7%', height:'80%'}, 
+        "chartArea": {left:'7%', top:'7%', height:'80%'***REMOVED***, 
         "colors": ['#4ECDC4', '#C7F464', '#FF6B6B', '#C44D58'],
-      },
-    }
+  ***REMOVED***,
+***REMOVED***
 
-    if ($scope.regression) {
-      chart.options.trendlines = {0: {}}
-    }
+    if ($scope.regression***REMOVED*** {
+      chart.options.trendlines = {0: {***REMOVED******REMOVED***
+***REMOVED***
 
-    if (applyOrNot) {
+    if (applyOrNot***REMOVED*** {
       $scope.chart = chart; 
-    } else {
-      $scope.$apply(function($scope) {
+***REMOVED*** else {
+      $scope.$apply(function($scope***REMOVED*** {
         $scope.chart = chart; 
-      })
-    }   
-  }
+  ***REMOVED******REMOVED***
+***REMOVED***   
+  ***REMOVED***
 
-  $scope.$watch('chartType', function(newValue, oldValue) {
-    $scope.chartData(true);
-  });
-})
+  $scope.$watch('chartType', function(newValue, oldValue***REMOVED*** {
+    $scope.chartData(true***REMOVED***;
+  ***REMOVED******REMOVED***;
+***REMOVED******REMOVED***
 
-analyzerApp.controller('FileUploadCtrl', function($scope, $cookies) {
+analyzerApp.controller('FileUploadCtrl', function($scope, $cookies***REMOVED*** {
   $scope.name = "Test"
-  $scope.setFiles = function(element) {
-  $scope.$apply(function($scope) {
+  $scope.setFiles = function(element***REMOVED*** {
+  $scope.$apply(function($scope***REMOVED*** {
     $scope.files = element.files[0]
     $scope.progressVisible = false
     $scope.upload_done = false
-    });
-  };
+***REMOVED******REMOVED***;
+  ***REMOVED***;
 
-  $scope.uploadFile = function(cookies) {
-      var fd = new FormData()
-      fd.append("file", $scope.files)
-      fd.append("name", $scope.name)
-      var xhr = new XMLHttpRequest()
-      xhr.upload.addEventListener("progress", uploadProgress, false)
-      xhr.upload.addEventListener("load", uploadComplete, false)
-      xhr.upload.addEventListener("error", uploadFailed, false)
-      xhr.upload.addEventListener("abort", uploadCanceled, false)
-      xhr.open("POST", "http://localhost:8000/api/v0/datasets/")
-      xhr.setRequestHeader("X-CSRFToken", $cookies.csrftoken)
+  $scope.uploadFile = function(cookies***REMOVED*** {
+      var fd = new FormData(***REMOVED***
+      fd.append("file", $scope.files***REMOVED***
+      fd.append("name", $scope.name***REMOVED***
+      var xhr = new XMLHttpRequest(***REMOVED***
+      xhr.upload.addEventListener("progress", uploadProgress, false***REMOVED***
+      xhr.upload.addEventListener("load", uploadComplete, false***REMOVED***
+      xhr.upload.addEventListener("error", uploadFailed, false***REMOVED***
+      xhr.upload.addEventListener("abort", uploadCanceled, false***REMOVED***
+      xhr.open("POST", "http://localhost:8000/api/v0/datasets/"***REMOVED***
+      xhr.setRequestHeader("X-CSRFToken", $cookies.csrftoken***REMOVED***
       $scope.progressVisible = true
-      xhr.send(fd)
-  }
+      xhr.send(fd***REMOVED***
+  ***REMOVED***
 
-  function uploadProgress(evt) {
-      $scope.$apply(function(){
-          if (evt.lengthComputable) {
-              $scope.progress = Math.round(evt.loaded * 100 / evt.total)
-          } else {
+  function uploadProgress(evt***REMOVED*** {
+      $scope.$apply(function(***REMOVED***{
+          if (evt.lengthComputable***REMOVED*** {
+              $scope.progress = Math.round(evt.loaded * 100 / evt.total***REMOVED***
+      ***REMOVED*** else {
               $scope.progress = 'unable to compute'
-          }
-      })
-  }
+      ***REMOVED***
+  ***REMOVED******REMOVED***
+  ***REMOVED***
 
-  function uploadComplete(evt) {
+  function uploadComplete(evt***REMOVED*** {
       /* This event is raised when the server send back a response */
-      $scope.$apply(function() {
+      $scope.$apply(function(***REMOVED*** {
         $scope.upload_done = true;
-      })
-  }
+  ***REMOVED******REMOVED***
+  ***REMOVED***
 
-  function uploadFailed(evt) {
-      alert("There was an error attempting to upload the file.")
-  }
+  function uploadFailed(evt***REMOVED*** {
+      alert("There was an error attempting to upload the file."***REMOVED***
+  ***REMOVED***
 
-  function uploadCanceled(evt) {
-      $scope.$apply(function(){
+  function uploadCanceled(evt***REMOVED*** {
+      $scope.$apply(function(***REMOVED***{
           $scope.progressVisible = false
-      })
-      alert("The upload has been canceled by the user or the browser dropped the connection.")
-  }
-});
+  ***REMOVED******REMOVED***
+      alert("The upload has been canceled by the user or the browser dropped the connection."***REMOVED***
+  ***REMOVED***
+***REMOVED******REMOVED***;
 
-analyzerApp.controller('ApiTokenCtrl', function($scope, $http) {
+analyzerApp.controller('ApiTokenCtrl', function($scope, $http***REMOVED*** {
   var url = 'http://localhost:8000/api/v0/api-token-auth';
-  $scope.getToken = function() {
-    $http({method: 'GET', url: url}).
-      success(function(data, status, headers, config) {
+  $scope.getToken = function(***REMOVED*** {
+    $http({method: 'GET', url: url***REMOVED******REMOVED***.
+      success(function(data, status, headers, config***REMOVED*** {
         $scope.token = data;
-      });
-  }
-});
+  ***REMOVED******REMOVED***;
+  ***REMOVED***
+***REMOVED******REMOVED***;

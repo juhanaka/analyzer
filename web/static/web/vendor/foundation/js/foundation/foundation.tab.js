@@ -1,5 +1,5 @@
 /*jslint unparam: true, browser: true, indent: 2 */
-;(function ($, window, document, undefined) {
+;(function ($, window, document, undefined***REMOVED*** {
   'use strict';
 
   Foundation.libs.tab = {
@@ -9,29 +9,29 @@
 
     settings : {
       active_class: 'active'
-    },
+***REMOVED***,
 
-    init : function (scope, method, options) {
-      this.bindings(method, options);
-    },
+    init : function (scope, method, options***REMOVED*** {
+      this.bindings(method, options***REMOVED***;
+***REMOVED***,
 
-    events : function () {
-      $(this.scope).off('.tab').on('click.fndtn.tab', '[data-tab] > dd > a', function (e) {
-        e.preventDefault();
+    events : function (***REMOVED*** {
+      $(this.scope***REMOVED***.off('.tab'***REMOVED***.on('click.fndtn.tab', '[data-tab] > dd > a', function (e***REMOVED*** {
+        e.preventDefault(***REMOVED***;
 
-        var tab = $(this).parent(),
-            target = $('#' + this.href.split('#')[1]),
-            siblings = tab.siblings(),
-            settings = tab.closest('[data-tab]').data('tab-init');
+        var tab = $(this***REMOVED***.parent(***REMOVED***,
+            target = $('#' + this.href.split('#'***REMOVED***[1]***REMOVED***,
+            siblings = tab.siblings(***REMOVED***,
+            settings = tab.closest('[data-tab]'***REMOVED***.data('tab-init'***REMOVED***;
 
-        tab.addClass(settings.active_class);
-        siblings.removeClass(settings.active_class);
-        target.siblings().removeClass(settings.active_class).end().addClass(settings.active_class);
-      });
-    },
+        tab.addClass(settings.active_class***REMOVED***;
+        siblings.removeClass(settings.active_class***REMOVED***;
+        target.siblings(***REMOVED***.removeClass(settings.active_class***REMOVED***.end(***REMOVED***.addClass(settings.active_class***REMOVED***;
+  ***REMOVED******REMOVED***;
+***REMOVED***,
 
-    off : function () {},
+    off : function (***REMOVED*** {***REMOVED***,
 
-    reflow : function () {}
-  };
-}(jQuery, this, this.document));
+    reflow : function (***REMOVED*** {***REMOVED***
+  ***REMOVED***;
+***REMOVED***(jQuery, this, this.document***REMOVED******REMOVED***;
