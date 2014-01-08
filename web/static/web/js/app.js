@@ -13,9 +13,9 @@ analyzerApp.config(['$routeProvider',
         templateUrl: 'static/web/partials/dataset-template.html',
         controller: 'DatasetCtrl'
   ***REMOVED******REMOVED***.
-      when('/login', {
-        templateUrl: 'static/web/partials/login.html',
-        controller: 'LoginCtrl'
+      when('/api-token', {
+        templateUrl: 'static/web/partials/api_token.html',
+        controller: 'ApiTokenCtrl'
   ***REMOVED******REMOVED***.
       otherwise({
         redirectTo: '/'
@@ -32,8 +32,6 @@ analyzerApp.config(['$httpProvider',
 
 analyzerApp.run(
   function($http, $cookies***REMOVED***{
-    // set the CSRF token here
-    console.log($cookies.csrftoken***REMOVED***
     $http.defaults.headers.common['X-CSRFToken'] = $cookies.csrftoken;
 ***REMOVED******REMOVED***;
 

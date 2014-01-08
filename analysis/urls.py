@@ -3,6 +3,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from analysis import views
 from django.conf.urls import include
 
+#Declare url patterns for the analysis app and direct the incoming requests to correct views.
 urlpatterns = patterns('analysis.views',
     url(r'^linear-regression/$', views.LinearRegression.as_view(***REMOVED***, name='linear_regression'***REMOVED***,
     url(r'^one-sample-ttest/$', views.OneSampleTTest.as_view(***REMOVED***, name='one_sample_ttest'***REMOVED***,

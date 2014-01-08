@@ -6,15 +6,8 @@ import json
 import ast
 import numpy as np
 
-class VariableField(serializers.Field***REMOVED***:
-
-  def to_native(self, obj***REMOVED***:
-    return obj
-
-  def from_native(self, value***REMOVED***:
-    return Variable.objects.get(id=value***REMOVED***
-
-
+#This serializer deserializes the parameters, and fetches the right dataset and variables based on their
+#primary keys.
 class LinearRegressionSerializer(***REMOVED***:
   def __init__(self, data***REMOVED***:
     dataset = data.get('dataset', None***REMOVED***
@@ -39,6 +32,7 @@ class LinearRegressionSerializer(***REMOVED***:
       self.y = None
     self.data = {'x':self.x, 'y': self.y, 'dataset': self.dataset***REMOVED***
 
+  #The is_valid method checks that both variables and the dataset have been found.
   def is_valid(self***REMOVED***:
     if not isinstance(self.dataset, Dataset***REMOVED***:
       return False
@@ -46,6 +40,7 @@ class LinearRegressionSerializer(***REMOVED***:
       return False
     return True
 
+#This serializer deserializes the parameters, and fetches the right dataset and variable.
 class OneSampleTTestSerializer(***REMOVED***:
   def __init__(self, data***REMOVED***:
     dataset = data.get('dataset', None***REMOVED***
@@ -66,6 +61,7 @@ class OneSampleTTestSerializer(***REMOVED***:
 
     self.data = {'dataset': self.dataset, 'variable': self.variable, 'mean': self.mean***REMOVED***
 
+  #Test that the dataset, variable and mean are valid.
   def is_valid(self***REMOVED***:
     if not isinstance(self.dataset, Dataset***REMOVED***:
       return False
@@ -75,6 +71,7 @@ class OneSampleTTestSerializer(***REMOVED***:
       return False
     return True
 
+#Deserialize parameters, fetch the right variables and dataset.
 class TwoSampleTTestSerializer(***REMOVED***:
   def __init__(self, data***REMOVED***:
     dataset = data.get('dataset', None***REMOVED***
@@ -98,6 +95,7 @@ class TwoSampleTTestSerializer(***REMOVED***:
       self.variable_2 = None
     self.data = {'dataset': self.dataset, 'variable_1': self.variable_1, 'variable_2': self.variable_2***REMOVED***
 
+  #Check that the dataset and variables have been found.
   def is_valid(self***REMOVED***:
     if not isinstance(self.dataset, Dataset***REMOVED***:
       return False

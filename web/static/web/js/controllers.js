@@ -36,7 +36,6 @@ analyzerApp.controller('DatasetCtrl', function($scope, $resource, $http***REMOVE
       return null
 ***REMOVED***
     var url = 'http://localhost:8000/analysis/one-sample-ttest/';
-    console.log($scope.ttest_mean***REMOVED***
     var params = {'dataset': $scope.selected_dataset.pk, 'variable': $scope.yVariables[0].id, 'mean': $scope.ttest_mean***REMOVED***
     $http({method: 'GET', url: url, params: params***REMOVED******REMOVED***.
       success(function(data, status, headers, config***REMOVED*** {
@@ -107,7 +106,6 @@ analyzerApp.controller('DatasetCtrl', function($scope, $resource, $http***REMOVE
   ***REMOVED*** else if (variable.datatype == 'date'***REMOVED*** {
         var columnType = 'date'
   ***REMOVED*** else {
-        console.log(variable***REMOVED***;
         columnType = variable.datatype;
   ***REMOVED***
       
@@ -128,7 +126,6 @@ analyzerApp.controller('DatasetCtrl', function($scope, $resource, $http***REMOVE
       data.addRow(row***REMOVED***
 ***REMOVED***
 
-    console.log($scope.chartType***REMOVED***
     var chart = {
       "type" : $scope.chartType,
       "displayed" : true,
@@ -141,7 +138,6 @@ analyzerApp.controller('DatasetCtrl', function($scope, $resource, $http***REMOVE
 ***REMOVED***
 
     if ($scope.regression***REMOVED*** {
-      console.log('adding trendline'***REMOVED***
       chart.options.trendlines = {0: {***REMOVED******REMOVED***
 ***REMOVED***
 
@@ -155,7 +151,6 @@ analyzerApp.controller('DatasetCtrl', function($scope, $resource, $http***REMOVE
   ***REMOVED***
 
   $scope.$watch('chartType', function(newValue, oldValue***REMOVED*** {
-    console.log($scope.chartType***REMOVED***;
     $scope.chartData(true***REMOVED***;
   ***REMOVED******REMOVED***;
 ***REMOVED******REMOVED***
@@ -164,7 +159,6 @@ analyzerApp.controller('FileUploadCtrl', function($scope, $cookies***REMOVED*** 
   $scope.name = "Test"
   $scope.setFiles = function(element***REMOVED*** {
   $scope.$apply(function($scope***REMOVED*** {
-    console.log('files:', element.files[0]***REMOVED***;
     $scope.files = element.files[0]
     $scope.progressVisible = false
     $scope.upload_done = false
@@ -198,7 +192,6 @@ analyzerApp.controller('FileUploadCtrl', function($scope, $cookies***REMOVED*** 
 
   function uploadComplete(evt***REMOVED*** {
       /* This event is raised when the server send back a response */
-      console.log('uploaded'***REMOVED***;
       $scope.$apply(function(***REMOVED*** {
         $scope.upload_done = true;
   ***REMOVED******REMOVED***
@@ -214,4 +207,14 @@ analyzerApp.controller('FileUploadCtrl', function($scope, $cookies***REMOVED*** 
   ***REMOVED******REMOVED***
       alert("The upload has been canceled by the user or the browser dropped the connection."***REMOVED***
   ***REMOVED***
-***REMOVED******REMOVED***
+***REMOVED******REMOVED***;
+
+analyzerApp.controller('ApiTokenCtrl', function($scope, $http***REMOVED*** {
+  var url = 'http://localhost:8000/api/v0/api-token-auth';
+  $scope.getToken = function(***REMOVED*** {
+    $http({method: 'GET', url: url***REMOVED******REMOVED***.
+      success(function(data, status, headers, config***REMOVED*** {
+        $scope.token = data;
+  ***REMOVED******REMOVED***;
+  ***REMOVED***
+***REMOVED******REMOVED***;

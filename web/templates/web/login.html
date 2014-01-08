@@ -1,26 +1,44 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analyzer - Login</title>
+    <link rel="stylesheet" href="static/web/css/stylesheet.css" />
+    <link rel="stylesheet" href="static/web/vendor/foundation/css/foundation.css" />
+    <script src="static/web/vendor/foundation/js/modernizr.js"></script>
+    <script type="text/javascript" src="static/web/vendor/underscore/underscore.min.js"></script>
+    <script src="static/web/vendor/foundation/js/jquery.js"></script>
+  </head>
+  <body>
+    <div class="row top-nav">
+      <nav class="top-bar" data-topbar>
+        <ul class="title-area">
+          <li class="name">
+            <h1><a class="top-bar-li" href="#">Analyzer</a></h1>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="row">
+        <div class="large-4 large-offset-4 columns">
+            <br>
+            <br>
+            <h3>Welcome to the Analyzer App</h3>
+            <h6>Please log in or register as a new user</h6>
+            <br>
+            <form action="login" method="post">
+                {% csrf_token %***REMOVED***
+                <label>Username</label>
+                <input type="text" name="username"/>
+                <label>Password</label>
+                <input type="password" name="password"/>
+                <div>
+                    <input type="submit" value="Log in" class="button"></input>
+                    <a style="position:relative; top:32px; float:right;" href="/register">...or register as a new user.</a>
+                </div>
+            </form>
 
+        </div>
+    </div>
 
-{% block content %***REMOVED***
-
-{% if form.errors %***REMOVED***
-<p>Your username and password didn't match. Please try again.</p>
-{% endif %***REMOVED***
-
-<form method="post" action="{% url 'django.contrib.auth.views.login' %***REMOVED***">
-{% csrf_token %***REMOVED***
-<table>
-<tr>
-    <td>{{ form.username.label_tag ***REMOVED******REMOVED***</td>
-    <td>{{ form.username ***REMOVED******REMOVED***</td>
-</tr>
-<tr>
-    <td>{{ form.password.label_tag ***REMOVED******REMOVED***</td>
-    <td>{{ form.password ***REMOVED******REMOVED***</td>
-</tr>
-</table>
-
-<input type="submit" value="login" />
-<input type="hidden" name="next" value="{{ next ***REMOVED******REMOVED***" />
-</form>
-
-{% endblock %***REMOVED***
+  </body>

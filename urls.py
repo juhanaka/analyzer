@@ -6,15 +6,11 @@ from django.contrib import admin
 admin.autodiscover(***REMOVED***
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'analyzer.views.home', name='home'***REMOVED***,
-    # url(r'^blog/', include('blog.urls'***REMOVED******REMOVED***,
-
     url(r'^admin/', include(admin.site.urls***REMOVED******REMOVED***,
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'***REMOVED******REMOVED***,
     url(r'^api/v0/', include('api.urls', namespace='api'***REMOVED******REMOVED***,
     url(r'^analysis/', include('analysis.urls', namespace='analysis'***REMOVED******REMOVED***,
-    url(r'^web/', include('web.urls', namespace='web'***REMOVED******REMOVED***,
+    url(r'^', include('web.urls', namespace='web'***REMOVED******REMOVED***,
 ***REMOVED***
 
 class UserViewSet(viewsets.ModelViewSet***REMOVED***:
