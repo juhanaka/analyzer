@@ -18,9 +18,9 @@ I. Resource URL Patterns
 ------------------------
 
 /api/v0/datasets/
-/api/v0/datasets/{dataset_id}
-/api/v0/datasets/{dataset_id}/variables/
-/api/v0/datasets/{dataset_id}/variables/{variable_id}
+/api/v0/datasets/{dataset_id***REMOVED***
+/api/v0/datasets/{dataset_id***REMOVED***/variables/
+/api/v0/datasets/{dataset_id***REMOVED***/variables/{variable_id***REMOVED***
 
 II. Authorization
 -----------------
@@ -34,12 +34,12 @@ III. Datasets
 -------------
 All of the data lives in the datasets. A user can have multiple datasets to store related data.
 
-**i) attributes:**
+**i***REMOVED*** attributes:**
 id: integer - read only
 name: string - The name of the dataset.
 owner: string - The user who owns the dataset. - read only
 
-**ii) Create a new dataset:**
+**ii***REMOVED*** Create a new dataset:**
 POST /api/v0/datasets/
 
 name: required
@@ -48,22 +48,22 @@ file: optional - in csv form
 Example request:
 `curl -i -X POST -H 'Authorization: Token 35f79a7a3934a249ea2f1d2bdc5032ad2a0c5e3d’ -F file='@analyzer_test.csv' -F name="mydataset" http://localhost:8000/api/v0/datasets/`
 
-**iii) List all datasets for user**
+**iii***REMOVED*** List all datasets for user**
 GET /api/v0/datasets/
 
-**iv) Retrieve an existing dataset**
-GET /api/v0/datasets/{dataset_id}
+**iv***REMOVED*** Retrieve an existing dataset**
+GET /api/v0/datasets/{dataset_id***REMOVED***
 
 id: required
 
-**v) Update a dataset**
-PUT /api/v0/datasets/{dataset_id}
+**v***REMOVED*** Update a dataset**
+PUT /api/v0/datasets/{dataset_id***REMOVED***
 
 dataset_id: required
 name: optional
 
-**vi) Delete dataset**
-DELETE /api/v0/datasets/{dataset_id}
+**vi***REMOVED*** Delete dataset**
+DELETE /api/v0/datasets/{dataset_id***REMOVED***
 
 id: required
 
@@ -71,7 +71,7 @@ II. Variables
 -------------
 Variables contain metadata and the actual variable values. All variables are assigned to a dataset.
 
-**i) attributes**
+**i***REMOVED*** attributes**
 
 id: integer - read only
 name: string - The name of the variable.
@@ -80,19 +80,19 @@ datatype: string - The type of data that is stored in the variable. Can be strin
 subtype: continuous or discrete
 values: array - The array containing the values of the variable. The primitives inside the array must be the same as the specified datatype.
 
-**ii) List all variables within a dataset**
-GET /api/v0/datasets/{dataset_id}/variables/
+**ii***REMOVED*** List all variables within a dataset**
+GET /api/v0/datasets/{dataset_id***REMOVED***/variables/
 
 dataset: required
 
-**iii) Retrieve an existing variable**
-GET /api/v0/datasets/{dataset_id}/variables/{variable_id}/
+**iii***REMOVED*** Retrieve an existing variable**
+GET /api/v0/datasets/{dataset_id***REMOVED***/variables/{variable_id***REMOVED***/
 
 dataset id: required
 variable id: required
 
-**iv) Update a variable**
-PUT /api/v0/datasets/{dataset_id}/variables/{variable_id}/
+**iv***REMOVED*** Update a variable**
+PUT /api/v0/datasets/{dataset_id***REMOVED***/variables/{variable_id***REMOVED***/
 
 dataset id: required
 variable id: required

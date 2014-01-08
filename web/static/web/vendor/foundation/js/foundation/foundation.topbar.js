@@ -1,4 +1,4 @@
-;(function ($, window, document, undefined) {
+;(function ($, window, document, undefined***REMOVED*** {
   'use strict';
 
   Foundation.libs.topbar = {
@@ -14,367 +14,367 @@
       is_hover: true,
       mobile_show_parent_link: false,
       scrolltop : true // jump to top when sticky nav menu toggle is clicked
-    },
+***REMOVED***,
 
-    init : function (section, method, options) {
-      Foundation.inherit(this, 'addCustomRule register_media throttle');
+    init : function (section, method, options***REMOVED*** {
+      Foundation.inherit(this, 'addCustomRule register_media throttle'***REMOVED***;
       var self = this;
 
-      self.register_media('topbar', 'foundation-mq-topbar');
+      self.register_media('topbar', 'foundation-mq-topbar'***REMOVED***;
 
-      this.bindings(method, options);
+      this.bindings(method, options***REMOVED***;
 
-      $('[data-topbar]', this.scope).each(function () {
-        var topbar = $(this),
-            settings = topbar.data('topbar-init'),
-            section = $('section', this),
-            titlebar = $('> ul', this).first();
+      $('[data-topbar]', this.scope***REMOVED***.each(function (***REMOVED*** {
+        var topbar = $(this***REMOVED***,
+            settings = topbar.data('topbar-init'***REMOVED***,
+            section = $('section', this***REMOVED***,
+            titlebar = $('> ul', this***REMOVED***.first(***REMOVED***;
 
-        topbar.data('index', 0);
+        topbar.data('index', 0***REMOVED***;
 
-        var topbarContainer = topbar.parent();
-        if(topbarContainer.hasClass('fixed') || topbarContainer.hasClass(settings.sticky_class)) {
+        var topbarContainer = topbar.parent(***REMOVED***;
+        if(topbarContainer.hasClass('fixed'***REMOVED*** || topbarContainer.hasClass(settings.sticky_class***REMOVED******REMOVED*** {
           self.settings.sticky_class = settings.sticky_class;
           self.settings.stick_topbar = topbar;
-          topbar.data('height', topbarContainer.outerHeight());
-          topbar.data('stickyoffset', topbarContainer.offset().top);
-        } else {
-          topbar.data('height', topbar.outerHeight());
-        }
+          topbar.data('height', topbarContainer.outerHeight(***REMOVED******REMOVED***;
+          topbar.data('stickyoffset', topbarContainer.offset(***REMOVED***.top***REMOVED***;
+    ***REMOVED*** else {
+          topbar.data('height', topbar.outerHeight(***REMOVED******REMOVED***;
+    ***REMOVED***
 
-        if (!settings.assembled) self.assemble(topbar);
+        if (!settings.assembled***REMOVED*** self.assemble(topbar***REMOVED***;
 
-        if (settings.is_hover) {
-          $('.has-dropdown', topbar).addClass('not-click');
-        } else {
-          $('.has-dropdown', topbar).removeClass('not-click');
-        }
+        if (settings.is_hover***REMOVED*** {
+          $('.has-dropdown', topbar***REMOVED***.addClass('not-click'***REMOVED***;
+    ***REMOVED*** else {
+          $('.has-dropdown', topbar***REMOVED***.removeClass('not-click'***REMOVED***;
+    ***REMOVED***
 
-        // Pad body when sticky (scrolled) or fixed.
-        self.addCustomRule('.f-topbar-fixed { padding-top: ' + topbar.data('height') + 'px }');
+        // Pad body when sticky (scrolled***REMOVED*** or fixed.
+        self.addCustomRule('.f-topbar-fixed { padding-top: ' + topbar.data('height'***REMOVED*** + 'px ***REMOVED***'***REMOVED***;
 
-        if (topbarContainer.hasClass('fixed')) {
-          $('body').addClass('f-topbar-fixed');
-        }
-      });
+        if (topbarContainer.hasClass('fixed'***REMOVED******REMOVED*** {
+          $('body'***REMOVED***.addClass('f-topbar-fixed'***REMOVED***;
+    ***REMOVED***
+  ***REMOVED******REMOVED***;
 
-    },
+***REMOVED***,
 
-    toggle: function (toggleEl) {
+    toggle: function (toggleEl***REMOVED*** {
       var self = this;
 
-      if (toggleEl) {
-        var topbar = $(toggleEl).closest('[data-topbar]');
-      } else {
-        var topbar = $('[data-topbar]');
-      }
+      if (toggleEl***REMOVED*** {
+        var topbar = $(toggleEl***REMOVED***.closest('[data-topbar]'***REMOVED***;
+  ***REMOVED*** else {
+        var topbar = $('[data-topbar]'***REMOVED***;
+  ***REMOVED***
 
-      var settings = topbar.data('topbar-init');
+      var settings = topbar.data('topbar-init'***REMOVED***;
 
-      var section = $('section, .section', topbar);
+      var section = $('section, .section', topbar***REMOVED***;
 
-      if (self.breakpoint()) {
-        if (!self.rtl) {
-          section.css({left: '0%'});
-          $('>.name', section).css({left: '100%'});
-        } else {
-          section.css({right: '0%'});
-          $('>.name', section).css({right: '100%'});
-        }
+      if (self.breakpoint(***REMOVED******REMOVED*** {
+        if (!self.rtl***REMOVED*** {
+          section.css({left: '0%'***REMOVED******REMOVED***;
+          $('>.name', section***REMOVED***.css({left: '100%'***REMOVED******REMOVED***;
+    ***REMOVED*** else {
+          section.css({right: '0%'***REMOVED******REMOVED***;
+          $('>.name', section***REMOVED***.css({right: '100%'***REMOVED******REMOVED***;
+    ***REMOVED***
 
-        $('li.moved', section).removeClass('moved');
-        topbar.data('index', 0);
+        $('li.moved', section***REMOVED***.removeClass('moved'***REMOVED***;
+        topbar.data('index', 0***REMOVED***;
 
         topbar
-          .toggleClass('expanded')
-          .css('height', '');
-      }
+          .toggleClass('expanded'***REMOVED***
+          .css('height', ''***REMOVED***;
+  ***REMOVED***
 
-      if (settings.scrolltop) {
-        if (!topbar.hasClass('expanded')) {
-          if (topbar.hasClass('fixed')) {
-            topbar.parent().addClass('fixed');
-            topbar.removeClass('fixed');
-            $('body').addClass('f-topbar-fixed');
-          }
-        } else if (topbar.parent().hasClass('fixed')) {
-          if (settings.scrolltop) {
-            topbar.parent().removeClass('fixed');
-            topbar.addClass('fixed');
-            $('body').removeClass('f-topbar-fixed');
+      if (settings.scrolltop***REMOVED*** {
+        if (!topbar.hasClass('expanded'***REMOVED******REMOVED*** {
+          if (topbar.hasClass('fixed'***REMOVED******REMOVED*** {
+            topbar.parent(***REMOVED***.addClass('fixed'***REMOVED***;
+            topbar.removeClass('fixed'***REMOVED***;
+            $('body'***REMOVED***.addClass('f-topbar-fixed'***REMOVED***;
+      ***REMOVED***
+    ***REMOVED*** else if (topbar.parent(***REMOVED***.hasClass('fixed'***REMOVED******REMOVED*** {
+          if (settings.scrolltop***REMOVED*** {
+            topbar.parent(***REMOVED***.removeClass('fixed'***REMOVED***;
+            topbar.addClass('fixed'***REMOVED***;
+            $('body'***REMOVED***.removeClass('f-topbar-fixed'***REMOVED***;
 
-            window.scrollTo(0,0);
-          } else {
-              topbar.parent().removeClass('expanded');
-          }
-        }
-      } else {
-        if(topbar.parent().hasClass(self.settings.sticky_class)) {
-          topbar.parent().addClass('fixed');
-        }
+            window.scrollTo(0,0***REMOVED***;
+      ***REMOVED*** else {
+              topbar.parent(***REMOVED***.removeClass('expanded'***REMOVED***;
+      ***REMOVED***
+    ***REMOVED***
+  ***REMOVED*** else {
+        if(topbar.parent(***REMOVED***.hasClass(self.settings.sticky_class***REMOVED******REMOVED*** {
+          topbar.parent(***REMOVED***.addClass('fixed'***REMOVED***;
+    ***REMOVED***
 
-        if(topbar.parent().hasClass('fixed')) {
-          if (!topbar.hasClass('expanded')) {
-            topbar.removeClass('fixed');
-            topbar.parent().removeClass('expanded');
-            self.update_sticky_positioning();
-          } else {
-            topbar.addClass('fixed');
-            topbar.parent().addClass('expanded');
-          }
-        }
-      }
-    },
+        if(topbar.parent(***REMOVED***.hasClass('fixed'***REMOVED******REMOVED*** {
+          if (!topbar.hasClass('expanded'***REMOVED******REMOVED*** {
+            topbar.removeClass('fixed'***REMOVED***;
+            topbar.parent(***REMOVED***.removeClass('expanded'***REMOVED***;
+            self.update_sticky_positioning(***REMOVED***;
+      ***REMOVED*** else {
+            topbar.addClass('fixed'***REMOVED***;
+            topbar.parent(***REMOVED***.addClass('expanded'***REMOVED***;
+      ***REMOVED***
+    ***REMOVED***
+  ***REMOVED***
+***REMOVED***,
 
     timer : null,
 
-    events : function (bar) {
+    events : function (bar***REMOVED*** {
       var self = this;
-      $(this.scope)
-        .off('.topbar')
-        .on('click.fndtn.topbar', '[data-topbar] .toggle-topbar', function (e) {
-          e.preventDefault();
-          self.toggle(this);
-        })
-        .on('click.fndtn.topbar', '[data-topbar] li.has-dropdown', function (e) {
-          var li = $(this),
-              target = $(e.target),
-              topbar = li.closest('[data-topbar]'),
-              settings = topbar.data('topbar-init');
+      $(this.scope***REMOVED***
+        .off('.topbar'***REMOVED***
+        .on('click.fndtn.topbar', '[data-topbar] .toggle-topbar', function (e***REMOVED*** {
+          e.preventDefault(***REMOVED***;
+          self.toggle(this***REMOVED***;
+    ***REMOVED******REMOVED***
+        .on('click.fndtn.topbar', '[data-topbar] li.has-dropdown', function (e***REMOVED*** {
+          var li = $(this***REMOVED***,
+              target = $(e.target***REMOVED***,
+              topbar = li.closest('[data-topbar]'***REMOVED***,
+              settings = topbar.data('topbar-init'***REMOVED***;
 
-          if(target.data('revealId')) {
-            self.toggle();
+          if(target.data('revealId'***REMOVED******REMOVED*** {
+            self.toggle(***REMOVED***;
             return;
-          }
+      ***REMOVED***
 
-          if (self.breakpoint()) return;
-          if (settings.is_hover && !Modernizr.touch) return;
+          if (self.breakpoint(***REMOVED******REMOVED*** return;
+          if (settings.is_hover && !Modernizr.touch***REMOVED*** return;
 
-          e.stopImmediatePropagation();
+          e.stopImmediatePropagation(***REMOVED***;
 
-          if (li.hasClass('hover')) {
+          if (li.hasClass('hover'***REMOVED******REMOVED*** {
             li
-              .removeClass('hover')
-              .find('li')
-              .removeClass('hover');
+              .removeClass('hover'***REMOVED***
+              .find('li'***REMOVED***
+              .removeClass('hover'***REMOVED***;
 
-            li.parents('li.hover')
-              .removeClass('hover');
-          } else {
-            li.addClass('hover');
+            li.parents('li.hover'***REMOVED***
+              .removeClass('hover'***REMOVED***;
+      ***REMOVED*** else {
+            li.addClass('hover'***REMOVED***;
 
-            if (target[0].nodeName === 'A' && target.parent().hasClass('has-dropdown')) {
-              e.preventDefault();
-            }
-          }
-        })
-        .on('click.fndtn.topbar', '[data-topbar] .has-dropdown>a', function (e) {
-          if (self.breakpoint()) {
+            if (target[0].nodeName === 'A' && target.parent(***REMOVED***.hasClass('has-dropdown'***REMOVED******REMOVED*** {
+              e.preventDefault(***REMOVED***;
+        ***REMOVED***
+      ***REMOVED***
+    ***REMOVED******REMOVED***
+        .on('click.fndtn.topbar', '[data-topbar] .has-dropdown>a', function (e***REMOVED*** {
+          if (self.breakpoint(***REMOVED******REMOVED*** {
 
-            e.preventDefault();
+            e.preventDefault(***REMOVED***;
 
-            var $this = $(this),
-                topbar = $this.closest('[data-topbar]'),
-                section = topbar.find('section, .section'),
-                dropdownHeight = $this.next('.dropdown').outerHeight(),
-                $selectedLi = $this.closest('li');
+            var $this = $(this***REMOVED***,
+                topbar = $this.closest('[data-topbar]'***REMOVED***,
+                section = topbar.find('section, .section'***REMOVED***,
+                dropdownHeight = $this.next('.dropdown'***REMOVED***.outerHeight(***REMOVED***,
+                $selectedLi = $this.closest('li'***REMOVED***;
 
-            topbar.data('index', topbar.data('index') + 1);
-            $selectedLi.addClass('moved');
+            topbar.data('index', topbar.data('index'***REMOVED*** + 1***REMOVED***;
+            $selectedLi.addClass('moved'***REMOVED***;
 
-            if (!self.rtl) {
-              section.css({left: -(100 * topbar.data('index')) + '%'});
-              section.find('>.name').css({left: 100 * topbar.data('index') + '%'});
-            } else {
-              section.css({right: -(100 * topbar.data('index')) + '%'});
-              section.find('>.name').css({right: 100 * topbar.data('index') + '%'});
-            }
+            if (!self.rtl***REMOVED*** {
+              section.css({left: -(100 * topbar.data('index'***REMOVED******REMOVED*** + '%'***REMOVED******REMOVED***;
+              section.find('>.name'***REMOVED***.css({left: 100 * topbar.data('index'***REMOVED*** + '%'***REMOVED******REMOVED***;
+        ***REMOVED*** else {
+              section.css({right: -(100 * topbar.data('index'***REMOVED******REMOVED*** + '%'***REMOVED******REMOVED***;
+              section.find('>.name'***REMOVED***.css({right: 100 * topbar.data('index'***REMOVED*** + '%'***REMOVED******REMOVED***;
+        ***REMOVED***
 
-            topbar.css('height', $this.siblings('ul').outerHeight(true) + topbar.data('height'));
-          }
-        });
+            topbar.css('height', $this.siblings('ul'***REMOVED***.outerHeight(true***REMOVED*** + topbar.data('height'***REMOVED******REMOVED***;
+      ***REMOVED***
+    ***REMOVED******REMOVED***;
       
-      $(window).off('.topbar').on('resize.fndtn.topbar', self.throttle(function () {
-        self.resize.call(self);
-      }, 50)).trigger('resize');
+      $(window***REMOVED***.off('.topbar'***REMOVED***.on('resize.fndtn.topbar', self.throttle(function (***REMOVED*** {
+        self.resize.call(self***REMOVED***;
+  ***REMOVED***, 50***REMOVED******REMOVED***.trigger('resize'***REMOVED***;
 
-      $('body').off('.topbar').on('click.fndtn.topbar touchstart.fndtn.topbar', function (e) {
-        var parent = $(e.target).closest('li').closest('li.hover');
+      $('body'***REMOVED***.off('.topbar'***REMOVED***.on('click.fndtn.topbar touchstart.fndtn.topbar', function (e***REMOVED*** {
+        var parent = $(e.target***REMOVED***.closest('li'***REMOVED***.closest('li.hover'***REMOVED***;
 
-        if (parent.length > 0) {
+        if (parent.length > 0***REMOVED*** {
           return;
-        }
+    ***REMOVED***
 
-        $('[data-topbar] li').removeClass('hover');
-      });
+        $('[data-topbar] li'***REMOVED***.removeClass('hover'***REMOVED***;
+  ***REMOVED******REMOVED***;
 
       // Go up a level on Click
-      $(this.scope).on('click.fndtn.topbar', '[data-topbar] .has-dropdown .back', function (e) {
-        e.preventDefault();
+      $(this.scope***REMOVED***.on('click.fndtn.topbar', '[data-topbar] .has-dropdown .back', function (e***REMOVED*** {
+        e.preventDefault(***REMOVED***;
 
-        var $this = $(this),
-            topbar = $this.closest('[data-topbar]'),
-            section = topbar.find('section, .section'),
-            settings = topbar.data('topbar-init'),
-            $movedLi = $this.closest('li.moved'),
-            $previousLevelUl = $movedLi.parent();
+        var $this = $(this***REMOVED***,
+            topbar = $this.closest('[data-topbar]'***REMOVED***,
+            section = topbar.find('section, .section'***REMOVED***,
+            settings = topbar.data('topbar-init'***REMOVED***,
+            $movedLi = $this.closest('li.moved'***REMOVED***,
+            $previousLevelUl = $movedLi.parent(***REMOVED***;
 
-        topbar.data('index', topbar.data('index') - 1);
+        topbar.data('index', topbar.data('index'***REMOVED*** - 1***REMOVED***;
 
-        if (!self.rtl) {
-          section.css({left: -(100 * topbar.data('index')) + '%'});
-          section.find('>.name').css({left: 100 * topbar.data('index') + '%'});
-        } else {
-          section.css({right: -(100 * topbar.data('index')) + '%'});
-          section.find('>.name').css({right: 100 * topbar.data('index') + '%'});
-        }
+        if (!self.rtl***REMOVED*** {
+          section.css({left: -(100 * topbar.data('index'***REMOVED******REMOVED*** + '%'***REMOVED******REMOVED***;
+          section.find('>.name'***REMOVED***.css({left: 100 * topbar.data('index'***REMOVED*** + '%'***REMOVED******REMOVED***;
+    ***REMOVED*** else {
+          section.css({right: -(100 * topbar.data('index'***REMOVED******REMOVED*** + '%'***REMOVED******REMOVED***;
+          section.find('>.name'***REMOVED***.css({right: 100 * topbar.data('index'***REMOVED*** + '%'***REMOVED******REMOVED***;
+    ***REMOVED***
 
-        if (topbar.data('index') === 0) {
-          topbar.css('height', '');
-        } else {
-          topbar.css('height', $previousLevelUl.outerHeight(true) + topbar.data('height'));
-        }
+        if (topbar.data('index'***REMOVED*** === 0***REMOVED*** {
+          topbar.css('height', ''***REMOVED***;
+    ***REMOVED*** else {
+          topbar.css('height', $previousLevelUl.outerHeight(true***REMOVED*** + topbar.data('height'***REMOVED******REMOVED***;
+    ***REMOVED***
 
-        setTimeout(function () {
-          $movedLi.removeClass('moved');
-        }, 300);
-      });
-    },
+        setTimeout(function (***REMOVED*** {
+          $movedLi.removeClass('moved'***REMOVED***;
+    ***REMOVED***, 300***REMOVED***;
+  ***REMOVED******REMOVED***;
+***REMOVED***,
 
-    resize : function () {
+    resize : function (***REMOVED*** {
       var self = this;
-      $('[data-topbar]').each(function () {
-        var topbar = $(this),
-            settings = topbar.data('topbar-init');
+      $('[data-topbar]'***REMOVED***.each(function (***REMOVED*** {
+        var topbar = $(this***REMOVED***,
+            settings = topbar.data('topbar-init'***REMOVED***;
 
-        var stickyContainer = topbar.parent('.' + self.settings.sticky_class);
+        var stickyContainer = topbar.parent('.' + self.settings.sticky_class***REMOVED***;
         var stickyOffset;
 
-        if (!self.breakpoint()) {
-          var doToggle = topbar.hasClass('expanded');
+        if (!self.breakpoint(***REMOVED******REMOVED*** {
+          var doToggle = topbar.hasClass('expanded'***REMOVED***;
           topbar
-            .css('height', '')
-            .removeClass('expanded')
-            .find('li')
-            .removeClass('hover');
+            .css('height', ''***REMOVED***
+            .removeClass('expanded'***REMOVED***
+            .find('li'***REMOVED***
+            .removeClass('hover'***REMOVED***;
 
-            if(doToggle) {
-              self.toggle(topbar);
-            }
-        }
+            if(doToggle***REMOVED*** {
+              self.toggle(topbar***REMOVED***;
+        ***REMOVED***
+    ***REMOVED***
 
-        if(stickyContainer.length > 0) {
-          if(stickyContainer.hasClass('fixed')) {
+        if(stickyContainer.length > 0***REMOVED*** {
+          if(stickyContainer.hasClass('fixed'***REMOVED******REMOVED*** {
             // Remove the fixed to allow for correct calculation of the offset.
-            stickyContainer.removeClass('fixed');
+            stickyContainer.removeClass('fixed'***REMOVED***;
 
-            stickyOffset = stickyContainer.offset().top;
-            if($(document.body).hasClass('f-topbar-fixed')) {
-              stickyOffset -= topbar.data('height');
-            }
+            stickyOffset = stickyContainer.offset(***REMOVED***.top;
+            if($(document.body***REMOVED***.hasClass('f-topbar-fixed'***REMOVED******REMOVED*** {
+              stickyOffset -= topbar.data('height'***REMOVED***;
+        ***REMOVED***
 
-            topbar.data('stickyoffset', stickyOffset);
-            stickyContainer.addClass('fixed');
-          } else {
-            stickyOffset = stickyContainer.offset().top;
-            topbar.data('stickyoffset', stickyOffset);
-          }
-        }
+            topbar.data('stickyoffset', stickyOffset***REMOVED***;
+            stickyContainer.addClass('fixed'***REMOVED***;
+      ***REMOVED*** else {
+            stickyOffset = stickyContainer.offset(***REMOVED***.top;
+            topbar.data('stickyoffset', stickyOffset***REMOVED***;
+      ***REMOVED***
+    ***REMOVED***
 
-      });
-    },
+  ***REMOVED******REMOVED***;
+***REMOVED***,
 
-    breakpoint : function () {
-      return !matchMedia(Foundation.media_queries['topbar']).matches;
-    },
+    breakpoint : function (***REMOVED*** {
+      return !matchMedia(Foundation.media_queries['topbar']***REMOVED***.matches;
+***REMOVED***,
 
-    assemble : function (topbar) {
+    assemble : function (topbar***REMOVED*** {
       var self = this,
-          settings = topbar.data('topbar-init'),
-          section = $('section', topbar),
-          titlebar = $('> ul', topbar).first();
+          settings = topbar.data('topbar-init'***REMOVED***,
+          section = $('section', topbar***REMOVED***,
+          titlebar = $('> ul', topbar***REMOVED***.first(***REMOVED***;
 
       // Pull element out of the DOM for manipulation
-      section.detach();
+      section.detach(***REMOVED***;
 
-      $('.has-dropdown>a', section).each(function () {
-        var $link = $(this),
-            $dropdown = $link.siblings('.dropdown'),
-            url = $link.attr('href');
+      $('.has-dropdown>a', section***REMOVED***.each(function (***REMOVED*** {
+        var $link = $(this***REMOVED***,
+            $dropdown = $link.siblings('.dropdown'***REMOVED***,
+            url = $link.attr('href'***REMOVED***;
 
-        if (settings.mobile_show_parent_link && url && url.length > 1) {
-          var $titleLi = $('<li class="title back js-generated"><h5><a href="#"></a></h5></li><li><a class="parent-link js-generated" href="' + url + '">' + $link.text() +'</a></li>');
-        } else {
-          var $titleLi = $('<li class="title back js-generated"><h5><a href="#"></a></h5></li>');
-        }
+        if (settings.mobile_show_parent_link && url && url.length > 1***REMOVED*** {
+          var $titleLi = $('<li class="title back js-generated"><h5><a href="#"></a></h5></li><li><a class="parent-link js-generated" href="' + url + '">' + $link.text(***REMOVED*** +'</a></li>'***REMOVED***;
+    ***REMOVED*** else {
+          var $titleLi = $('<li class="title back js-generated"><h5><a href="#"></a></h5></li>'***REMOVED***;
+    ***REMOVED***
 
         // Copy link to subnav
-        if (settings.custom_back_text == true) {
-          $('h5>a', $titleLi).html(settings.back_text);
-        } else {
-          $('h5>a', $titleLi).html('&laquo; ' + $link.html());
-        }
-        $dropdown.prepend($titleLi);
-      });
+        if (settings.custom_back_text == true***REMOVED*** {
+          $('h5>a', $titleLi***REMOVED***.html(settings.back_text***REMOVED***;
+    ***REMOVED*** else {
+          $('h5>a', $titleLi***REMOVED***.html('&laquo; ' + $link.html(***REMOVED******REMOVED***;
+    ***REMOVED***
+        $dropdown.prepend($titleLi***REMOVED***;
+  ***REMOVED******REMOVED***;
 
       // Put element back in the DOM
-      section.appendTo(topbar);
+      section.appendTo(topbar***REMOVED***;
 
       // check for sticky
-      this.sticky();
+      this.sticky(***REMOVED***;
 
-      this.assembled(topbar);
-    },
+      this.assembled(topbar***REMOVED***;
+***REMOVED***,
 
-    assembled : function (topbar) {
-      topbar.data('topbar-init', $.extend({}, topbar.data('topbar-init'), {assembled: true}));
-    },
+    assembled : function (topbar***REMOVED*** {
+      topbar.data('topbar-init', $.extend({***REMOVED***, topbar.data('topbar-init'***REMOVED***, {assembled: true***REMOVED******REMOVED******REMOVED***;
+***REMOVED***,
 
-    height : function (ul) {
+    height : function (ul***REMOVED*** {
       var total = 0,
           self = this;
 
-      $('> li', ul).each(function () { total += $(this).outerHeight(true); });
+      $('> li', ul***REMOVED***.each(function (***REMOVED*** { total += $(this***REMOVED***.outerHeight(true***REMOVED***; ***REMOVED******REMOVED***;
 
       return total;
-    },
+***REMOVED***,
 
-    sticky : function () {
-      var $window = $(window),
+    sticky : function (***REMOVED*** {
+      var $window = $(window***REMOVED***,
           self = this;
 
-      $(window).on('scroll', function() {
-        self.update_sticky_positioning();
-      });
-    },
+      $(window***REMOVED***.on('scroll', function(***REMOVED*** {
+        self.update_sticky_positioning(***REMOVED***;
+  ***REMOVED******REMOVED***;
+***REMOVED***,
 
-    update_sticky_positioning: function() {
+    update_sticky_positioning: function(***REMOVED*** {
       var klass = '.' + this.settings.sticky_class;
-      var $window = $(window);
+      var $window = $(window***REMOVED***;
 
-      if ($(klass).length > 0) {
-        var distance = this.settings.sticky_topbar.data('stickyoffset');
-        if (!$(klass).hasClass('expanded')) {
-          if ($window.scrollTop() > (distance)) {
-            if (!$(klass).hasClass('fixed')) {
-              $(klass).addClass('fixed');
-              $('body').addClass('f-topbar-fixed');
-            }
-          } else if ($window.scrollTop() <= distance) {
-            if ($(klass).hasClass('fixed')) {
-              $(klass).removeClass('fixed');
-              $('body').removeClass('f-topbar-fixed');
-            }
-          }
-        }
-      }
-    },
+      if ($(klass***REMOVED***.length > 0***REMOVED*** {
+        var distance = this.settings.sticky_topbar.data('stickyoffset'***REMOVED***;
+        if (!$(klass***REMOVED***.hasClass('expanded'***REMOVED******REMOVED*** {
+          if ($window.scrollTop(***REMOVED*** > (distance***REMOVED******REMOVED*** {
+            if (!$(klass***REMOVED***.hasClass('fixed'***REMOVED******REMOVED*** {
+              $(klass***REMOVED***.addClass('fixed'***REMOVED***;
+              $('body'***REMOVED***.addClass('f-topbar-fixed'***REMOVED***;
+        ***REMOVED***
+      ***REMOVED*** else if ($window.scrollTop(***REMOVED*** <= distance***REMOVED*** {
+            if ($(klass***REMOVED***.hasClass('fixed'***REMOVED******REMOVED*** {
+              $(klass***REMOVED***.removeClass('fixed'***REMOVED***;
+              $('body'***REMOVED***.removeClass('f-topbar-fixed'***REMOVED***;
+        ***REMOVED***
+      ***REMOVED***
+    ***REMOVED***
+  ***REMOVED***
+***REMOVED***,
 
-    off : function () {
-      $(this.scope).off('.fndtn.topbar');
-      $(window).off('.fndtn.topbar');
-    },
+    off : function (***REMOVED*** {
+      $(this.scope***REMOVED***.off('.fndtn.topbar'***REMOVED***;
+      $(window***REMOVED***.off('.fndtn.topbar'***REMOVED***;
+***REMOVED***,
 
-    reflow : function () {}
-  };
-}(jQuery, this, this.document));
+    reflow : function (***REMOVED*** {***REMOVED***
+  ***REMOVED***;
+***REMOVED***(jQuery, this, this.document***REMOVED******REMOVED***;

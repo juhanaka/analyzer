@@ -8,97 +8,97 @@ import numpy as np
 
 #This serializer deserializes the parameters, and fetches the right dataset and variables based on their
 #primary keys.
-class LinearRegressionSerializer():
-  def __init__(self, data):
-    dataset = data.get('dataset', None)
-    x = data.get('x', None)
-    y = data.get('y', None)
+class LinearRegressionSerializer(***REMOVED***:
+  def __init__(self, data***REMOVED***:
+    dataset = data.get('dataset', None***REMOVED***
+    x = data.get('x', None***REMOVED***
+    y = data.get('y', None***REMOVED***
 
-    dataset = dataset.encode('utf-8') if dataset else None
-    x = x.encode('utf-8') if x else None
-    y = y.encode('utf-8') if y else None
+    dataset = dataset.encode('utf-8'***REMOVED*** if dataset else None
+    x = x.encode('utf-8'***REMOVED*** if x else None
+    y = y.encode('utf-8'***REMOVED*** if y else None
 
     try:
-      self.dataset = Dataset.objects.get(id=dataset)
+      self.dataset = Dataset.objects.get(id=dataset***REMOVED***
     except Dataset.DoesNotExist:
       self.dataset = None
     try:
-      self.x = Variable.objects.get(dataset__pk=dataset, pk=x)
+      self.x = Variable.objects.get(dataset__pk=dataset, pk=x***REMOVED***
     except Variable.DoesNotExist:
       self.x = None
     try:
-      self.y = Variable.objects.get(dataset__pk=dataset, pk=y)
+      self.y = Variable.objects.get(dataset__pk=dataset, pk=y***REMOVED***
     except Variable.DoesNotExist:
       self.y = None
-    self.data = {'x':self.x, 'y': self.y, 'dataset': self.dataset}
+    self.data = {'x':self.x, 'y': self.y, 'dataset': self.dataset***REMOVED***
 
   #The is_valid method checks that both variables and the dataset have been found.
-  def is_valid(self):
-    if not isinstance(self.dataset, Dataset):
+  def is_valid(self***REMOVED***:
+    if not isinstance(self.dataset, Dataset***REMOVED***:
       return False
-    elif not (isinstance(self.x, Variable) and isinstance(self.y, Variable)):
+    elif not (isinstance(self.x, Variable***REMOVED*** and isinstance(self.y, Variable***REMOVED******REMOVED***:
       return False
     return True
 
 #This serializer deserializes the parameters, and fetches the right dataset and variable.
-class OneSampleTTestSerializer():
-  def __init__(self, data):
-    dataset = data.get('dataset', None)
-    variable = data.get('variable',None)
-    mean = data.get('mean', None)
-    dataset = dataset.encode('utf-8') if dataset else None
-    variable = variable.encode('utf-8') if variable else None
-    self.mean = np.float64(mean.encode('utf-8')) if mean else None
+class OneSampleTTestSerializer(***REMOVED***:
+  def __init__(self, data***REMOVED***:
+    dataset = data.get('dataset', None***REMOVED***
+    variable = data.get('variable',None***REMOVED***
+    mean = data.get('mean', None***REMOVED***
+    dataset = dataset.encode('utf-8'***REMOVED*** if dataset else None
+    variable = variable.encode('utf-8'***REMOVED*** if variable else None
+    self.mean = np.float64(mean.encode('utf-8'***REMOVED******REMOVED*** if mean else None
 
     try:
-      self.dataset = Dataset.objects.get(id=dataset)
+      self.dataset = Dataset.objects.get(id=dataset***REMOVED***
     except Dataset.DoesNotExist:
       self.dataset = None
     try:
-      self.variable = Variable.objects.get(dataset__pk=dataset, pk=variable)
+      self.variable = Variable.objects.get(dataset__pk=dataset, pk=variable***REMOVED***
     except Variable.DoesNotExist:
       self.variable = None
 
-    self.data = {'dataset': self.dataset, 'variable': self.variable, 'mean': self.mean}
+    self.data = {'dataset': self.dataset, 'variable': self.variable, 'mean': self.mean***REMOVED***
 
   #Test that the dataset, variable and mean are valid.
-  def is_valid(self):
-    if not isinstance(self.dataset, Dataset):
+  def is_valid(self***REMOVED***:
+    if not isinstance(self.dataset, Dataset***REMOVED***:
       return False
-    if not isinstance(self.variable, Variable):
+    if not isinstance(self.variable, Variable***REMOVED***:
       return False
     if not self.mean:
       return False
     return True
 
 #Deserialize parameters, fetch the right variables and dataset.
-class TwoSampleTTestSerializer():
-  def __init__(self, data):
-    dataset = data.get('dataset', None)
-    variable_1 = data.get('variable_1',None)
-    variable_2 = data.get('variable_2',None)
-    dataset = dataset.encode('utf-8') if dataset else None
-    variable_1 = variable_1.encode('utf-8') if variable_1 else None
-    variable_2 = variable_2.encode('utf-8') if variable_2 else None
+class TwoSampleTTestSerializer(***REMOVED***:
+  def __init__(self, data***REMOVED***:
+    dataset = data.get('dataset', None***REMOVED***
+    variable_1 = data.get('variable_1',None***REMOVED***
+    variable_2 = data.get('variable_2',None***REMOVED***
+    dataset = dataset.encode('utf-8'***REMOVED*** if dataset else None
+    variable_1 = variable_1.encode('utf-8'***REMOVED*** if variable_1 else None
+    variable_2 = variable_2.encode('utf-8'***REMOVED*** if variable_2 else None
 
     try:
-      self.dataset = Dataset.objects.get(id=dataset)
+      self.dataset = Dataset.objects.get(id=dataset***REMOVED***
     except Dataset.DoesNotExist:
       self.dataset = None
     try:
-      self.variable_1 = Variable.objects.get(dataset__pk=dataset, pk=variable_1)
+      self.variable_1 = Variable.objects.get(dataset__pk=dataset, pk=variable_1***REMOVED***
     except Variable.DoesNotExist:
       self.variable_1 = None
     try:
-      self.variable_2 = Variable.objects.get(dataset__pk=dataset, pk=variable_2)
+      self.variable_2 = Variable.objects.get(dataset__pk=dataset, pk=variable_2***REMOVED***
     except Variable.DoesNotExist:
       self.variable_2 = None
-    self.data = {'dataset': self.dataset, 'variable_1': self.variable_1, 'variable_2': self.variable_2}
+    self.data = {'dataset': self.dataset, 'variable_1': self.variable_1, 'variable_2': self.variable_2***REMOVED***
 
   #Check that the dataset and variables have been found.
-  def is_valid(self):
-    if not isinstance(self.dataset, Dataset):
+  def is_valid(self***REMOVED***:
+    if not isinstance(self.dataset, Dataset***REMOVED***:
       return False
-    if not isinstance(self.variable_1, Variable) and isinstance(self.variable_2, Variable):
+    if not isinstance(self.variable_1, Variable***REMOVED*** and isinstance(self.variable_2, Variable***REMOVED***:
       return False
     return True
