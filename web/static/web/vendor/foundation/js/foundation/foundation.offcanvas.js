@@ -1,4 +1,4 @@
-;(function ($, window, document, undefined***REMOVED*** {
+;(function ($, window, document, undefined) {
   'use strict';
 
   Foundation.libs.offcanvas = {
@@ -6,32 +6,32 @@
 
     version : '5.0.0',
 
-    settings : {***REMOVED***,
+    settings : {},
 
-    init : function (scope, method, options***REMOVED*** {
-      this.events(***REMOVED***;
-***REMOVED***,
+    init : function (scope, method, options) {
+      this.events();
+    },
 
-    events : function (***REMOVED*** {
-      $(this.scope***REMOVED***.off('.offcanvas'***REMOVED***
-        .on('click.fndtn.offcanvas', '.left-off-canvas-toggle', function (e***REMOVED*** {
-          e.preventDefault(***REMOVED***;
-          $(this***REMOVED***.closest('.off-canvas-wrap'***REMOVED***.toggleClass('move-right'***REMOVED***;
-    ***REMOVED******REMOVED***
-        .on('click.fndtn.offcanvas', '.exit-off-canvas', function (e***REMOVED*** {
-          e.preventDefault(***REMOVED***;
-          $(".off-canvas-wrap"***REMOVED***.removeClass("move-right"***REMOVED***;
-    ***REMOVED******REMOVED***
-        .on('click.fndtn.offcanvas', '.right-off-canvas-toggle', function (e***REMOVED*** {
-          e.preventDefault(***REMOVED***;
-          $(this***REMOVED***.closest(".off-canvas-wrap"***REMOVED***.toggleClass("move-left"***REMOVED***;
-    ***REMOVED******REMOVED***
-        .on('click.fndtn.offcanvas', '.exit-off-canvas', function (e***REMOVED*** {
-          e.preventDefault(***REMOVED***;
-          $(".off-canvas-wrap"***REMOVED***.removeClass("move-left"***REMOVED***;
-    ***REMOVED******REMOVED***;
-***REMOVED***,
+    events : function () {
+      $(this.scope).off('.offcanvas')
+        .on('click.fndtn.offcanvas', '.left-off-canvas-toggle', function (e) {
+          e.preventDefault();
+          $(this).closest('.off-canvas-wrap').toggleClass('move-right');
+        })
+        .on('click.fndtn.offcanvas', '.exit-off-canvas', function (e) {
+          e.preventDefault();
+          $(".off-canvas-wrap").removeClass("move-right");
+        })
+        .on('click.fndtn.offcanvas', '.right-off-canvas-toggle', function (e) {
+          e.preventDefault();
+          $(this).closest(".off-canvas-wrap").toggleClass("move-left");
+        })
+        .on('click.fndtn.offcanvas', '.exit-off-canvas', function (e) {
+          e.preventDefault();
+          $(".off-canvas-wrap").removeClass("move-left");
+        });
+    },
 
-    reflow : function (***REMOVED*** {***REMOVED***
-  ***REMOVED***;
-***REMOVED***(jQuery, this, this.document***REMOVED******REMOVED***;
+    reflow : function () {}
+  };
+}(jQuery, this, this.document));

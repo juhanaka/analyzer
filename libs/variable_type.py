@@ -1,7 +1,7 @@
 import pandas
 
-def return_type_and_format_values(values***REMOVED***:
-  dtype = values.dtype.__str__(***REMOVED***
+def return_type_and_format_values(values):
+  dtype = values.dtype.__str__()
   datatype = None
   formatted = None
   if dtype[:3] == 'int':
@@ -11,15 +11,15 @@ def return_type_and_format_values(values***REMOVED***:
   elif dtype[:4] == 'bool':
     datatype = 'boolean'
   elif dtype == 'object':
-    datetime = pandas.to_datetime(values***REMOVED***
-    if datetime.dtype.__str__(***REMOVED***[:8] == 'datetime':
+    datetime = pandas.to_datetime(values)
+    if datetime.dtype.__str__()[:8] == 'datetime':
       formatted = datetime
       datatype = 'date'
     elif datetime.dtype == 'object':
-      datatype = 'string' if all(type(value***REMOVED*** == str for value in values***REMOVED*** else None
-  return (datatype, formatted***REMOVED***
+      datatype = 'string' if all(type(value) == str for value in values) else None
+  return (datatype, formatted)
 
-def return_default_subtype(datatype***REMOVED***:
+def return_default_subtype(datatype):
   if datatype == 'integer':
     return 'discrete'
   elif datatype == 'float':
