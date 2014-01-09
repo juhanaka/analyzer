@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ysy*mh_$@t6=8bd8fje3@6t%xgzp+)p)5ai*)tz_n0u2krvip6'
+SECRET_KEY = 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -63,12 +63,12 @@ WSGI_APPLICATION = 'wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ['AWSEBRDSDatabase'],
-        'USER': os.environ['ebroot'],
-        'PASSWORD': os.environ['UgtF4urR'],
-        'HOST': os.environ['aa1fjoozel38zzj.cjvkeybabioo.us-west-2.rds.amazonaws.com'],
-        'PORT': os.environ['3306'],
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'analyzer',
+        'USER': 'juhanakangaspunta',
+        'PASSWORD': ,
+        'HOST': '127.0.0.1',
+        'PORT': '5432'
     }
 }
 
