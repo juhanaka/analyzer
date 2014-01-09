@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analyzer - Login</title>
+    <link rel="stylesheet" href="static/web/css/stylesheet.css" />
+    <link rel="stylesheet" href="static/web/vendor/foundation/css/foundation.css" />
+    <script src="static/web/vendor/foundation/js/modernizr.js"></script>
+    <script type="text/javascript" src="static/web/vendor/underscore/underscore.min.js"></script>
+    <script src="static/web/vendor/foundation/js/jquery.js"></script>
+  </head>
+  <body>
+    <div class="row top-nav">
+      <nav class="top-bar" data-topbar>
+        <ul class="title-area">
+          <li class="name">
+            <h1><a class="top-bar-li" href="#">Analyzer</a></h1>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="row">
+        <div class="large-4 large-offset-4 columns">
+            <br>
+            <br>
+            <h3>Welcome to the Analyzer App</h3>
+            <h6>Please enter the information below to register</h6>
+            <br>
+            <form action="register" method="post">
+                {% csrf_token %}
+                <label>Username</label>
+                <input type="text" name="username"/>
+                <label>Password</label>
+                <input type="password" name="password"/>
+                <label>Email</label>
+                <input type="text" name="email"/>
+                <div>
+                    <input type="submit" value="Submit" class="button"></input>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+  </body>

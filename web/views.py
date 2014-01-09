@@ -11,6 +11,7 @@ from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from rest_framework import permissions
 from django.http import HttpResponse
+from django.contrib.auth.models import User
 
 class Index(TemplateView):
   authentication_classes = (SessionAuthentication,)
@@ -36,3 +37,19 @@ class Logout(View):
   def get(self, request):
     logout(request)
     return redirect(reverse('web:login'))
+
+class Register(View):
+
+  def get(self, request):
+    return render_to_response('web/register.html', context_instance=RequestContext(request))
+
+  def post(self, request):
+    username = request.POST['username']
+    password = request.POST['password']
+    email = request.POST['email']
+    user = User.objects.create_user(username, email, password)
+    user.save()
+    if user is not None:
+      new_user = authenticate(username=request.POST['username'], password=request.POST['password'])
+      login(request, new_user)
+      return redirect(reverse('web:index'))
