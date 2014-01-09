@@ -64,11 +64,11 @@ TEMPLATE_***REMOVED***
 ***REMOVED***
 ***REMOVED***
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ['RDS_DB_NAME'],
-        'USER': os.environ['RDS_USERNAME'],
-        'PASSWORD': os.environ['RDS_PASSWORD'],
-        'HOST': os.environ['RDS_HOSTNAME'],
-        'PORT': os.environ['RDS_PORT'],
+        'NAME': os.environ['AWSEBRDSDatabase'],
+        'USER': os.environ['ebroot'],
+        'PASSWORD': os.environ['UgtF4urR'],
+        'HOST': os.environ['aa1fjoozel38zzj.cjvkeybabioo.us-west-2.rds.amazonaws.com'],
+        'PORT': os.environ['3306'],
 ***REMOVED***
 ***REMOVED***
 
