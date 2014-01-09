@@ -1,119 +1,119 @@
-***REMOVED***
-***REMOVED***
+"""
+Django settings for analyzer project.
 
-***REMOVED***
-***REMOVED***
+For more information on this file, see
+https://docs.djangoproject.com/en/1.6/topics/settings/
 
-***REMOVED***
-***REMOVED***
-***REMOVED***
+For the full list of settings and their values, see
+https://docs.djangoproject.com/en/1.6/ref/settings/
+"""
 
-***REMOVED***
-***REMOVED***
-***REMOVED***
-
-
-***REMOVED***
-***REMOVED***
-
-***REMOVED***
-***REMOVED***
-
-***REMOVED***
-***REMOVED***
-
-TEMPLATE_***REMOVED***
-
-***REMOVED***
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
-***REMOVED***
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'ysy*mh_$@t6=8bd8fje3@6t%xgzp+)p)5ai*)tz_n0u2krvip6'
 
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
 
-***REMOVED***
+TEMPLATE_DEBUG = True
 
-***REMOVED***
+ALLOWED_HOSTS = []
 
 
-***REMOVED***
-# ***REMOVED***#databases
+# Application definition
 
-***REMOVED***
-***REMOVED***
+INSTALLED_APPS = (
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'api',
+    'analysis',
+    'web',
+)
+
+MIDDLEWARE_CLASSES = (
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'middleware.crossdomainxhr.XsSharing',
+)
+
+ROOT_URLCONF = 'urls'
+
+WSGI_APPLICATION = 'wsgi.application'
+
+
+# Database
+# https://docs.djangoproject.com/en/1.6/ref/settings/#databases
+
+DATABASES = {
+    'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': os.environ['AWSEBRDSDatabase'],
         'USER': os.environ['ebroot'],
         'PASSWORD': os.environ['UgtF4urR'],
         'HOST': os.environ['aa1fjoozel38zzj.cjvkeybabioo.us-west-2.rds.amazonaws.com'],
         'PORT': os.environ['3306'],
-***REMOVED***
-***REMOVED***
+    }
+}
 
-***REMOVED***
-***REMOVED***
+# Internationalization
+# https://docs.djangoproject.com/en/1.6/topics/i18n/
 
-***REMOVED***
+LANGUAGE_CODE = 'en-us'
 
-***REMOVED***
+TIME_ZONE = 'UTC'
 
-***REMOVED***
+USE_I18N = True
 
-***REMOVED***
+USE_L10N = True
 
-***REMOVED***
+USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images***REMOVED***
-***REMOVED***
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-***REMOVED***
+STATIC_URL = '/static/'
 
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
+REST_FRAMEWORK = {
+    # Use hyperlinked styles by default.
+    # Only used if the `serializer_class` attribute is not set on a view.
+    'DEFAULT_MODEL_SERIALIZER_CLASS':
+        'rest_framework.serializers.HyperlinkedModelSerializer',
 
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        #removed the DjangoModelPermissions because produced errors, should check this later
+        #'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
 
-***REMOVED***
-***REMOVED***
-***REMOVED***
-    ***REMOVED***
-***REMOVED***
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}
 
-***REMOVED***
+XS_SHARING_ALLOWED_ORIGINS = "http://127.0.0.1:8000"
 
-***REMOVED***
+XS_SHARING_ALLOWED_METHODS = ['POST','GET','OPTIONS', 'PUT', 'DELETE']
 
-***REMOVED***
+LOGIN_URL = '/login'
 
 

@@ -1,7 +1,7 @@
 <!doctype html>
 
 
-{% load staticfiles %***REMOVED***
+{% load staticfiles %}
 
 <html ng-app="analyzerApp">
   <head>
@@ -27,8 +27,8 @@
 
   </head>
   <body ng-controller="DatasetCtrl">
-    {% csrf_token %***REMOVED***
-    {% verbatim %***REMOVED***
+    {% csrf_token %}
+    {% verbatim %}
     <div class="row top-nav">
       <nav class="top-bar" data-topbar>
         <ul class="title-area">
@@ -44,7 +44,7 @@
               <a href="#">Datasets</a>
               <ul class="dropdown" id="customDropdown">
                 <li ng-repeat="dataset in datasets">
-                  <a href="#" ng-click="selectDataset(dataset***REMOVED***">{{dataset.name***REMOVED******REMOVED***</a>
+                  <a href="#" ng-click="selectDataset(dataset)">{{dataset.name}}</a>
                 </li>
                 <li class="divider"></li>
                 <li><a href="#/upload">Add New</a></li>
@@ -72,8 +72,8 @@
     <script src="static/web/vendor/foundation/js/foundation.min.js"></script>
     <script src="static/web/vendor/foundation/js/foundation/foundation.topbar.js"></script>
     <script>
-      $(document***REMOVED***.foundation(***REMOVED***;
+      $(document).foundation();
     </script>
   </body>
 </html>
-{% endverbatim %***REMOVED***
+{% endverbatim %}

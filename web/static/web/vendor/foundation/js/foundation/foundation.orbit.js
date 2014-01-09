@@ -1,13 +1,13 @@
-;(function ($, window, document, undefined***REMOVED*** {
+;(function ($, window, document, undefined) {
   'use strict';
 
-  var noop = function(***REMOVED*** {***REMOVED***;
+  var noop = function() {};
 
-  var Orbit = function(el, settings***REMOVED*** {
+  var Orbit = function(el, settings) {
     // Don't reinitialize plugin
-    if (el.hasClass(settings.slides_container_class***REMOVED******REMOVED*** {
+    if (el.hasClass(settings.slides_container_class)) {
       return this;
-***REMOVED***
+    }
 
     var self = this,
         container,
@@ -21,356 +21,356 @@
         locked = false,
         adjust_height_after = false;
 
-    slides_container.children(***REMOVED***.first(***REMOVED***.addClass(settings.active_slide_class***REMOVED***;
+    slides_container.children().first().addClass(settings.active_slide_class);
 
-    self.update_slide_number = function(index***REMOVED*** {
-      if (settings.slide_number***REMOVED*** {
-        number_container.find('span:first'***REMOVED***.text(parseInt(index***REMOVED***+1***REMOVED***;
-        number_container.find('span:last'***REMOVED***.text(slides_container.children(***REMOVED***.length***REMOVED***;
-  ***REMOVED***
-      if (settings.bullets***REMOVED*** {
-        bullets_container.children(***REMOVED***.removeClass(settings.bullets_active_class***REMOVED***;
-        $(bullets_container.children(***REMOVED***.get(index***REMOVED******REMOVED***.addClass(settings.bullets_active_class***REMOVED***;
-  ***REMOVED***
-***REMOVED***;
+    self.update_slide_number = function(index) {
+      if (settings.slide_number) {
+        number_container.find('span:first').text(parseInt(index)+1);
+        number_container.find('span:last').text(slides_container.children().length);
+      }
+      if (settings.bullets) {
+        bullets_container.children().removeClass(settings.bullets_active_class);
+        $(bullets_container.children().get(index)).addClass(settings.bullets_active_class);
+      }
+    };
 
-    self.update_active_link = function(index***REMOVED*** {
-      var link = $('a[data-orbit-link="'+slides_container.children(***REMOVED***.eq(index***REMOVED***.attr('data-orbit-slide'***REMOVED***+'"]'***REMOVED***;
-      link.parents('ul'***REMOVED***.find('[data-orbit-link]'***REMOVED***.removeClass(settings.bullets_active_class***REMOVED***;
-      link.addClass(settings.bullets_active_class***REMOVED***;
-***REMOVED***;
+    self.update_active_link = function(index) {
+      var link = $('a[data-orbit-link="'+slides_container.children().eq(index).attr('data-orbit-slide')+'"]');
+      link.parents('ul').find('[data-orbit-link]').removeClass(settings.bullets_active_class);
+      link.addClass(settings.bullets_active_class);
+    };
 
-    self.build_markup = function(***REMOVED*** {
-      slides_container.wrap('<div class="'+settings.container_class+'"></div>'***REMOVED***;
-      container = slides_container.parent(***REMOVED***;
-      slides_container.addClass(settings.slides_container_class***REMOVED***;
+    self.build_markup = function() {
+      slides_container.wrap('<div class="'+settings.container_class+'"></div>');
+      container = slides_container.parent();
+      slides_container.addClass(settings.slides_container_class);
       
-      if (settings.navigation_arrows***REMOVED*** {
-        container.append($('<a href="#"><span></span></a>'***REMOVED***.addClass(settings.prev_class***REMOVED******REMOVED***;
-        container.append($('<a href="#"><span></span></a>'***REMOVED***.addClass(settings.next_class***REMOVED******REMOVED***;
-  ***REMOVED***
+      if (settings.navigation_arrows) {
+        container.append($('<a href="#"><span></span></a>').addClass(settings.prev_class));
+        container.append($('<a href="#"><span></span></a>').addClass(settings.next_class));
+      }
 
-      if (settings.timer***REMOVED*** {
-        timer_container = $('<div>'***REMOVED***.addClass(settings.timer_container_class***REMOVED***;
-        timer_container.append('<span>'***REMOVED***;
-        timer_container.append($('<div>'***REMOVED***.addClass(settings.timer_progress_class***REMOVED******REMOVED***;
-        timer_container.addClass(settings.timer_paused_class***REMOVED***;
-        container.append(timer_container***REMOVED***;
-  ***REMOVED***
+      if (settings.timer) {
+        timer_container = $('<div>').addClass(settings.timer_container_class);
+        timer_container.append('<span>');
+        timer_container.append($('<div>').addClass(settings.timer_progress_class));
+        timer_container.addClass(settings.timer_paused_class);
+        container.append(timer_container);
+      }
 
-      if (settings.slide_number***REMOVED*** {
-        number_container = $('<div>'***REMOVED***.addClass(settings.slide_number_class***REMOVED***;
-        number_container.append('<span></span> ' + settings.slide_number_text + ' <span></span>'***REMOVED***;
-        container.append(number_container***REMOVED***;
-  ***REMOVED***
+      if (settings.slide_number) {
+        number_container = $('<div>').addClass(settings.slide_number_class);
+        number_container.append('<span></span> ' + settings.slide_number_text + ' <span></span>');
+        container.append(number_container);
+      }
 
-      if (settings.bullets***REMOVED*** {
-        bullets_container = $('<ol>'***REMOVED***.addClass(settings.bullets_container_class***REMOVED***;
-        container.append(bullets_container***REMOVED***;
-        bullets_container.wrap('<div class="orbit-bullets-container"></div>'***REMOVED***;
-        slides_container.children(***REMOVED***.each(function(idx, el***REMOVED*** {
-          var bullet = $('<li>'***REMOVED***.attr('data-orbit-slide', idx***REMOVED***;
-          bullets_container.append(bullet***REMOVED***;
-    ***REMOVED******REMOVED***;
-  ***REMOVED***
+      if (settings.bullets) {
+        bullets_container = $('<ol>').addClass(settings.bullets_container_class);
+        container.append(bullets_container);
+        bullets_container.wrap('<div class="orbit-bullets-container"></div>');
+        slides_container.children().each(function(idx, el) {
+          var bullet = $('<li>').attr('data-orbit-slide', idx);
+          bullets_container.append(bullet);
+        });
+      }
 
-      if (settings.stack_on_small***REMOVED*** {
-        container.addClass(settings.stack_on_small_class***REMOVED***;
-  ***REMOVED***
+      if (settings.stack_on_small) {
+        container.addClass(settings.stack_on_small_class);
+      }
 
-      self.update_slide_number(0***REMOVED***;
-      self.update_active_link(0***REMOVED***;
-***REMOVED***;
+      self.update_slide_number(0);
+      self.update_active_link(0);
+    };
 
-    self._goto = function(next_idx, start_timer***REMOVED*** {
-      // if (locked***REMOVED*** {return false;***REMOVED***
-      if (next_idx === idx***REMOVED*** {return false;***REMOVED***
-      if (typeof timer === 'object'***REMOVED*** {timer.restart(***REMOVED***;***REMOVED***
-      var slides = slides_container.children(***REMOVED***;
+    self._goto = function(next_idx, start_timer) {
+      // if (locked) {return false;}
+      if (next_idx === idx) {return false;}
+      if (typeof timer === 'object') {timer.restart();}
+      var slides = slides_container.children();
 
       var dir = 'next';
       locked = true;
-      if (next_idx < idx***REMOVED*** {dir = 'prev';***REMOVED***
-      if (next_idx >= slides.length***REMOVED*** {next_idx = 0;***REMOVED***
-      else if (next_idx < 0***REMOVED*** {next_idx = slides.length - 1;***REMOVED***
+      if (next_idx < idx) {dir = 'prev';}
+      if (next_idx >= slides.length) {next_idx = 0;}
+      else if (next_idx < 0) {next_idx = slides.length - 1;}
       
-      var current = $(slides.get(idx***REMOVED******REMOVED***;
-      var next = $(slides.get(next_idx***REMOVED******REMOVED***;
+      var current = $(slides.get(idx));
+      var next = $(slides.get(next_idx));
 
-      current.css('zIndex', 2***REMOVED***;
-      current.removeClass(settings.active_slide_class***REMOVED***;
-      next.css('zIndex', 4***REMOVED***.addClass(settings.active_slide_class***REMOVED***;
+      current.css('zIndex', 2);
+      current.removeClass(settings.active_slide_class);
+      next.css('zIndex', 4).addClass(settings.active_slide_class);
 
-      slides_container.trigger('before-slide-change.fndtn.orbit'***REMOVED***;
-      settings.before_slide_change(***REMOVED***;
-      self.update_active_link(next_idx***REMOVED***;
+      slides_container.trigger('before-slide-change.fndtn.orbit');
+      settings.before_slide_change();
+      self.update_active_link(next_idx);
       
-      var callback = function(***REMOVED*** {
-        var unlock = function(***REMOVED*** {
+      var callback = function() {
+        var unlock = function() {
           idx = next_idx;
           locked = false;
-          if (start_timer === true***REMOVED*** {timer = self.create_timer(***REMOVED***; timer.start(***REMOVED***;***REMOVED***
-          self.update_slide_number(idx***REMOVED***;
-          slides_container.trigger('after-slide-change.fndtn.orbit',[{slide_number: idx, total_slides: slides.length***REMOVED***]***REMOVED***;
-          settings.after_slide_change(idx, slides.length***REMOVED***;
-    ***REMOVED***;
-        if (slides_container.height(***REMOVED*** != next.height(***REMOVED*** && settings.variable_height***REMOVED*** {
-          slides_container.animate({'height': next.height(***REMOVED******REMOVED***, 250, 'linear', unlock***REMOVED***;
-    ***REMOVED*** else {
-          unlock(***REMOVED***;
-    ***REMOVED***
-  ***REMOVED***;
+          if (start_timer === true) {timer = self.create_timer(); timer.start();}
+          self.update_slide_number(idx);
+          slides_container.trigger('after-slide-change.fndtn.orbit',[{slide_number: idx, total_slides: slides.length}]);
+          settings.after_slide_change(idx, slides.length);
+        };
+        if (slides_container.height() != next.height() && settings.variable_height) {
+          slides_container.animate({'height': next.height()}, 250, 'linear', unlock);
+        } else {
+          unlock();
+        }
+      };
 
-      if (slides.length === 1***REMOVED*** {callback(***REMOVED***; return false;***REMOVED***
+      if (slides.length === 1) {callback(); return false;}
 
-      var start_animation = function(***REMOVED*** {
-        if (dir === 'next'***REMOVED*** {animate.next(current, next, callback***REMOVED***;***REMOVED***
-        if (dir === 'prev'***REMOVED*** {animate.prev(current, next, callback***REMOVED***;***REMOVED***        
-  ***REMOVED***;
+      var start_animation = function() {
+        if (dir === 'next') {animate.next(current, next, callback);}
+        if (dir === 'prev') {animate.prev(current, next, callback);}        
+      };
 
-      if (next.height(***REMOVED*** > slides_container.height(***REMOVED*** && settings.variable_height***REMOVED*** {
-        slides_container.animate({'height': next.height(***REMOVED******REMOVED***, 250, 'linear', start_animation***REMOVED***;
-  ***REMOVED*** else {
-        start_animation(***REMOVED***;
-  ***REMOVED***
-***REMOVED***;
+      if (next.height() > slides_container.height() && settings.variable_height) {
+        slides_container.animate({'height': next.height()}, 250, 'linear', start_animation);
+      } else {
+        start_animation();
+      }
+    };
     
-    self.next = function(e***REMOVED*** {
-      e.stopImmediatePropagation(***REMOVED***;
-      e.preventDefault(***REMOVED***;
-      self._goto(idx + 1***REMOVED***;
-***REMOVED***;
+    self.next = function(e) {
+      e.stopImmediatePropagation();
+      e.preventDefault();
+      self._goto(idx + 1);
+    };
     
-    self.prev = function(e***REMOVED*** {
-      e.stopImmediatePropagation(***REMOVED***;
-      e.preventDefault(***REMOVED***;
-      self._goto(idx - 1***REMOVED***;
-***REMOVED***;
+    self.prev = function(e) {
+      e.stopImmediatePropagation();
+      e.preventDefault();
+      self._goto(idx - 1);
+    };
 
-    self.link_custom = function(e***REMOVED*** {
-      e.preventDefault(***REMOVED***;
-      var link = $(this***REMOVED***.attr('data-orbit-link'***REMOVED***;
-      if ((typeof link === 'string'***REMOVED*** && (link = $.trim(link***REMOVED******REMOVED*** != ""***REMOVED*** {
-        var slide = container.find('[data-orbit-slide='+link+']'***REMOVED***;
-        if (slide.index(***REMOVED*** != -1***REMOVED*** {self._goto(slide.index(***REMOVED******REMOVED***;***REMOVED***
-  ***REMOVED***
-***REMOVED***;
+    self.link_custom = function(e) {
+      e.preventDefault();
+      var link = $(this).attr('data-orbit-link');
+      if ((typeof link === 'string') && (link = $.trim(link)) != "") {
+        var slide = container.find('[data-orbit-slide='+link+']');
+        if (slide.index() != -1) {self._goto(slide.index());}
+      }
+    };
 
-    self.link_bullet = function(e***REMOVED*** {
-      var index = $(this***REMOVED***.attr('data-orbit-slide'***REMOVED***;
-      if ((typeof index === 'string'***REMOVED*** && (index = $.trim(index***REMOVED******REMOVED*** != ""***REMOVED*** {
-        self._goto(parseInt(index***REMOVED******REMOVED***;
-  ***REMOVED***
-***REMOVED***
+    self.link_bullet = function(e) {
+      var index = $(this).attr('data-orbit-slide');
+      if ((typeof index === 'string') && (index = $.trim(index)) != "") {
+        self._goto(parseInt(index));
+      }
+    }
 
-    self.timer_callback = function(***REMOVED*** {
-      self._goto(idx + 1, true***REMOVED***;
-***REMOVED***
+    self.timer_callback = function() {
+      self._goto(idx + 1, true);
+    }
     
-    self.compute_dimensions = function(***REMOVED*** {
-      var current = $(slides_container.children(***REMOVED***.get(idx***REMOVED******REMOVED***;
-      var h = current.height(***REMOVED***;
-      if (!settings.variable_height***REMOVED*** {
-        slides_container.children(***REMOVED***.each(function(***REMOVED***{
-          if ($(this***REMOVED***.height(***REMOVED*** > h***REMOVED*** { h = $(this***REMOVED***.height(***REMOVED***; ***REMOVED***
-    ***REMOVED******REMOVED***;
-  ***REMOVED***
-      slides_container.height(h***REMOVED***;
-***REMOVED***;
+    self.compute_dimensions = function() {
+      var current = $(slides_container.children().get(idx));
+      var h = current.height();
+      if (!settings.variable_height) {
+        slides_container.children().each(function(){
+          if ($(this).height() > h) { h = $(this).height(); }
+        });
+      }
+      slides_container.height(h);
+    };
 
-    self.create_timer = function(***REMOVED*** {
+    self.create_timer = function() {
       var t = new Timer(
-        container.find('.'+settings.timer_container_class***REMOVED***, 
+        container.find('.'+settings.timer_container_class), 
         settings, 
         self.timer_callback
-      ***REMOVED***;
+      );
       return t;
-***REMOVED***;
+    };
 
-    self.stop_timer = function(***REMOVED*** {
-      if (typeof timer === 'object'***REMOVED*** timer.stop(***REMOVED***;
-***REMOVED***;
+    self.stop_timer = function() {
+      if (typeof timer === 'object') timer.stop();
+    };
 
-    self.toggle_timer = function(***REMOVED*** {
-      var t = container.find('.'+settings.timer_container_class***REMOVED***;
-      if (t.hasClass(settings.timer_paused_class***REMOVED******REMOVED*** {
-        if (typeof timer === 'undefined'***REMOVED*** {timer = self.create_timer(***REMOVED***;***REMOVED***
-        timer.start(***REMOVED***;     
-  ***REMOVED***
+    self.toggle_timer = function() {
+      var t = container.find('.'+settings.timer_container_class);
+      if (t.hasClass(settings.timer_paused_class)) {
+        if (typeof timer === 'undefined') {timer = self.create_timer();}
+        timer.start();     
+      }
       else {
-        if (typeof timer === 'object'***REMOVED*** {timer.stop(***REMOVED***;***REMOVED***
-  ***REMOVED***
-***REMOVED***;
+        if (typeof timer === 'object') {timer.stop();}
+      }
+    };
 
-    self.init = function(***REMOVED*** {
-      self.build_markup(***REMOVED***;
-      if (settings.timer***REMOVED*** {timer = self.create_timer(***REMOVED***; timer.start(***REMOVED***;***REMOVED***
-      animate = new FadeAnimation(settings, slides_container***REMOVED***;
-      if (settings.animation === 'slide'***REMOVED*** 
-        animate = new SlideAnimation(settings, slides_container***REMOVED***;        
-      container.on('click', '.'+settings.next_class, self.next***REMOVED***;
-      container.on('click', '.'+settings.prev_class, self.prev***REMOVED***;
-      container.on('click', '[data-orbit-slide]', self.link_bullet***REMOVED***;
-      container.on('click', self.toggle_timer***REMOVED***;
-      if (settings.swipe***REMOVED*** {
-        container.on('touchstart.fndtn.orbit', function(e***REMOVED*** {
-          if (!e.touches***REMOVED*** {e = e.originalEvent;***REMOVED***
+    self.init = function() {
+      self.build_markup();
+      if (settings.timer) {timer = self.create_timer(); timer.start();}
+      animate = new FadeAnimation(settings, slides_container);
+      if (settings.animation === 'slide') 
+        animate = new SlideAnimation(settings, slides_container);        
+      container.on('click', '.'+settings.next_class, self.next);
+      container.on('click', '.'+settings.prev_class, self.prev);
+      container.on('click', '[data-orbit-slide]', self.link_bullet);
+      container.on('click', self.toggle_timer);
+      if (settings.swipe) {
+        container.on('touchstart.fndtn.orbit', function(e) {
+          if (!e.touches) {e = e.originalEvent;}
           var data = {
             start_page_x: e.touches[0].pageX,
             start_page_y: e.touches[0].pageY,
-            start_time: (new Date(***REMOVED******REMOVED***.getTime(***REMOVED***,
+            start_time: (new Date()).getTime(),
             delta_x: 0,
             is_scrolling: undefined
-      ***REMOVED***;
-          container.data('swipe-transition', data***REMOVED***;
-          e.stopPropagation(***REMOVED***;
-    ***REMOVED******REMOVED***
-        .on('touchmove.fndtn.orbit', function(e***REMOVED*** {
-          if (!e.touches***REMOVED*** { e = e.originalEvent; ***REMOVED***
+          };
+          container.data('swipe-transition', data);
+          e.stopPropagation();
+        })
+        .on('touchmove.fndtn.orbit', function(e) {
+          if (!e.touches) { e = e.originalEvent; }
           // Ignore pinch/zoom events
-          if(e.touches.length > 1 || e.scale && e.scale !== 1***REMOVED*** return;
+          if(e.touches.length > 1 || e.scale && e.scale !== 1) return;
 
-          var data = container.data('swipe-transition'***REMOVED***;
-          if (typeof data === 'undefined'***REMOVED*** {data = {***REMOVED***;***REMOVED***
+          var data = container.data('swipe-transition');
+          if (typeof data === 'undefined') {data = {};}
 
           data.delta_x = e.touches[0].pageX - data.start_page_x;
 
-          if ( typeof data.is_scrolling === 'undefined'***REMOVED*** {
-            data.is_scrolling = !!( data.is_scrolling || Math.abs(data.delta_x***REMOVED*** < Math.abs(e.touches[0].pageY - data.start_page_y***REMOVED*** ***REMOVED***;
-      ***REMOVED***
+          if ( typeof data.is_scrolling === 'undefined') {
+            data.is_scrolling = !!( data.is_scrolling || Math.abs(data.delta_x) < Math.abs(e.touches[0].pageY - data.start_page_y) );
+          }
 
-          if (!data.is_scrolling && !data.active***REMOVED*** {
-            e.preventDefault(***REMOVED***;
-            var direction = (data.delta_x < 0***REMOVED*** ? (idx+1***REMOVED*** : (idx-1***REMOVED***;
+          if (!data.is_scrolling && !data.active) {
+            e.preventDefault();
+            var direction = (data.delta_x < 0) ? (idx+1) : (idx-1);
             data.active = true;
-            self._goto(direction***REMOVED***;
-      ***REMOVED***
-    ***REMOVED******REMOVED***
-        .on('touchend.fndtn.orbit', function(e***REMOVED*** {
-          container.data('swipe-transition', {***REMOVED******REMOVED***;
-          e.stopPropagation(***REMOVED***;
-    ***REMOVED******REMOVED***
-  ***REMOVED***
-      container.on('mouseenter.fndtn.orbit', function(e***REMOVED*** {
-        if (settings.timer && settings.pause_on_hover***REMOVED*** {
-          self.stop_timer(***REMOVED***;
-    ***REMOVED***
-  ***REMOVED******REMOVED***
-      .on('mouseleave.fndtn.orbit', function(e***REMOVED*** {
-        if (settings.timer && settings.resume_on_mouseout***REMOVED*** {
-          timer.start(***REMOVED***;
-    ***REMOVED***
-  ***REMOVED******REMOVED***;
+            self._goto(direction);
+          }
+        })
+        .on('touchend.fndtn.orbit', function(e) {
+          container.data('swipe-transition', {});
+          e.stopPropagation();
+        })
+      }
+      container.on('mouseenter.fndtn.orbit', function(e) {
+        if (settings.timer && settings.pause_on_hover) {
+          self.stop_timer();
+        }
+      })
+      .on('mouseleave.fndtn.orbit', function(e) {
+        if (settings.timer && settings.resume_on_mouseout) {
+          timer.start();
+        }
+      });
       
-      $(document***REMOVED***.on('click', '[data-orbit-link]', self.link_custom***REMOVED***;
-      $(window***REMOVED***.on('resize', self.compute_dimensions***REMOVED***;
-      $(window***REMOVED***.on('load', self.compute_dimensions***REMOVED***;
-      $(window***REMOVED***.on('load', function(***REMOVED***{
-        container.prev('.preloader'***REMOVED***.css('display', 'none'***REMOVED***;
-  ***REMOVED******REMOVED***;
-      slides_container.trigger('ready.fndtn.orbit'***REMOVED***;
-***REMOVED***;
+      $(document).on('click', '[data-orbit-link]', self.link_custom);
+      $(window).on('resize', self.compute_dimensions);
+      $(window).on('load', self.compute_dimensions);
+      $(window).on('load', function(){
+        container.prev('.preloader').css('display', 'none');
+      });
+      slides_container.trigger('ready.fndtn.orbit');
+    };
 
-    self.init(***REMOVED***;
-  ***REMOVED***;
+    self.init();
+  };
 
-  var Timer = function(el, settings, callback***REMOVED*** {
+  var Timer = function(el, settings, callback) {
     var self = this,
         duration = settings.timer_speed,
-        progress = el.find('.'+settings.timer_progress_class***REMOVED***,
+        progress = el.find('.'+settings.timer_progress_class),
         start, 
         timeout,
         left = -1;
 
-    this.update_progress = function(w***REMOVED*** {
-      var new_progress = progress.clone(***REMOVED***;
-      new_progress.attr('style', ''***REMOVED***;
-      new_progress.css('width', w+'%'***REMOVED***;
-      progress.replaceWith(new_progress***REMOVED***;
+    this.update_progress = function(w) {
+      var new_progress = progress.clone();
+      new_progress.attr('style', '');
+      new_progress.css('width', w+'%');
+      progress.replaceWith(new_progress);
       progress = new_progress;
-***REMOVED***;
+    };
 
-    this.restart = function(***REMOVED*** {
-      clearTimeout(timeout***REMOVED***;
-      el.addClass(settings.timer_paused_class***REMOVED***;
+    this.restart = function() {
+      clearTimeout(timeout);
+      el.addClass(settings.timer_paused_class);
       left = -1;
-      self.update_progress(0***REMOVED***;
-***REMOVED***;
+      self.update_progress(0);
+    };
 
-    this.start = function(***REMOVED*** {
-      if (!el.hasClass(settings.timer_paused_class***REMOVED******REMOVED*** {return true;***REMOVED***
-      left = (left === -1***REMOVED*** ? duration : left;
-      el.removeClass(settings.timer_paused_class***REMOVED***;
-      start = new Date(***REMOVED***.getTime(***REMOVED***;
-      progress.animate({'width': '100%'***REMOVED***, left, 'linear'***REMOVED***;
-      timeout = setTimeout(function(***REMOVED*** {
-        self.restart(***REMOVED***;
-        callback(***REMOVED***;
-  ***REMOVED***, left***REMOVED***;
-      el.trigger('timer-started.fndtn.orbit'***REMOVED***
-***REMOVED***;
+    this.start = function() {
+      if (!el.hasClass(settings.timer_paused_class)) {return true;}
+      left = (left === -1) ? duration : left;
+      el.removeClass(settings.timer_paused_class);
+      start = new Date().getTime();
+      progress.animate({'width': '100%'}, left, 'linear');
+      timeout = setTimeout(function() {
+        self.restart();
+        callback();
+      }, left);
+      el.trigger('timer-started.fndtn.orbit')
+    };
 
-    this.stop = function(***REMOVED*** {
-      if (el.hasClass(settings.timer_paused_class***REMOVED******REMOVED*** {return true;***REMOVED***
-      clearTimeout(timeout***REMOVED***;
-      el.addClass(settings.timer_paused_class***REMOVED***;
-      var end = new Date(***REMOVED***.getTime(***REMOVED***;
-      left = left - (end - start***REMOVED***;
-      var w = 100 - ((left / duration***REMOVED*** * 100***REMOVED***;
-      self.update_progress(w***REMOVED***;
-      el.trigger('timer-stopped.fndtn.orbit'***REMOVED***;
-***REMOVED***;
-  ***REMOVED***;
+    this.stop = function() {
+      if (el.hasClass(settings.timer_paused_class)) {return true;}
+      clearTimeout(timeout);
+      el.addClass(settings.timer_paused_class);
+      var end = new Date().getTime();
+      left = left - (end - start);
+      var w = 100 - ((left / duration) * 100);
+      self.update_progress(w);
+      el.trigger('timer-stopped.fndtn.orbit');
+    };
+  };
   
-  var SlideAnimation = function(settings, container***REMOVED*** {
+  var SlideAnimation = function(settings, container) {
     var duration = settings.animation_speed;
-    var is_rtl = ($('html[dir=rtl]'***REMOVED***.length === 1***REMOVED***;
+    var is_rtl = ($('html[dir=rtl]').length === 1);
     var margin = is_rtl ? 'marginRight' : 'marginLeft';
-    var animMargin = {***REMOVED***;
+    var animMargin = {};
     animMargin[margin] = '0%';
 
-    this.next = function(current, next, callback***REMOVED*** {
-      current.animate({marginLeft:'-100%'***REMOVED***, duration***REMOVED***;
-      next.animate(animMargin, duration, function(***REMOVED*** {
-        current.css(margin, '100%'***REMOVED***;
-        callback(***REMOVED***;
-  ***REMOVED******REMOVED***;
-***REMOVED***;
+    this.next = function(current, next, callback) {
+      current.animate({marginLeft:'-100%'}, duration);
+      next.animate(animMargin, duration, function() {
+        current.css(margin, '100%');
+        callback();
+      });
+    };
 
-    this.prev = function(current, prev, callback***REMOVED*** {
-      current.animate({marginLeft:'100%'***REMOVED***, duration***REMOVED***;
-      prev.css(margin, '-100%'***REMOVED***;
-      prev.animate(animMargin, duration, function(***REMOVED*** {
-        current.css(margin, '100%'***REMOVED***;
-        callback(***REMOVED***;
-  ***REMOVED******REMOVED***;
-***REMOVED***;
-  ***REMOVED***;
+    this.prev = function(current, prev, callback) {
+      current.animate({marginLeft:'100%'}, duration);
+      prev.css(margin, '-100%');
+      prev.animate(animMargin, duration, function() {
+        current.css(margin, '100%');
+        callback();
+      });
+    };
+  };
 
-  var FadeAnimation = function(settings, container***REMOVED*** {
+  var FadeAnimation = function(settings, container) {
     var duration = settings.animation_speed;
-    var is_rtl = ($('html[dir=rtl]'***REMOVED***.length === 1***REMOVED***;
+    var is_rtl = ($('html[dir=rtl]').length === 1);
     var margin = is_rtl ? 'marginRight' : 'marginLeft';
 
-    this.next = function(current, next, callback***REMOVED*** {
-      next.css({'margin':'0%', 'opacity':'0.01'***REMOVED******REMOVED***;
-      next.animate({'opacity':'1'***REMOVED***, duration, 'linear', function(***REMOVED*** {
-        current.css('margin', '100%'***REMOVED***;
-        callback(***REMOVED***;
-  ***REMOVED******REMOVED***;
-***REMOVED***;
+    this.next = function(current, next, callback) {
+      next.css({'margin':'0%', 'opacity':'0.01'});
+      next.animate({'opacity':'1'}, duration, 'linear', function() {
+        current.css('margin', '100%');
+        callback();
+      });
+    };
 
-    this.prev = function(current, prev, callback***REMOVED*** {
-      prev.css({'margin':'0%', 'opacity':'0.01'***REMOVED******REMOVED***;
-      prev.animate({'opacity':'1'***REMOVED***, duration, 'linear', function(***REMOVED*** {
-        current.css('margin', '100%'***REMOVED***;
-        callback(***REMOVED***;
-  ***REMOVED******REMOVED***;
-***REMOVED***;
-  ***REMOVED***;
+    this.prev = function(current, prev, callback) {
+      prev.css({'margin':'0%', 'opacity':'0.01'});
+      prev.animate({'opacity':'1'}, duration, 'linear', function() {
+        current.css('margin', '100%');
+        callback();
+      });
+    };
+  };
 
 
-  Foundation.libs = Foundation.libs || {***REMOVED***;
+  Foundation.libs = Foundation.libs || {};
 
   Foundation.libs.orbit = {
     name: 'orbit',
@@ -407,28 +407,28 @@
       swipe: true,
       before_slide_change: noop,
       after_slide_change: noop
-***REMOVED***,
+    },
 
-    init: function (scope, method, options***REMOVED*** {
+    init: function (scope, method, options) {
       var self = this;
 
-      if (typeof method === 'object'***REMOVED*** {
-        $.extend(true, self.settings, method***REMOVED***;
-  ***REMOVED***
+      if (typeof method === 'object') {
+        $.extend(true, self.settings, method);
+      }
 
-      if ($(scope***REMOVED***.is('[data-orbit]'***REMOVED******REMOVED*** {
-        var $el = $(scope***REMOVED***;
-        var opts = self.data_options($el***REMOVED***;
-        new Orbit($el, $.extend({***REMOVED***,self.settings, opts***REMOVED******REMOVED***;
-  ***REMOVED***
+      if ($(scope).is('[data-orbit]')) {
+        var $el = $(scope);
+        var opts = self.data_options($el);
+        new Orbit($el, $.extend({},self.settings, opts));
+      }
 
-      $('[data-orbit]', scope***REMOVED***.each(function(idx, el***REMOVED*** {
-        var $el = $(el***REMOVED***;
-        var opts = self.data_options($el***REMOVED***;
-        new Orbit($el, $.extend({***REMOVED***,self.settings, opts***REMOVED******REMOVED***;
-  ***REMOVED******REMOVED***;
-***REMOVED***
-  ***REMOVED***;
+      $('[data-orbit]', scope).each(function(idx, el) {
+        var $el = $(el);
+        var opts = self.data_options($el);
+        new Orbit($el, $.extend({},self.settings, opts));
+      });
+    }
+  };
 
     
-***REMOVED***(jQuery, this, this.document***REMOVED******REMOVED***;
+}(jQuery, this, this.document));
