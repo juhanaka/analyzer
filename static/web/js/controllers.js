@@ -197,6 +197,7 @@ analyzerApp.controller('FileUploadCtrl', function($scope, $cookies) {
   }
 
   function uploadFailed(evt) {
+      console.log(evt);
       alert("There was an error attempting to upload the file.")
   }
 
