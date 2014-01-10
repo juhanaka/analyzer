@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/1.6/howto/deployment/wsgi/
 
 import os
 import sys
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "analyzer.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "analyzer.settings.production_settings")
 
 path = '/home/ubuntu'
 path2 = 'home/ubuntu/analyzer'
