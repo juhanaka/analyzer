@@ -152,6 +152,10 @@ analyzerApp.controller('DatasetCtrl', function($scope, $resource, $http) {
   $scope.$watch('chartType', function(newValue, oldValue) {
     $scope.chartData(true);
   });
+
+  $scope.reload = function() {
+    $scope.datasets = Dataset.query();
+  }
 })
 
 analyzerApp.controller('FileUploadCtrl', function($scope, $cookies) {

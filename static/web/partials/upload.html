@@ -2,6 +2,10 @@
   <div class="large-4 large-offset-4 column">
     <h3>Upload CSV File</h3>
     <hr>
+    <div class="panel callout radius">
+      <h5>Important!</h5>
+      <p>CSV file with top row as header row and commas as separating characters.</p>
+    </div>
     <label for="fileToUpload">Select a File to Upload</label>
     <input type="file" ng-model-instant id="fileToUpload" onchange="angular.element(this).scope().setFiles(this)" />
     <br />
@@ -19,9 +23,9 @@
             <div class="uploaded" ng-style="{'width': progress+'%'}"></div>
         </div>
     </div>
-    <div ng-show="upload_done">
+    <div ng-show="upload_done" ng-conroller="DatasetCtrl">
       <p>Upload done!</p>
-      <a href="#/" class="button">Return</a>
+      <a href="/" ng-click="reload()" class="button">Return</a>
     </div>
   </div>
 </div>
