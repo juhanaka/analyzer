@@ -1,0 +1,219 @@
+<div class="row">
+  <div class="large-3 columns side-nav-container">
+    <h3 class="top-header">Variables</h3>
+    <hr>
+    <ul class="side-nav">
+      <li class="panel" x-lvl-draggable='true' ng-repeat="variable in variables"><p id="{{variable.pk}}">{{variable.name}}</p></li>
+    </ul>
+  </div>
+  <div class="large-9 columns">
+    <h3 class="top-header">{{selected_dataset.name || "No Dataset Selected"}}</h3>
+    <hr>
+
+    <dl class="sub-nav">
+      <dd ng-class="{active: view == 'plot'}" ng-click="view='plot'"><a>Plot</a></dd>
+      <dd ng-class="{active: view == 'linreg'}" ng-click="view='linreg'; changeChartType('ScatterChart')"><a>Linear Regression</a></dd>
+      <dd ng-class="{active: view == 'ttest'}" ng-click="view='ttest'"><a>T-test</a></dd>
+      <dd ng-class="{active: view == 'ttest_2'}" ng-click="view='ttest_2'"><a>Two Sample T-test</a></dd>
+    </dl>
+
+    <div ng-switch on="view">
+      <div class="row" ng-switch-when="plot">
+        <div class="large-12 columns">
+          <div ng-if="chartShowable()" google-chart chart="chart" style="{{chart.cssStyle}}"></div>
+          <form name="changeChart">
+            <label>Chart type</label>
+            <input type="radio" ng-model="$parent.chartType" value="LineChart" id="LineChart"> <label for="LineChart">Line chart</label>
+            <input type="radio" ng-model="$parent.chartType" value="ColumnChart" id="ColumnChart"><label for="LineChart">Column chart</label>
+            <input type="radio" ng-model="$parent.chartType" value="ScatterChart" id="ScatterChart"><label for="ScatterChart">Scatter chart</label>
+            <input type="radio" ng-model="$parent.chartType" value="AreaChart" id="AreaChart"><label for="AreaChart">Area chart</label>
+            <input type="radio" ng-model="$parent.chartType" value="Histogram" id="Histogram"><label for="Histogram">Histogram</label>
+          </form>
+
+          <h5>Y-Variables</h5>
+            <div id="y-variables" x-lvl-drop-target='true' x-on-drop='dropped(dragEl, dropEl)' class="panel drop-destination">
+              <div ng-if="yVariables.length < 1">Drag Variables Here</div>
+              <div ng-if="yVariables.length >= 1" class="button drag-drop-button" ng-repeat="variable in yVariables" ng-click="removePlotVariableY(variable)">{{variable.name}}
+              </div>
+            </div>
+          <h5>X-Variables</h5>
+            <div id="x-variables" x-lvl-drop-target='true' x-on-drop='dropped(dragEl, dropEl)' class="panel drop-destination">
+              <div ng-if="xVariables.length < 1">Drag Variables Here</div>
+              <div ng-if="xVariables.length >= 1" class="button drag-drop-button" ng-repeat="variable in xVariables" ng-click="removePlotVariableX(variable)">{{variable.name}}</div>
+            </div>
+
+        </div>
+      </div>
+      
+      <div class="row" ng-switch-when="linreg">
+        <div class="large-12 columns">
+          <button class="button" ng-click="calculateRegression()">Calculate Regression</button>
+          <div ng-if="chartShowable()" google-chart chart="chart" style="{{chart.cssStyle}}"></div>
+
+          <table ng-show="regression">
+            <thead>
+              <tr>
+                <th>Statistics</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Slope</td><td>{{regression.slope | number:3}}</td></tr>
+              <tr><td>Intercept</td><td>{{regression.intercept | number:3}}</td></tr>
+              <tr><td>R-squared</td><td>{{regression.r_squared | number:3}}</td></tr>
+              <tr><td>P-value</td><td>{{regression.p_value | number:3}}</td></tr>
+              <tr><td>Standard Error</td><td>{{regression.stderr | number:3}}</td></tr>
+            </tbody>
+          </table>
+          <h5>Response Variable</h5>
+            <div id="y-variables" x-lvl-drop-target='true' x-on-drop='dropped(dragEl, dropEl)' class="panel drop-destination">
+              <div ng-if="yVariables.length < 1">Drag Variables Here</div>
+              <div ng-if="yVariables.length >= 1" class="button drag-drop-button" ng-repeat="variable in yVariables" ng-click="removePlotVariableY(variable)">{{variable.name}}
+              </div>
+            </div>
+
+          <h5>Explanatory Variable</h5>
+            <div id="x-variables" x-lvl-drop-target='true' x-on-drop='dropped(dragEl, dropEl)' class="panel drop-destination">
+              <div ng-if="xVariables.length < 1">Drag Variables Here</div>
+              <div ng-if="xVariables.length >= 1" class="button drag-drop-button" ng-repeat="variable in xVariables" ng-click="removePlotVariableX(variable)">{{variable.name}}</div>
+            </div>
+        </div>
+
+      </div>
+
+      <div class="row" ng-switch-when="ttest">
+        <div class="large-12 columns">
+          <div class="row">
+              <div class="large-5 columns">
+                <div class="panel" id="explanation_panel">
+                  <h5>One sample t-test for mean</h5>
+                  <p>This test evaluates whether or not the test variable has a certain mean based on the sample.</p>
+                  <p>Please insert the mean and test variable below</p>
+                </div>
+              </div>
+          </div>
+          <br>
+          <div class="row collapse">
+            <div class="large-4 columns">
+              <input type="text" placeholder="Insert test mean here" ng-model="$parent.ttest_mean">
+            </div>
+            <div class="large-1 columns" style="float: left;">
+              <a class="button postfix" ng-click="calculateTTest()">Calculate</a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-6 columns" ng-show="ttest">
+              <table>
+                <h5>Shapiro-Wilks test for normality</h5>
+                <thead>
+                  <tr>
+                    <th>Statistic</th>
+                    <th>Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>W</td><td>{{ttest.shapiro_result.W | number:3}}</td></tr>
+                  <tr><td>P-value</td><td>{{ttest.shapiro_result.p_value | number:3}}</td></tr>
+                  <tr><td>Sample size</td><td>{{ttest.shapiro_result.sample_size | number:0}}</td></tr>
+                  <tr><td>Interpretation</td><td>{{ttest.shapiro_result.interpretation}}</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="large-6 columns" ng-show="ttest.shapiro_result.accept_null">
+              <table>
+                <h5>T-test for mean</h5>
+                <thead>
+                  <tr>
+                    <th>Statistic</th>
+                    <th>Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>T-value</td><td>{{ttest.t_value | number:3}}</td></tr>
+                  <tr><td>P-value</td><td>{{ttest.p_value | number:3}}</td></tr>
+                  <tr><td>Sample size</td><td>{{ttest.sample_size | number:0}}</td></tr>
+                  <tr><td>Interpretation</td><td>{{ttest.interpretation}}</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <h5>Test variable</h5>
+            <div id="y-variables" x-lvl-drop-target='true' x-on-drop='dropped(dragEl, dropEl)' class="panel drop-destination">
+              <div ng-if="yVariables.length < 1">Drag Variables Here</div>
+              <div ng-if="yVariables.length >= 1" class="button drag-drop-button" ng-repeat="variable in yVariables" ng-click="removePlotVariableY(variable)">{{variable.name}}
+              </div>
+            </div>
+        </div>
+
+      </div>
+
+      <div class="row" ng-switch-when="ttest_2">
+        <div class="large-12 columns">
+          <div class="row">
+              <div class="large-5 columns">
+                <div class="panel" id="explanation_panel">
+                  <h5>Two sample t-test for mean</h5>
+                  <p>This test evaluates whether or not the the two test variables have identical means.</p>
+                  <p>Please drag the test variables below</p>
+                </div>
+              </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="large-6 columns" ng-show="ttest_2">
+              <table>
+                <h5>Shapiro-Wilks test for normality</h5>
+                <thead>
+                  <tr>
+                    <th>Statistic</th>
+                    <th>Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>W</td><td>{{ttest.shapiro_result.W | number:3}}</td></tr>
+                  <tr><td>P-value</td><td>{{ttest.shapiro_result.p_value | number:3}}</td></tr>
+                  <tr><td>Sample size</td><td>{{ttest.shapiro_result.sample_size | number:0}}</td></tr>
+                  <tr><td>Interpretation</td><td>{{ttest.shapiro_result.interpretation}}</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="large-6 columns" ng-show="ttest_2.shapiro_result_1.accept_null">
+              <table>
+                <h5>T-test for mean</h5>
+                <thead>
+                  <tr>
+                    <th>Statistic</th>
+                    <th>Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>T-value</td><td>{{ttest.t_value | number:3}}</td></tr>
+                  <tr><td>P-value</td><td>{{ttest.p_value | number:3}}</td></tr>
+                  <tr><td>Sample size</td><td>{{ttest.sample_size | number:0}}</td></tr>
+                  <tr><td>Interpretation</td><td>{{ttest.interpretation}}</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <h5>Test Variable 1</h5>
+            <div id="y-variables" x-lvl-drop-target='true' x-on-drop='dropped(dragEl, dropEl)' class="panel drop-destination">
+              <div ng-if="yVariables.length < 1">Drag Variables Here</div>
+              <div ng-if="yVariables.length >= 1" class="button drag-drop-button" ng-repeat="variable in yVariables" ng-click="removePlotVariableY(variable)">{{variable.name}}
+              </div>
+            </div>
+
+          <h5>Test Variable 2</h5>
+            <div id="x-variables" x-lvl-drop-target='true' x-on-drop='dropped(dragEl, dropEl)' class="panel drop-destination">
+              <div ng-if="xVariables.length < 1">Drag Variables Here</div>
+              <div ng-if="xVariables.length >= 1" class="button drag-drop-button" ng-repeat="variable in xVariables" ng-click="removePlotVariableX(variable)">{{variable.name}}</div>
+            </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+</div>
