@@ -36,3 +36,20 @@ class Logout(View):
   def get(self, request):
     logout(request)
     return redirect(reverse('web:login'))
+
+
+class Register(View):
+
+  def get(self, request):
+    return render_to_response('web/register.html', context_instance=RequestContext(request))
+
+  def post(self, request):
+    username = request.POST['username']
+    password = request.POST['password']
+    email = request.POST['email']
+    user = User.objects.create_user(username=username, password=password)
+    user.save()
+    if user is not None:
+      new_user = authenticate(username=username, password=password)
+      login(request, new_user)
+      return redirect(reverse('web:index'))
