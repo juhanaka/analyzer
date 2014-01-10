@@ -1,7 +1,7 @@
 
 google.load("visualization", "1", {packages:["corechart"]});
 
-analyzerApp.controller('DatasetCtrl', function($scope, $resource, $http) {
+analyzerApp.controller('DatasetCtrl', function($scope, $resource, $http, $route) {
   var Dataset = $resource('http://localhost:8000/api/v0/datasets/:dataset_id', {dataset_id:'@dataset_id'})
   var Variable = $resource('http://localhost:8000/api/v0/datasets/:dataset_id/variables/:variable_id',
     {dataset_id: '@dataset_id', variable_id:'@variable_id'})
@@ -153,6 +153,10 @@ analyzerApp.controller('DatasetCtrl', function($scope, $resource, $http) {
   $scope.$watch('chartType', function(newValue, oldValue) {
     $scope.chartData(true);
   });
+
+  $scope.reload = function() {
+    $scope.datasets = Dataset.query();
+  }
 })
 
 analyzerApp.controller('FileUploadCtrl', function($scope, $cookies) {

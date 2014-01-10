@@ -17,6 +17,9 @@ analyzerApp.config(['$routeProvider',
         templateUrl: 'static/web/partials/api_token.html',
         controller: 'ApiTokenCtrl'
       }).
+      when('/api-docs', {
+        templateUrl: 'static/web/partials/api_docs.html',
+      }).
       otherwise({
         redirectTo: '/'
       });
