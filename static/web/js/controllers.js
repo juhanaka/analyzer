@@ -1,8 +1,8 @@
 google.load("visualization", "1", {packages:["corechart"]});
 
 analyzerApp.controller('DatasetCtrl', function($scope, $resource, $http) {
-  var Dataset = $resource('http://ec2-54-201-213-15.us-west-2.compute.amazonaws.com:80/api/v0/datasets/:dataset_id', {dataset_id:'@dataset_id'})
-  var Variable = $resource('http://ec2-54-201-213-15.us-west-2.compute.amazonaws.com:80/api/v0/datasets/:dataset_id/variables/:variable_id',
+  var Dataset = $resource('http://www.kangaspunta.com:80/api/v0/datasets/:dataset_id', {dataset_id:'@dataset_id'})
+  var Variable = $resource('http://www.kangaspunta.com:80/api/v0/datasets/:dataset_id/variables/:variable_id',
     {dataset_id: '@dataset_id', variable_id:'@variable_id'})
   $scope.view = 'plot';
   $scope.datasets = Dataset.query();
@@ -18,7 +18,7 @@ analyzerApp.controller('DatasetCtrl', function($scope, $resource, $http) {
       alert('No support for multivariate regression. Please select one explanatory variable and one response variable.')
       return null
     }
-    var url = 'http://ec2-54-201-213-15.us-west-2.compute.amazonaws.com:80/analysis/linear-regression/';
+    var url = 'http://www.kangaspunta.com:80/analysis/linear-regression/';
     var params = {'dataset': $scope.selected_dataset.pk, 'x': $scope.xVariables[0].id, 'y':$scope.yVariables[0].id};
 
     $http({method: 'GET', url: url, params: params}).
@@ -34,7 +34,7 @@ analyzerApp.controller('DatasetCtrl', function($scope, $resource, $http) {
       alert('Please insert only one variable.')
       return null
     }
-    var url = 'http://ec2-54-201-213-15.us-west-2.compute.amazonaws.com:80/analysis/one-sample-ttest/';
+    var url = 'http://www.kangaspunta.com:80/analysis/one-sample-ttest/';
     var params = {'dataset': $scope.selected_dataset.pk, 'variable': $scope.yVariables[0].id, 'mean': $scope.ttest_mean}
     $http({method: 'GET', url: url, params: params}).
       success(function(data, status, headers, config) {
@@ -177,7 +177,7 @@ analyzerApp.controller('FileUploadCtrl', function($scope, $cookies) {
       xhr.upload.addEventListener("load", uploadComplete, false)
       xhr.upload.addEventListener("error", uploadFailed, false)
       xhr.upload.addEventListener("abort", uploadCanceled, false)
-      xhr.open("POST", "http://ec2-54-201-213-15.us-west-2.compute.amazonaws.com:80/api/v0/datasets/")
+      xhr.open("POST", "http://www.kangaspunta.com:80/api/v0/datasets/")
       xhr.setRequestHeader("X-CSRFToken", $cookies.csrftoken)
       $scope.progressVisible = true
       xhr.send(fd)
@@ -214,7 +214,7 @@ analyzerApp.controller('FileUploadCtrl', function($scope, $cookies) {
 });
 
 analyzerApp.controller('ApiTokenCtrl', function($scope, $http) {
-  var url = 'http://ec2-54-201-213-15.us-west-2.compute.amazonaws.com:80/api/v0/api-token-auth';
+  var url = 'http://www.kangaspunta.com:80/api/v0/api-token-auth';
   $scope.getToken = function() {
     $http({method: 'GET', url: url}).
       success(function(data, status, headers, config) {
