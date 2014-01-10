@@ -24,7 +24,7 @@
             <br>
             <br>
             <h3>Welcome to the Analyzer App</h3>
-            <h6>Please log in or register as a new user</h6>
+            <h6>Please enter the information below to register</h6>
             <br>
             <form action="register" method="post">
                 {% csrf_token %}
@@ -32,8 +32,8 @@
                 <input type="text" name="username"/>
                 <label>Password</label>
                 <input type="password" name="password"/>
-                <label>E-mail</label>
-                <input type="email" name="email"/>
+                <label>Email</label>
+                <input type="text" name="email"/>
                 <div>
                     <input type="submit" value="Submit" class="button"></input>
                 </div>
