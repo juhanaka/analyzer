@@ -1,3 +1,13 @@
+Analyzer
+========
+
+A data analysis web app that let's you upload csv files and perform various statistical tasks, such as linear regression, ploting, and t-tests. Features a RESTful API for managing resources. 
+
+Tech used:
+Server side: Django, Django REST framework, Numpy, Scipy, Pandas, Postgres
+Front-end: Angular.js, Foundation
+
+
 Requirements
 ============
 Fortran
