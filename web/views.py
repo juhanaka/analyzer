@@ -12,6 +12,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework import permissions
 from django.http import HttpResponse
 from django.contrib.auth.models import User
+from django.db import IntegrityError
 
 class Index(TemplateView):
   authentication_classes = (SessionAuthentication,)
@@ -31,6 +32,8 @@ class Login(View):
       if user.is_active:
         login(request, user)
         return redirect(reverse('web:index'))
+    else:
+      return HttpResponse('Wrong username or password.')
 
 class Logout(View):
 
@@ -48,10 +51,12 @@ class Register(View):
     username = request.POST['username']
     password = request.POST['password']
     email = request.POST['email']
-    user = User.objects.create_user(username=username, password=password)
-    user.save()
-    if user is not None:
-      new_user = authenticate(username=username, password=password)
-      login(request, new_user)
-      return redirect(reverse('web:index'))
-  
+    try:
+      user = User.objects.create_user(username=username, password=password)
+      user.save()
+      if user is not None:
+        new_user = authenticate(username=username, password=password)
+        login(request, new_user)
+        return redirect(reverse('web:index'))
+    except IntegrityError:
+      return HttpResponse('Username already exists, please choose another one')
