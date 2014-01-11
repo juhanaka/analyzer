@@ -10,6 +10,7 @@ analyzerApp.controller('DatasetCtrl', function($scope, $resource, $http) {
   $scope.yVariables = [];
   $scope.chartType = 'LineChart';
   $scope.ttest = null;
+  $scope.ttest_2 = null;
 
   $scope.calculateRegression = function() {
 
@@ -39,6 +40,20 @@ analyzerApp.controller('DatasetCtrl', function($scope, $resource, $http) {
     $http({method: 'GET', url: url, params: params}).
       success(function(data, status, headers, config) {
         $scope.ttest = data;
+      })
+  }
+
+  $scope.calculateTTest_2 = function() {
+    $scope.ttest_2 = null;
+    if (!($scope.yVariables.length == 1 || $scope.xVariables.length == 1)) {
+      alert('Please insert only one variable per variable type.')
+      return null
+    }
+    var url = '/analysis/two-sample-ttest/';
+    var params = {'dataset': $scope.selected_dataset.pk, 'variable_1': $scope.yVariables[0].id, 'variable_2':$scope.xVariables[0].id}
+    $http({method: 'GET', url: url, params: params}).
+      success(function(data, status, headers, config) {
+        $scope.ttest_2 = data;
       })
   }
 

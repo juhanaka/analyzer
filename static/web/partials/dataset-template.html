@@ -50,22 +50,27 @@
         <div class="large-12 columns">
           <button class="button" ng-click="calculateRegression()">Calculate Regression</button>
           <div ng-if="chartShowable()" google-chart chart="chart" style="{{chart.cssStyle}}"></div>
-
-          <table ng-show="regression">
-            <thead>
-              <tr>
-                <th>Statistics</th>
-                <th>Value</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>Slope</td><td>{{regression.slope | number:3}}</td></tr>
-              <tr><td>Intercept</td><td>{{regression.intercept | number:3}}</td></tr>
-              <tr><td>R-squared</td><td>{{regression.r_squared | number:3}}</td></tr>
-              <tr><td>P-value</td><td>{{regression.p_value | number:3}}</td></tr>
-              <tr><td>Standard Error</td><td>{{regression.stderr | number:3}}</td></tr>
-            </tbody>
-          </table>
+          <hr/>
+          <div class="row">
+            <div class="large-7 columns">
+              <table ng-show="regression" style="width:100%;">
+                <h5>Regression statistics</h5>
+                <thead>
+                  <tr>
+                    <th>Statistic</th>
+                    <th class="right-align">Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Slope</td><td class="right-align">{{regression.slope | number:3}}</td></tr>
+                  <tr><td>Intercept</td><td class="right-align">{{regression.intercept | number:3}}</td></tr>
+                  <tr><td>R-squared</td><td class="right-align">{{regression.r_squared | number:3}}</td></tr>
+                  <tr><td>P-value</td><td class="right-align">{{regression.p_value | number:3}}</td></tr>
+                  <tr><td>Standard Error</td><td class="right-align">{{regression.stderr | number:3}}</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
           <h5>Response Variable</h5>
             <div id="y-variables" x-lvl-drop-target='true' x-on-drop='dropped(dragEl, dropEl)' class="panel drop-destination">
               <div ng-if="yVariables.length < 1">Drag Variables Here</div>
@@ -85,17 +90,29 @@
       <div class="row" ng-switch-when="ttest">
         <div class="large-12 columns">
           <div class="row">
-              <div class="large-5 columns">
+              <div class="large-6 columns">
                 <div class="panel" id="explanation_panel">
                   <h5>One sample t-test for mean</h5>
                   <p>This test evaluates whether or not the test variable has a certain mean based on the sample.</p>
                   <p>Please insert the mean and test variable below</p>
                 </div>
               </div>
+              <div class="large-6 columns" ng-show="ttest">
+                <div class="panel" id="success_panel" ng-show="ttest.shapiro_result.accept_null">
+                  <h5>Success!</h5>
+                  <p>Results of Shapiro-Wilks test for normality and the actual t-test are below.</p>
+                  <p>Testing for normality is a requirement for the t-test.</p>
+                </div>
+                <div class="panel callout" ng-hide="ttest.shapiro_result.accept_null">
+                  <h5>Failed</h5>
+                  <p>Normality is a requirement for the t-test. This sample doesn't seem to be from a normally distributed population.</p>
+                  <p>See results for the Shapiro-Wilks test below</p>
+                </div>
+              </div>
           </div>
           <br>
           <div class="row collapse">
-            <div class="large-4 columns">
+            <div class="large-5 columns">
               <input type="text" placeholder="Insert test mean here" ng-model="$parent.ttest_mean">
             </div>
             <div class="large-1 columns" style="float: left;">
@@ -152,35 +169,53 @@
       <div class="row" ng-switch-when="ttest_2">
         <div class="large-12 columns">
           <div class="row">
-              <div class="large-5 columns">
-                <div class="panel" id="explanation_panel">
-                  <h5>Two sample t-test for mean</h5>
-                  <p>This test evaluates whether or not the the two test variables have identical means.</p>
-                  <p>Please drag the test variables below</p>
-                </div>
+            <div class="large-6 columns">
+              <div class="panel" id="explanation_panel">
+                <h5>Two sample t-test for mean</h5>
+                <p>This test evaluates whether or not the the two test variables have identical means.</p>
+                <p>Please drag the test variables below</p>
               </div>
+            </div>
+            <div class="large-6 columns" ng-show="ttest_2">
+              <div class="panel" id="success_panel" ng-show="ttest_2.p_value">
+                <h5>Success!</h5>
+                <p>Results of Shapiro-Wilks test for normality and the actual t-test are below.</p>
+                <p>Testing for normality is a requirement for the t-test.</p>
+              </div>
+              <div class="panel callout" ng-hide="ttest_2.p_value">
+                <h5>Failed</h5>
+                <p>Normality is a requirement for the t-test. At least one sample doesn't seem to be from a normally distributed population.</p>
+                <p>See results for the Shapiro-Wilks test below</p>
+              </div>
+            </div>
           </div>
           <br>
           <div class="row">
-            <div class="large-6 columns" ng-show="ttest_2">
+            <div class="large-1 columns" style="float: left;">
+              <a class="button" ng-click="calculateTTest_2()">Calculate</a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-7 columns" ng-show="ttest_2">
               <table>
                 <h5>Shapiro-Wilks test for normality</h5>
                 <thead>
                   <tr>
                     <th>Statistic</th>
-                    <th>Value</th>
+                    <th>{{yVariables[0].name}}</th>
+                    <th>{{xVariables[0].name}}</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr><td>W</td><td>{{ttest.shapiro_result.W | number:3}}</td></tr>
-                  <tr><td>P-value</td><td>{{ttest.shapiro_result.p_value | number:3}}</td></tr>
-                  <tr><td>Sample size</td><td>{{ttest.shapiro_result.sample_size | number:0}}</td></tr>
-                  <tr><td>Interpretation</td><td>{{ttest.shapiro_result.interpretation}}</td></tr>
+                  <tr><td>W</td><td>{{ttest_2.shapiro_result_1.W | number:3}}</td><td>{{ttest_2.shapiro_result_2.W | number:3}}</td></tr>
+                  <tr><td>P-value</td><td>{{ttest_2.shapiro_result_1.p_value | number:3}}</td><td>{{ttest_2.shapiro_result_2.p_value | number:3}}</td></tr>
+                  <tr><td>Sample size</td><td>{{ttest_2.shapiro_result_1.sample_size | number:0}}</td><td>{{ttest_2.shapiro_result_2.sample_size | number:0}}</td></tr>
+                  <tr><td>Interpretation</td><td>{{ttest_2.shapiro_result_1.interpretation}}</td><td>{{ttest_2.shapiro_result_2.interpretation}}</td></tr>
                 </tbody>
               </table>
             </div>
-            <div class="large-6 columns" ng-show="ttest_2.shapiro_result_1.accept_null">
-              <table>
+            <div class="large-5 columns" ng-show="ttest_2.p_value">
+              <table style="width:100%;">
                 <h5>T-test for mean</h5>
                 <thead>
                   <tr>
@@ -189,14 +224,14 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr><td>T-value</td><td>{{ttest.t_value | number:3}}</td></tr>
-                  <tr><td>P-value</td><td>{{ttest.p_value | number:3}}</td></tr>
-                  <tr><td>Sample size</td><td>{{ttest.sample_size | number:0}}</td></tr>
-                  <tr><td>Interpretation</td><td>{{ttest.interpretation}}</td></tr>
+                  <tr><td>T-value</td><td>{{ttest_2.t_value | number:3}}</td></tr>
+                  <tr><td>P-value</td><td>{{ttest_2.p_value | number:3}}</td></tr>
+                  <tr><td>Interpretation</td><td>{{ttest_2.interpretation}}</td></tr>
                 </tbody>
               </table>
             </div>
           </div>
+
           <h5>Test Variable 1</h5>
             <div id="y-variables" x-lvl-drop-target='true' x-on-drop='dropped(dragEl, dropEl)' class="panel drop-destination">
               <div ng-if="yVariables.length < 1">Drag Variables Here</div>

@@ -24,6 +24,10 @@
   background: #f6f6f6 !important;
 }
 
+#success_panel {
+  background: #C3EEEA !important;
+}
+
 .variable {
   width: 100px;
   font-size: 15px;
@@ -69,4 +73,9 @@
 .callout
 {
   background-color: #FFC6C6 !important;
+}
+
+.right-align
+{
+  text-align:right;
 }
