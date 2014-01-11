@@ -2,4 +2,5 @@
 *.pyc
 *.pyo
 .elasticbeanstalk/
-settings.py
+settings/local_settings.py
+settings/production_settings.py

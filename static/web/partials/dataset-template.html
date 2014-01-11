@@ -7,7 +7,8 @@
     </ul>
   </div>
   <div class="large-9 columns">
-    <h3 class="top-header">{{selected_dataset.name || "No Dataset Selected"}}</h3>
+    <h3 class="top-header">{{selected_dataset.name || "No Dataset Selected"}}<a style="margin-left:20px;" href="#/upload" ng-hide="datasets[0]">(Add Dataset)</a></h3>
+    
     <hr>
 
     <dl class="sub-nav">
