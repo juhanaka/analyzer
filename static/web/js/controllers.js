@@ -69,11 +69,11 @@ analyzerApp.controller('DatasetCtrl', function($scope, $resource, $http) {
     var drop = angular.element(dropEl);
     var drag = angular.element(dragEl);
 
-    if (drop[0].attributes[0].value == 'y-variables') {
+    if (drop.attr('id') == 'y-variables') {
       $scope.$apply(function($scope) {
         $scope.yVariables.push(drag.scope().variable)
       })
-    } else if (drop[0].attributes[0].value == 'x-variables') {
+    } else if (drop.attr('id') == 'x-variables') {
       $scope.$apply(function($scope) {
         $scope.xVariables.push(drag.scope().variable)
       })
@@ -110,6 +110,10 @@ analyzerApp.controller('DatasetCtrl', function($scope, $resource, $http) {
       
       data.addColumn(columnType, variable.name)
     })
+
+    if (! $scope.yVariables[0]) {
+      return;
+    }
 
     for (i=0; i < $scope.yVariables[0]['values'].length; i++) {
       var row = []
